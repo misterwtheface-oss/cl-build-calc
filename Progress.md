@@ -12,10 +12,21 @@ bridge-heirlooms block, a "Shared tags" quick index, each guild's remaining piec
 collapsed **"Other heirlooms"** section so every heirloom has a home for any pair. A header
 **🔍 Appendix** (replaced the old Swap button) is a global searchable index of every detail page.
 Detail overlays for buildings, heirlooms, counselors, categories, events, nature; the building
-detail now shows the **main action verb** (Removes/Buffs/Transforms X) and splits interactions into
-**"Acts on"** vs **"Responds to"**. `build-data.mjs` compiles curated `_cl_extract` JSON → `data.js`
+detail shows the **main action verb** (Removes/Buffs/Transforms X, grounded in each ref's enclosing
+method) and splits interactions into **"Provides"** (grants a category to neighbours) /
+**"Acts on"** / **"Responds to"**. Category granters (Trapper's Lodge → Husbandry) file under
+Provides — not "Scores off" — in the detail view, the overlap trait sections, and category detail. `build-data.mjs` compiles curated `_cl_extract` JSON → `data.js`
 (window.CL_DATA) with hygiene guardrails. Building→sprite mapping is authoritative (game SOs).
 Next: trait × building cross-reference matrix; universal-modifier section (P1).
+
+## Repo & deploy
+GitHub Pages serves `master` root, no build step → deploy = commit + `git push origin master`.
+**The sibling `_cl_extract` datamine is NOT part of this repo and is never pushed** — it's the
+local-only source workspace (raw game assets, decompiled code, Python extractors). Only what the
+app needs to *run* is committed here: app code (`index.html`/`app.js`/`styles.css`), the compiled
+`data.js`, the curated inputs under `data/src/`, and `assets/`. When an extractor change lands
+upstream, regenerate + copy the affected `data/src/*.json` and rebuild `data.js`; the extractor
+scripts themselves stay in `_cl_extract`.
 
 ## Backlog
 ### In progress
@@ -91,9 +102,10 @@ Next: trait × building cross-reference matrix; universal-modifier section (P1).
   ScriptableObject and NO sprite anywhere in the current datamine build (user confirms
   they exist in the live game → the extract predates them). Fix = re-datamine a current
   build. Warns loudly, never 404s.
-- **~31/133 heirloom sprites unresolved** (mostly Gem/Tome variants whose className
-  ≠ sprite basename). Only 2 gems shipped in the export. Heirlooms are NOT yet on the
-  authoritative SO map (buildings are) — text placeholder for now.
+- **Heirloom sprites now on the authoritative SO map** (`tools/gen_item_sprites.mjs`
+  → `data/src/item_sprites.json`): 29 that fell back to a letter placeholder because
+  className ≠ sprite basename (AnimalFeedBag→ItemFeedBag, GemEmerald→ItemGemAgri…) now
+  resolve. Any still-missing item warns loudly, never 404s.
 - **1 nature node without a sprite:** Herbs (no dedicated PNG in the export) → text
   fallback (❦ glyph).
 - **8 buildings have no localized name** (Bakery, the four *Stall variants,
