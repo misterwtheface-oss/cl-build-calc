@@ -384,15 +384,17 @@
     const scroll = scroller ? scroller.scrollTop : 0;
     const otherPick = state.pair[state.ovl.side === 0 ? 1 : 0];
 
-    // Only the 7 core guilds are selectable (Arcane/Rogues excluded).
+    // Only the 7 core guilds are selectable (Arcane/Rogues excluded). Each pick is
+    // the full banner flag (name inside), rendered exactly like the main page.
     panel.querySelector(".guild-picker").innerHTML = (DATA.guilds || []).filter((g) => g.isCore).map((g) => {
       const disabled = g.id === otherPick;                 // can't pick the same guild twice
       const sel = g.id === state.ovl.pending;
-      const art = g.banner ? iconImg(g.banner, "gp-banner") : iconImg(g.badge, "gp-badge");
-      return `<div class="guild-pick ${sel ? "selected" : ""} ${disabled ? "disabled" : ""}"
+      const art = g.banner
+        ? `<img class="banner-img" src="${esc(g.banner)}" alt="" onerror="this.style.visibility='hidden'">`
+        : iconImg(g.badge, "banner-img");
+      return `<div class="gp ${sel ? "selected" : ""} ${disabled ? "disabled" : ""}"
         data-action="pick-guild" data-id="${esc(g.id)}" style="--g-color:${esc(g.color)}">
-        ${art}
-        <span class="gp-name">${esc(g.name)}</span>
+        <div class="banner-fig">${art}<span class="banner-name">${esc(g.name)}</span></div>
       </div>`;
     }).join("");
 

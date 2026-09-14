@@ -28,6 +28,7 @@
   --rar-legendary: #c86adf;
   --banner-w: 92px;
   --header-h: 2.9rem;
+  --name-top: 65%;        /* guild name in the banner's nameplate box; slight upward bias reads better */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,16 +83,26 @@ h2, h3 { font-weight: 700; }
   position: sticky; top: .75rem; height: calc(100dvh - 4.5rem);
   display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.banner-fig { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
-.banner-img { height: 100%; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,.55)); }
+/* .banner-fig SHRINK-WRAPS the flag image, so .banner-name's % coordinates are
+   relative to the flag itself (not a letterboxed column) — the name lands in the
+   banner's nameplate box regardless of viewport height. Each context sizes the
+   image by whichever dimension is fixed (flank = width, selector = height). */
+.banner-fig { position: relative; display: inline-flex; }
+.banner-img { display: block; filter: drop-shadow(0 3px 8px rgba(0,0,0,.55)); }
+.banner-slot .banner-fig { width: 100%; justify-content: center; }
+.banner-slot .banner-img { width: 100%; height: auto; }
 .banner-slot:hover .banner-img { filter: drop-shadow(0 0 10px var(--g-color, var(--border-hi))); }
 .banner-badge { display: none; }   /* shown only on the mobile side-bar layout */
+/* The name reads inside the banner, in the rectangle below the top emblem.
+   Shared by the main-page flanks AND the selector so they render identically. */
 .banner-name {
-  position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%);
-  width: 80%; text-align: center; pointer-events: none;
-  font-weight: 800; font-size: clamp(.72rem, .95vw, .95rem); line-height: 1.12; letter-spacing: .02em;
+  position: absolute; left: 50%; top: var(--name-top, 65%); transform: translate(-50%, -50%);
+  width: 74%; text-align: center; pointer-events: none;
+  font-weight: 800; font-size: clamp(.62rem, .82vw, .82rem); line-height: 1.02; letter-spacing: .01em;
   color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.95), 0 0 7px rgba(0,0,0,.85);
 }
+/* Main-screen flank banners are larger, so the name can be bigger there. */
+.banner-slot .banner-name { font-size: clamp(.8rem, 1.1vw, 1.08rem); }
 .banner-slot.null .banner-img { opacity: .5; filter: grayscale(1) brightness(.8); }
 .banner-slot.null .banner-name { top: 50%; color: var(--text-muted); text-shadow: none; }
 
@@ -246,21 +257,16 @@ h2, h3 { font-weight: 700; }
 .overlay-body { display: flex; flex: 1; overflow: hidden; }
 .ovl-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 1rem; -webkit-overflow-scrolling: touch; }
 
-/* guild selector grid */
-.guild-picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: .7rem; }
-.guild-pick {
-  display: flex; flex-direction: column; align-items: center; gap: .4rem;
-  padding: .6rem .4rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
-  background: var(--bg); position: relative;
-}
-.guild-pick:hover { border-color: var(--accent); }
-.guild-pick.selected { box-shadow: inset 0 0 0 2px var(--gold); border-color: var(--border-hi); }
-.guild-pick.disabled { opacity: .35; pointer-events: none; }
-.guild-pick .gp-banner { width: 46px; aspect-ratio: 92/260; object-fit: contain; }
-.guild-pick .gp-badge { width: 46px; height: 46px; object-fit: contain; }
-.guild-pick .gp-name { font-size: .8rem; font-weight: 700; color: var(--g-color, var(--text)); text-align: center; }
-.guild-pick .gp-meta { font-size: .62rem; color: var(--text-dim); }
-.guild-pick .gp-adv { position: absolute; top: 4px; right: 5px; font-size: .55rem; color: var(--rar-legendary); font-weight: 700; }
+/* guild selector — no containers; the banners themselves are the buttons,
+   centred, larger, with the name rendered exactly as on the main page. */
+.guild-picker { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 1rem 1.3rem; padding: .5rem 0; }
+.gp { position: relative; cursor: pointer; flex: 0 0 auto; height: clamp(230px, 46vh, 340px); transition: transform .12s; }
+.gp .banner-fig { height: 100%; }
+.gp .banner-img { height: 100%; width: auto; }
+.gp:hover { transform: translateY(-4px); }
+.gp:hover .banner-img { filter: drop-shadow(0 0 11px var(--g-color, var(--border-hi))); }
+.gp.selected .banner-img { filter: drop-shadow(0 0 3px var(--gold)) drop-shadow(0 0 12px var(--gold)) brightness(1.06); }
+.gp.disabled { opacity: .3; pointer-events: none; filter: grayscale(.6); }
 
 /* ═══ DETAIL PAGE ═══ */
 .detail-hero { display: flex; gap: .8rem; align-items: flex-start; margin-bottom: .8rem; }
@@ -318,15 +324,17 @@ h2, h3 { font-weight: 700; }
   .banner-left  { left: .45rem; }
   .banner-right { right: .45rem; }
 
-  .banner-fig {
+  /* Side-bar rules are scoped to .banner-slot so they never touch the selector's
+     reused banner markup (.gp .banner-fig/.banner-img/.banner-name). */
+  .banner-slot .banner-fig {
     width: 100%; height: 100%; flex-direction: column; justify-content: center; gap: .5rem; padding: .55rem 0;
     background: var(--g-color, var(--border)); border-radius: 7px;
     box-shadow: inset 0 0 0 1px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.4);
   }
-  .banner-img { display: none; }                          /* solid colour, not the flag art */
-  .banner-badge { display: block; width: 62%; max-width: 30px; object-fit: contain; flex-shrink: 0;
+  .banner-slot .banner-img { display: none; }             /* solid colour, not the flag art */
+  .banner-slot .banner-badge { display: block; width: 62%; max-width: 30px; object-fit: contain; flex-shrink: 0;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
-  .banner-name {
+  .banner-slot .banner-name {
     position: static; transform: none; width: auto; max-height: 78%;
     writing-mode: vertical-rl; text-orientation: mixed;
     font-size: clamp(.74rem, 3.2vw, .98rem); color: #fff;
@@ -338,6 +346,12 @@ h2, h3 { font-weight: 700; }
 
   .hero { padding: .75rem .5rem; }
   .hero h2 { font-size: .98rem; }
+
+  /* Selector: 4 banners per row (7 core guilds → 4 + 3), sized by width. */
+  .guild-picker { gap: .55rem; }
+  .gp { height: auto; flex: 0 0 calc(25% - .5rem); }
+  .gp .banner-fig { height: auto; width: 100%; }
+  .gp .banner-img { display: block; height: auto; width: 100%; }
 }
 @media (max-width: 600px) {
   #overlay-root, #detail-overlay-root { padding: 0; }
