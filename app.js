@@ -116,6 +116,19 @@
     const noun = isCat ? `${nm} buildings` : nm;
     const s = it.snippet || "";
 
+    // The extractor recovers the MAIN action verb a building performs on this
+    // value (removes/transforms/buffs/…) — surface it directly rather than the
+    // generic "wants/counts" fallback, which hid the primary effect (Composter
+    // removes Manure; Woodcutter harvests Trees; Composter buffs Farm in range).
+    switch (it.action) {
+      case "remove":    return `Removes ${noun} in range`;
+      case "transform": return `Transforms ${noun} in range`;
+      case "spawn":     return `Spawns ${nm} on a nearby tile`;
+      case "buff":      return `Buffs ${noun} in range`;
+      case "irrigate":  return `Irrigates ${noun}`;
+      case "grant":     return `Grants a bonus per ${nm}`;
+    }
+
     if (it.source === "declared") {
       const bonus = it.score ? ` <span class="i-bonus">+${it.score}</span>` : "";
       if (it.kind === "targetRarity") return `Wants ${nm}-rarity pieces nearby${bonus}`;
@@ -331,7 +344,17 @@
         others.length + heirs.length, false, true);
     }).join("");
 
-    return title + tagIndex + overlapBlock + eventBlock + natureBlock + neutralBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}</div>`;
+    // Heirlooms that synergise with NEITHER selected guild — the pair-independent /
+    // other-guild ones. Drafted independently of guilds, so they always exist as an
+    // unshared edge; shown collapsed so every heirloom has a home for any pair.
+    const otherHeirs = (DATA.heirlooms || [])
+      .filter((h) => !h.reachesGuilds.includes(a.id) && !h.reachesGuilds.includes(b.id))
+      .sort(byRarityThenName);
+    const otherHeirBlock = sectionHTML("univ-heirlooms", "Other heirlooms — no direct synergy with either guild",
+      `<div class="tile-grid">${otherHeirs.map((h) => heirloomTile(h, false)).join("")}</div>`,
+      otherHeirs.length, false, true);
+
+    return title + tagIndex + overlapBlock + eventBlock + natureBlock + neutralBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}${otherHeirBlock}</div>`;
   }
 
   // A shared-trait section: the trait banner is the header; tiles are the member
@@ -594,10 +617,11 @@
           ${h.passive ? `<span class="pill">passive</span>` : ""}</div>
         </div></div>
       ${h.descHTML ? `<div class="d-desc">${h.descHTML}</div>` : ""}
-      ${h.targetCategories.length ? `<div class="d-section"><h3>Targets categories</h3>
-        <div class="trait-list">${h.targetCategories.map((c) => traitBanner(c)).join("")}</div></div>` : ""}
-      ${h.reachesGuilds.length ? `<div class="d-section"><h3>Reaches guilds</h3>
-        <div class="d-tags">${h.reachesGuilds.map(guildTag).join("")}</div></div>` : ""}
+      ${(h.affectedCategories || []).filter((c) => catById.has(c)).length ? `<div class="d-section"><h3>Synergises with categories</h3>
+        <div class="trait-list">${h.affectedCategories.filter((c) => catById.has(c)).map((c) => traitBanner(c)).join("")}</div></div>` : ""}
+      ${h.reachesGuilds.length
+        ? `<div class="d-section"><h3>Reaches guilds</h3><div class="d-tags">${h.reachesGuilds.map(guildTag).join("")}</div></div>`
+        : `<div class="d-section"><h3>Reaches guilds</h3><p class="empty-note">Universal — synergy isn't tied to a specific guild.</p></div>`}
       ${h.validTriggers.length ? `<div class="d-section"><h3>Triggers on</h3>
         <div class="event-list">${h.validTriggers.map((e) => eventChipHTML(e)).join("")}</div></div>` : ""}`);
   }

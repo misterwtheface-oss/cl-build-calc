@@ -123,6 +123,7 @@
      "value": "Flowers",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -136,6 +137,7 @@
      "value": "SunflowerFarm",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -148,6 +150,7 @@
      "kind": "effectTag",
      "value": "JarOfHoney",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:46",
@@ -158,6 +161,7 @@
      "kind": "effectTag",
      "value": "JarOfHoney",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:49",
@@ -168,6 +172,7 @@
      "kind": "effectTag",
      "value": "JarOfHoney",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:60",
@@ -178,6 +183,7 @@
      "kind": "effectTag",
      "value": "Flowers",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -190,6 +196,7 @@
      "kind": "effectTag",
      "value": "JarOfHoney",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:64",
@@ -217,6 +224,7 @@
      "kind": "effectTag",
      "value": "AppleOrchard",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -229,6 +237,7 @@
      "kind": "effectTag",
      "value": "Apiary",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -241,6 +250,7 @@
      "kind": "effectTag",
      "value": "Apiary",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -253,6 +263,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -292,6 +303,7 @@
      "kind": "effectTag",
      "value": "WheatField",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -304,6 +316,7 @@
      "kind": "effectTag",
      "value": "Windmill",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -331,6 +344,7 @@
      "value": "Farm",
      "score": 0,
      "source": "declared",
+     "action": "buff",
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -347,6 +361,7 @@
      "kind": "effectTag",
      "value": "Manure",
      "source": "effect",
+     "action": "remove",
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -359,6 +374,7 @@
      "kind": "effectTag",
      "value": "BsStatModMult",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Composter.cs:57",
@@ -369,6 +385,7 @@
      "kind": "effectTag",
      "value": "Manure",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -417,6 +434,7 @@
      "value": "Plateau",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Neutral"
      ],
@@ -429,6 +447,7 @@
      "kind": "effectTag",
      "value": "Plateau",
      "source": "effect",
+     "action": "spawn",
      "resolvesToGuilds": [
       "Neutral"
      ],
@@ -441,6 +460,7 @@
      "kind": "effectTag",
      "value": "Manure",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -479,6 +499,7 @@
      "kind": "effectTag",
      "value": "Apiary",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -491,6 +512,7 @@
      "kind": "effectTag",
      "value": "Apiary",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -503,6 +525,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -533,6 +556,7 @@
      "value": "Nature",
      "score": 0,
      "source": "declared",
+     "action": "spawn",
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -576,6 +600,7 @@
      "value": "Farm",
      "score": 0,
      "source": "declared",
+     "action": "grant",
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -609,6 +634,7 @@
      "value": "Crop",
      "score": 0,
      "source": "declared",
+     "action": "transform",
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -622,6 +648,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -635,6 +662,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -698,6 +726,7 @@
      "value": "Farm",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -714,6 +743,7 @@
      "kind": "effectTag",
      "value": "Reservoir",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -726,6 +756,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -739,6 +770,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -800,6 +832,7 @@
      "value": "BerryBush",
      "score": 20,
      "source": "declared",
+     "action": "transform",
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -813,6 +846,7 @@
      "value": "BerryBushEmpty",
      "score": 20,
      "source": "declared",
+     "action": "transform",
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -825,6 +859,7 @@
      "kind": "effectTag",
      "value": "BerryBushEmpty",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -837,6 +872,7 @@
      "kind": "effectTag",
      "value": "BerryBush",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -849,6 +885,7 @@
      "kind": "effectTag",
      "value": "BerryBush",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -888,6 +925,7 @@
      "value": "Husbandry",
      "score": 40,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -918,6 +956,7 @@
      "kind": "effectTag",
      "value": "Irrigation",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -930,6 +969,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -960,6 +1000,7 @@
      "value": "Farm",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -994,6 +1035,7 @@
      "value": "Crop",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -1007,6 +1049,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -1038,6 +1081,7 @@
      "value": "Crop",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -1051,6 +1095,7 @@
      "kind": "effectTag",
      "value": "SunflowerFarm",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -1063,6 +1108,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -1102,6 +1148,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -1115,6 +1162,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -1127,6 +1175,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -1173,6 +1222,7 @@
      "kind": "effectTag",
      "value": "WheatField",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural"
      ],
@@ -1185,6 +1235,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -1240,6 +1291,7 @@
      "value": "Residence",
      "score": 40,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -1259,6 +1311,7 @@
      "value": "Training",
      "score": 40,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -1274,6 +1327,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -1287,6 +1341,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -1331,6 +1386,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -1440,6 +1496,7 @@
      "value": "Sacred",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Frontier",
@@ -1486,6 +1543,7 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -1591,6 +1649,7 @@
      "kind": "effectCategory",
      "value": "Residence",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -1609,6 +1668,7 @@
      "kind": "effectCategory",
      "value": "Training",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -1696,6 +1756,7 @@
      "kind": "effectTag",
      "value": "BsSpectralPaint",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:39",
@@ -1706,6 +1767,7 @@
      "kind": "effectTag",
      "value": "MarketProduce",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:52",
@@ -1716,6 +1778,7 @@
      "kind": "effectCategory",
      "value": "Stall",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial"
@@ -1729,6 +1792,7 @@
      "kind": "effectTag",
      "value": "MarketProduce",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:56",
@@ -1757,6 +1821,7 @@
      "value": "Nature",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -1775,6 +1840,7 @@
      "value": "Residence",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -1826,6 +1892,7 @@
      "kind": "effectTag",
      "value": "MarblePillar",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:46",
@@ -1836,6 +1903,7 @@
      "kind": "effectCategory",
      "value": "Nature",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -1868,6 +1936,7 @@
      "value": "House",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic"
      ],
@@ -1880,6 +1949,7 @@
      "kind": "effectTag",
      "value": "Furniture",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\TaxCollector.cs:44",
@@ -1890,6 +1960,7 @@
      "kind": "effectTag",
      "value": "Furniture",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\TaxCollector.cs:46",
@@ -1900,6 +1971,7 @@
      "kind": "effectTag",
      "value": "HousePlot",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Civic"
      ],
@@ -2018,6 +2090,7 @@
      "value": "Residence",
      "score": 50,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -2068,6 +2141,7 @@
      "kind": "effectTag",
      "value": "BsGoldPaint",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Treasury.cs:82",
@@ -2105,6 +2179,7 @@
      "value": "Nature",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -2123,6 +2198,7 @@
      "value": "Healing",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial",
@@ -2138,6 +2214,7 @@
      "kind": "effectTag",
      "value": "Fertilizer",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:66",
@@ -2148,6 +2225,7 @@
      "kind": "effectTag",
      "value": "Herbs",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -2160,6 +2238,7 @@
      "kind": "effectTag",
      "value": "Fertilizer",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:86",
@@ -2170,6 +2249,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -2182,6 +2262,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:696",
@@ -2192,6 +2273,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -2204,6 +2286,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -2216,6 +2299,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -2278,6 +2362,7 @@
      "value": "Luxury",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2307,6 +2392,7 @@
      "kind": "effectTag",
      "value": "BsRedPaint",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Bank.cs:52",
@@ -2317,6 +2403,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -2372,6 +2459,7 @@
      "value": "Nature",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -2387,6 +2475,7 @@
      "value": "Resource",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": null
     }
@@ -2437,6 +2526,7 @@
      "value": "Residence",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -2455,6 +2545,7 @@
      "kind": "effectTag",
      "value": "BsGoldPaint",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Circus.cs:47",
@@ -2491,6 +2582,7 @@
      "kind": "effectTag",
      "value": "BsStatModMult",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonField.cs:41",
@@ -2501,6 +2593,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -2531,6 +2624,7 @@
      "kind": "effectTag",
      "value": "CottonField",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2543,6 +2637,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -2582,6 +2677,7 @@
      "value": "Husbandry",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -2594,6 +2690,7 @@
      "value": "Fishing",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -2604,6 +2701,7 @@
      "value": "Healing",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial",
@@ -2632,6 +2730,7 @@
      "kind": "effectTag",
      "value": "Trees",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -2670,6 +2769,7 @@
      "value": "Farm",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -2684,6 +2784,7 @@
      "value": "Crop",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
@@ -2695,6 +2796,7 @@
      "value": "Residence",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -2728,6 +2830,7 @@
      "value": "Metalworking",
      "score": 3,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Jeweller.cs:20",
@@ -2738,6 +2841,7 @@
      "kind": "effectCategory",
      "value": "Luxury",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2750,6 +2854,7 @@
      "kind": "effectTag",
      "value": "BsStatModSellValue",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Jeweller.cs:58",
@@ -2786,6 +2891,7 @@
      "value": "Residence",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -2822,6 +2928,7 @@
      "value": "Stall",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial"
@@ -2835,6 +2942,7 @@
      "kind": "effectTag",
      "value": "SuppliesStall",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2847,6 +2955,7 @@
      "kind": "effectTag",
      "value": "GrocerStall",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2859,6 +2968,7 @@
      "kind": "effectTag",
      "value": "DeliStall",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2871,6 +2981,7 @@
      "kind": "effectTag",
      "value": "BotanyStall",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -2883,6 +2994,7 @@
      "kind": "effectTag",
      "value": "Silk",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:60",
@@ -2893,6 +3005,7 @@
      "kind": "effectCategory",
      "value": "Stall",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial"
@@ -2922,6 +3035,7 @@
      "kind": "effectTag",
      "value": "Rocks",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -2951,6 +3065,7 @@
      "value": "Manufacturer",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -2965,6 +3080,7 @@
      "value": "Training",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -2978,6 +3094,7 @@
      "value": "Engineering",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Industrial",
@@ -3024,6 +3141,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -3064,6 +3182,7 @@
      "kind": "effectTag",
      "value": "Vineyard",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -3076,6 +3195,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -3112,6 +3232,7 @@
      "kind": "effectTag",
      "value": "Campfire",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -3147,6 +3268,7 @@
      "kind": "effectTag",
      "value": "Charcoal",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:35",
@@ -3157,6 +3279,7 @@
      "kind": "effectTag",
      "value": "Charcoal",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:37",
@@ -3167,6 +3290,7 @@
      "kind": "effectTag",
      "value": "Charcoal",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:39",
@@ -3177,6 +3301,7 @@
      "kind": "effectTag",
      "value": "CampfireDepleted",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -3212,6 +3337,7 @@
      "kind": "effectTag",
      "value": "ExcavationUncovered",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -3263,6 +3389,7 @@
      "kind": "effectTag",
      "value": "Fertilizer",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:45",
@@ -3273,6 +3400,7 @@
      "kind": "effectTag",
      "value": "Trees",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3285,6 +3413,7 @@
      "kind": "effectTag",
      "value": "Axe",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:65",
@@ -3295,6 +3424,7 @@
      "kind": "effectTag",
      "value": "Fertilizer",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:78",
@@ -3305,6 +3435,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3317,6 +3448,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:696",
@@ -3327,6 +3459,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3339,6 +3472,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3376,6 +3510,7 @@
      "kind": "effectTag",
      "value": "Trees",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3388,6 +3523,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -3427,6 +3563,7 @@
      "value": "Herbalist",
      "score": 0,
      "source": "declared",
+     "action": "buff",
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -3440,6 +3577,7 @@
      "value": "Healing",
      "score": 0,
      "source": "declared",
+     "action": "buff",
      "resolvesToGuilds": [
       "Civic",
       "Commercial",
@@ -3455,6 +3593,7 @@
      "kind": "effectTag",
      "value": "RareHerb",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:42",
@@ -3465,6 +3604,7 @@
      "kind": "effectTag",
      "value": "RareHerb",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:42",
@@ -3475,6 +3615,7 @@
      "kind": "effectTag",
      "value": "BsStatModMult",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:51",
@@ -3485,6 +3626,7 @@
      "kind": "effectTag",
      "value": "RareHerb",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:51",
@@ -3495,6 +3637,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -3534,6 +3677,7 @@
      "value": "Herbs",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3547,6 +3691,7 @@
      "value": "HerbGarden",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -3577,6 +3722,7 @@
      "value": "Trees",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3622,6 +3768,7 @@
      "value": "Frontier",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -3634,6 +3781,7 @@
      "kind": "effectTag",
      "value": "BsGreenPaint",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shaman.cs:61",
@@ -3679,6 +3827,7 @@
      "kind": "effectCategory",
      "value": "Nature",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -3713,6 +3862,7 @@
      "value": "Nature",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -3730,6 +3880,7 @@
      "kind": "effectCategory",
      "value": "Nature",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -3747,6 +3898,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -3800,6 +3952,7 @@
      "value": "Husbandry",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -3831,6 +3984,7 @@
      "value": "Husbandry",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -3863,6 +4017,7 @@
      "value": "Nature",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -3880,6 +4035,7 @@
      "kind": "effectTag",
      "value": "Fertilizer",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WatchTower.cs:34",
@@ -3890,6 +4046,7 @@
      "kind": "effectTag",
      "value": "Plateau",
      "source": "effect",
+     "action": "spawn",
      "resolvesToGuilds": [
       "Neutral"
      ],
@@ -3902,6 +4059,7 @@
      "kind": "effectTag",
      "value": "Trees",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -3950,6 +4108,7 @@
      "value": "Healing",
      "score": 50,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial",
@@ -3966,6 +4125,7 @@
      "value": "Sacred",
      "score": 50,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Frontier",
@@ -4006,6 +4166,7 @@
      "value": "Trees",
      "score": 80,
      "source": "declared",
+     "action": "remove",
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4018,6 +4179,7 @@
      "kind": "effectTag",
      "value": "Trees",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4030,6 +4192,7 @@
      "kind": "effectTag",
      "value": "Axe",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Woodcutter.cs:76",
@@ -4146,6 +4309,7 @@
      "kind": "effectTag",
      "value": "Rocks",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4158,6 +4322,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4170,6 +4335,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:696",
@@ -4180,6 +4346,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4192,6 +4359,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4358,6 +4526,7 @@
      "value": "Manufacturer",
      "score": 80,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -4375,6 +4544,7 @@
      "value": "Training",
      "score": 80,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -4390,6 +4560,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4402,6 +4573,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4414,6 +4586,7 @@
      "kind": "effectTag",
      "value": "BsStatModCooldown",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:32",
@@ -4451,6 +4624,7 @@
      "value": "Woodworking",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -4467,6 +4641,7 @@
      "value": "Ship",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine",
       "Martial",
@@ -4481,6 +4656,7 @@
      "kind": "effectTag",
      "value": "Lumber",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4493,6 +4669,7 @@
      "kind": "effectTag",
      "value": "BsStatModRange",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Carpenter.cs:32",
@@ -4529,6 +4706,7 @@
      "value": "Resource",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Depot.cs:15",
@@ -4582,6 +4760,7 @@
      "kind": "effectCategory",
      "value": "Industrial",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Industrial"
      ],
@@ -4610,6 +4789,7 @@
      "kind": "effectTag",
      "value": "Lumber",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4622,6 +4802,7 @@
      "kind": "effectTag",
      "value": "Trees",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4634,6 +4815,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4646,6 +4828,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:696",
@@ -4656,6 +4839,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4668,6 +4852,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4705,6 +4890,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4717,6 +4903,7 @@
      "kind": "effectTag",
      "value": "Rocks",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4729,6 +4916,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4741,6 +4929,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:696",
@@ -4751,6 +4940,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4763,6 +4953,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4801,6 +4992,7 @@
      "value": "Nature",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -4819,6 +5011,7 @@
      "value": "Resource",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Nitrary.cs:19",
@@ -4870,6 +5063,7 @@
      "kind": "effectTag",
      "value": "DiamondPick",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
@@ -4880,6 +5074,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4892,6 +5087,7 @@
      "kind": "effectTag",
      "value": "Rocks",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4904,6 +5100,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4916,6 +5113,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:696",
@@ -4926,6 +5124,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4938,6 +5137,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -4976,6 +5176,7 @@
      "value": "Engineering",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Industrial",
@@ -4992,6 +5193,7 @@
      "value": "Manufacturer",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -5008,6 +5210,7 @@
      "kind": "effectTag",
      "value": "Lumber",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5020,6 +5223,7 @@
      "kind": "effectTag",
      "value": "BsStatModActivationCount",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Sawmill.cs:38",
@@ -5079,6 +5283,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5091,6 +5296,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5103,6 +5309,7 @@
      "kind": "effectTag",
      "value": "BsStatModMult",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Smelter.cs:30",
@@ -5137,6 +5344,7 @@
      "value": "Plateau",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Neutral"
      ],
@@ -5150,6 +5358,7 @@
      "value": "Industrial",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Industrial"
      ],
@@ -5179,6 +5388,7 @@
      "value": "Engineering",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Industrial",
@@ -5195,6 +5405,7 @@
      "value": "Woodworking",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -5211,6 +5422,7 @@
      "value": "Resource",
      "score": 10,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\ToolShed.cs:14",
@@ -5254,6 +5466,7 @@
      "value": "Resource",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Workshop.cs:15",
@@ -5315,6 +5528,7 @@
      "value": "Trader",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Arcane",
       "Commercial",
@@ -5331,6 +5545,7 @@
      "value": "Manufacturer",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial",
@@ -5348,6 +5563,7 @@
      "value": "Luxury",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -5384,6 +5600,7 @@
      "value": "Ship",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine",
       "Martial",
@@ -5415,6 +5632,7 @@
      "kind": "effectTag",
      "value": "Pontoon",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:45",
@@ -5425,6 +5643,7 @@
      "kind": "effectTag",
      "value": "Fish",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5437,6 +5656,7 @@
      "kind": "effectTag",
      "value": "Pontoon",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:65",
@@ -5447,6 +5667,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5459,6 +5680,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:696",
@@ -5469,6 +5691,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5481,6 +5704,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5519,6 +5743,7 @@
      "value": "Fishing",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -5549,6 +5774,7 @@
      "value": "Nature",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -5583,6 +5809,7 @@
      "value": "Fishing",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -5611,6 +5838,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -5658,6 +5886,7 @@
      "value": "Ship",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine",
       "Martial",
@@ -5690,6 +5919,7 @@
      "value": "Nature",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Arcane",
@@ -5708,6 +5938,7 @@
      "value": "Sacred",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Frontier",
@@ -5722,6 +5953,7 @@
      "kind": "effectTag",
      "value": "Pontoon",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:47",
@@ -5732,6 +5964,7 @@
      "kind": "effectTag",
      "value": "KelpField",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -5744,6 +5977,7 @@
      "kind": "effectTag",
      "value": "Pontoon",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:67",
@@ -5754,6 +5988,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5766,6 +6001,7 @@
      "kind": "effectTag",
      "value": "GoldNugget",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:696",
@@ -5776,6 +6012,7 @@
      "kind": "effectTag",
      "value": "GoldOre",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5788,6 +6025,7 @@
      "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -5826,6 +6064,7 @@
      "value": "Ship",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine",
       "Martial",
@@ -5841,6 +6080,7 @@
      "value": "Trader",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Arcane",
       "Commercial",
@@ -5857,6 +6097,7 @@
      "value": "Luxury",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial"
      ],
@@ -5869,6 +6110,7 @@
      "kind": "effectTag",
      "value": "Plateau",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Neutral"
      ],
@@ -5896,6 +6138,7 @@
      "value": "Ship",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine",
       "Martial",
@@ -5910,6 +6153,7 @@
      "kind": "effectTag",
      "value": "Port",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -5922,6 +6166,7 @@
      "kind": "effectTag",
      "value": "Crane",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -5934,6 +6179,7 @@
      "kind": "effectTag",
      "value": "Crane",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -5995,6 +6241,7 @@
      "value": "Fishing",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine"
      ],
@@ -6049,6 +6296,7 @@
      "value": "Training",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -6065,6 +6313,7 @@
      "value": "Healing",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial",
@@ -6098,6 +6347,7 @@
      "value": "Husbandry",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -6113,6 +6363,7 @@
      "value": "Woodworking",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Frontier",
@@ -6144,6 +6395,7 @@
      "kind": "effectCategory",
      "value": "Fortification",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier",
       "Industrial",
@@ -6158,6 +6410,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -6195,6 +6448,7 @@
      "kind": "effectTag",
      "value": "Arbalest",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Ballista.cs:51",
@@ -6219,6 +6473,7 @@
      "kind": "effectTag",
      "value": "BsStatModMult",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Banner.cs:42",
@@ -6257,6 +6512,7 @@
      "value": "Rocks",
      "score": 20,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -6310,6 +6566,7 @@
      "value": "Healing",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Civic",
       "Commercial",
@@ -6326,6 +6583,7 @@
      "value": "Training",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -6341,6 +6599,7 @@
      "kind": "effectTag",
      "value": "BsStatModMult",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FieldHospital.cs:39",
@@ -6369,6 +6628,7 @@
      "value": "Fortification",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier",
       "Industrial",
@@ -6384,6 +6644,7 @@
      "value": "Ship",
      "score": 30,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Marine",
       "Martial",
@@ -6424,6 +6685,7 @@
      "value": "Martial",
      "score": 60,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Martial"
      ],
@@ -6477,6 +6739,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -6522,6 +6785,7 @@
      "value": "Training",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [
       "Commercial",
       "Frontier",
@@ -6537,6 +6801,7 @@
      "kind": "effectTag",
      "value": "CorruptedGrove",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Hazard"
      ],
@@ -6772,6 +7037,7 @@
      "value": "Infrastructure",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Sewer.cs:18",
@@ -6823,6 +7089,7 @@
      "kind": "effectTag",
      "value": "RedEarth",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Wall.cs:29",
@@ -6833,6 +7100,7 @@
      "kind": "effectCategory",
      "value": "Martial",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Martial"
      ],
@@ -6845,6 +7113,7 @@
      "kind": "effectTag",
      "value": "Standard",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Wall.cs:38",
@@ -6872,6 +7141,7 @@
      "value": "Neutral",
      "score": 0,
      "source": "declared",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WayStation.cs:22",
@@ -6908,12 +7178,13 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
      ],
      "anchor": {
-      "line": "Entities.BuildingBehaviours\\Well.cs:38 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
+      "line": "Entities.BuildingBehaviours\\Well.cs:26 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
       "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
      }
     },
@@ -6921,12 +7192,13 @@
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Commercial"
      ],
      "anchor": {
-      "line": "Entities.BuildingBehaviours\\Well.cs:26 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
+      "line": "Entities.BuildingBehaviours\\Well.cs:38 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
       "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
      }
     }
@@ -6951,6 +7223,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -6981,6 +7254,7 @@
      "kind": "effectTag",
      "value": "BerryBush",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Resource"
      ],
@@ -6993,6 +7267,7 @@
      "kind": "effectCategory",
      "value": "Irrigator",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Agricultural",
       "Civic"
@@ -7062,6 +7337,7 @@
      "kind": "effectTag",
      "value": "PrayerFlags",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Trees.cs:26",
@@ -7072,6 +7348,7 @@
      "kind": "effectCategory",
      "value": "Frontier",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Frontier"
      ],
@@ -7151,6 +7428,7 @@
      "kind": "effectTag",
      "value": "MossyLog",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:27",
@@ -7161,6 +7439,7 @@
      "kind": "effectCategory",
      "value": "Wild",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:29",
@@ -7171,6 +7450,7 @@
      "kind": "effectTag",
      "value": "MossyLog",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:36",
@@ -7181,6 +7461,7 @@
      "kind": "effectCategory",
      "value": "Wild",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:38",
@@ -7236,6 +7517,7 @@
      "kind": "effectTag",
      "value": "FawkesMask",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BanditCamp.cs:79",
@@ -7260,6 +7542,7 @@
      "kind": "effectTag",
      "value": "FawkesMask",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Hideout.cs:52",
@@ -7304,6 +7587,7 @@
      "kind": "effectTag",
      "value": "TreasureChest",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [
       "Rogues"
      ],
@@ -7316,6 +7600,7 @@
      "kind": "effectTag",
      "value": "FawkesMask",
      "source": "effect",
+     "action": null,
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PirateShip.cs:61",

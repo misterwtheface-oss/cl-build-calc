@@ -127,6 +127,7 @@ const council = readJSON("council_relationships.json");
 const crossovers = readJSON("guild_crossovers.json");
 const edges = readJSON("guild_edges.json");
 const interactions = readJSON("building_interactions.json");
+const itemAffected = readJSON("item_affected.json");   // heirloom -> affected categories/guilds (build_item_affected.py)
 
 const bParamByKey = new Map(bParams.map((b) => [b.className, b]));
 const iParamByKey = new Map(iParams.map((i) => [i.className, i]));
@@ -268,16 +269,29 @@ function buildRecord(b) {
   const ownedFunctional = ownedMinors.filter((m) => catById.get(m)?.kind === "functional");
 
   // Keep meaningful interactions (those that resolve to a guild/resource); drop
-  // internal effect tags (BsStatMod*, paints) that resolve to nothing.
+  // internal effect tags (BsStatMod*, paints) that resolve to nothing. `action` is
+  // the main verb the building performs on the value (remove/transform/buff/…),
+  // recovered by the extractor so the detail page shows the ACTION, not just a scan.
   const inter = (b.interactions || [])
     .filter((it) => (it.resolvesToGuilds || []).length)
     .map((it) => ({
       kind: it.kind, value: it.value, guilds: (it.resolvesToGuilds || []).slice(),
-      source: it.source, score: it.score ?? null,
+      source: it.source, score: it.score ?? null, action: it.action ?? null,
       snippet: it.anchor?.snippet || "", line: it.anchor?.line || "",
     }));
   const interactionGuilds = [...new Set(inter.flatMap((it) => it.guilds)
     .filter((g) => GUILD_IDS.includes(g) && g !== b.guild))];
+  // Collapse duplicate refs to the same value: a declared target row is authoritative,
+  // and among effect refs prefer the one carrying a main-action verb over a bare scan
+  // (e.g. Composter's "removes Manure" supersedes a second "checks for Manure" row).
+  const declaredVals = new Set(inter.filter((it) => it.source === "declared").map((it) => it.value));
+  const effectBest = new Map();
+  for (const it of inter) {
+    if (it.source === "declared" || declaredVals.has(it.value)) continue;
+    const prev = effectBest.get(it.value);
+    if (!prev || (!prev.action && it.action)) effectBest.set(it.value, it);
+  }
+  const dedupInter = [...inter.filter((it) => it.source === "declared"), ...effectBest.values()];
   const natureNodes = [...new Set((b.interactions || [])
     .map((it) => it.value).filter((v) => natureKeys.has(v)))];
   const events = [...new Set([
@@ -299,7 +313,7 @@ function buildRecord(b) {
     key, name, guild: b.guild, gameTag: b.owned?.gameTag || null,
     rarity: params.rarity || null, rarityRank: rarityRank(params.rarity),
     ownedMinors, ownedFunctional, ownedCats,
-    interactions: inter, interactionGuilds, natureNodes, events,
+    interactions: dedupInter, interactionGuilds, natureNodes, events,
     emits: (b.emitsEvents || []).map((e) => e.event),
     listens: (b.listensForEvents || []).map((e) => e.event),
     listenQualifiers,
@@ -365,6 +379,21 @@ function guildsForCategories(cats) {
   }
   return [...out];
 }
+// For HEIRLOOM guild attribution: a guild-name category (1 guild) or a reasonably
+// specific functional category discriminates; a category almost every guild owns
+// (Residence 7, Nature 6, Farm/Manufacturer 5) does NOT — treating it as "reaches
+// that guild" would make the heirloom bridge nearly every pair. So broad categories
+// stay in `affectedCategories` for display but don't contribute to `reachesGuilds`.
+const HEIRLOOM_BROAD_CAT = 5; // owned by >= this many guilds => non-discriminating
+function heirloomReachGuilds(cats, directGuilds) {
+  const out = new Set(directGuilds || []);
+  for (const c of cats) {
+    if (GUILD_IDS.includes(c)) { out.add(c); continue; }
+    const gs = funcCatToGuilds[c] || [];
+    if (gs.length && gs.length < HEIRLOOM_BROAD_CAT) gs.forEach((g) => out.add(g));
+  }
+  return [...out].filter((g) => GUILD_IDS.includes(g));
+}
 const heirlooms = [];
 for (const it of iParams) {
   if (it.majorCategory !== "Heirloom") continue;
@@ -373,13 +402,20 @@ for (const it of iParams) {
   if (!nm) { warnings.push(`heirloom "${key}" has no localized name — skipped (likely cut)`); continue; }
   const targetCategories = (it.targetCategories || []).map((t) => (typeof t === "string" ? t : t.category || t.tag)).filter(Boolean);
   const targetTags = (it.targetTags || []).map((t) => (typeof t === "string" ? t : t.tag)).filter(Boolean);
-  const reachesCategories = targetCategories.filter((c) => catById.has(c));
-  const reachesGuilds = guildsForCategories(targetCategories);
+  // Most heirlooms declare no SetTargetCategories — their guild affinity lives in tome
+  // notes / the consumer dispatcher / their own trigger body. build_item_affected.py
+  // mines all of that into item_affected.json; fold it in so heirlooms actually resolve
+  // to the guild(s) they synergise with (see [[project_cl_extract]]).
+  const aff = itemAffected[key] || {};
+  const affectedCategories = [...new Set([...(aff.affectedCategories || []), ...targetCategories])];
+  const affectedGuildsDirect = aff.affectedGuildsDirect || [];
+  const reachesCategories = affectedCategories.filter((c) => catById.has(c));
+  const reachesGuilds = heirloomReachGuilds(affectedCategories, affectedGuildsDirect);
   heirlooms.push({
     key, name: nm,
     rarity: it.rarity || null, rarityRank: rarityRank(it.rarity),
     minors: (it.minorCategories || []).slice(),
-    targetCategories, targetTags,
+    targetCategories, targetTags, affectedCategories,
     validTriggers: (it.validTriggers || []).slice(),
     reachesCategories, reachesGuilds,
     passive: !!it.paramOnly || it.hasRealTrigger === false,

@@ -1,0 +1,1046 @@
+{
+  "Abacus": {
+    "tag": "Abacus",
+    "affectedCategories": [
+      "Commercial",
+      "Luxury"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "targetCategories",
+      "ownTrigger"
+    ]
+  },
+  "Alembic": {
+    "tag": "Alembic",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Altar": {
+    "tag": "Altar",
+    "affectedCategories": [
+      "Sacred"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "AnimalFeedBag": {
+    "tag": "AnimalFeedBag",
+    "affectedCategories": [
+      "Agricultural",
+      "Crop",
+      "Husbandry"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "Arbalest": {
+    "tag": "Arbalest",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Martial"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "ArchitecturalCodes": {
+    "tag": "ArchitecturalCodes",
+    "affectedCategories": [
+      "Civic"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "ArchmageStaff": {
+    "tag": "ArchmageStaff",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Axe": {
+    "tag": "Axe",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Frontier"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "BaitHook": {
+    "tag": "BaitHook",
+    "affectedCategories": [
+      "Marine",
+      "Nature"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "Bedroll": {
+    "tag": "Bedroll",
+    "affectedCategories": [
+      "Residence"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Bonsai": {
+    "tag": "Bonsai",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "BookAgri": {
+    "tag": "BookAgri",
+    "affectedCategories": [
+      "Agricultural"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookCivic": {
+    "tag": "BookCivic",
+    "affectedCategories": [
+      "Civic"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookCommercial": {
+    "tag": "BookCommercial",
+    "affectedCategories": [
+      "Commercial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookFrontier": {
+    "tag": "BookFrontier",
+    "affectedCategories": [
+      "Frontier"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookIndustrial": {
+    "tag": "BookIndustrial",
+    "affectedCategories": [
+      "Industrial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookMarine": {
+    "tag": "BookMarine",
+    "affectedCategories": [
+      "Marine"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookMartial": {
+    "tag": "BookMartial",
+    "affectedCategories": [
+      "Martial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote",
+      "consumerDispatcher"
+    ]
+  },
+  "BookOfTheSevenGuilds": {
+    "tag": "BookOfTheSevenGuilds",
+    "affectedCategories": [
+      "Wild"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Bookshelf": {
+    "tag": "Bookshelf",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Bouquet": {
+    "tag": "Bouquet",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "BrokenClock": {
+    "tag": "BrokenClock",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "BuildersLadder": {
+    "tag": "BuildersLadder",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "BuildingSupplies": {
+    "tag": "BuildingSupplies",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Calipers": {
+    "tag": "Calipers",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "CaptainsHat": {
+    "tag": "CaptainsHat",
+    "affectedCategories": [
+      "Ship"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Cauldron": {
+    "tag": "Cauldron",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Charcoal": {
+    "tag": "Charcoal",
+    "affectedCategories": [
+      "Frontier"
+    ],
+    "affectedGuildsDirect": [
+      "Frontier"
+    ],
+    "sources": [
+      "consumerBuilding",
+      "ownTrigger"
+    ]
+  },
+  "CheckeredFlag": {
+    "tag": "CheckeredFlag",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "ClearanceShovel": {
+    "tag": "ClearanceShovel",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Clover": {
+    "tag": "Clover",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "CoinBag": {
+    "tag": "CoinBag",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "CoinStack": {
+    "tag": "CoinStack",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "CrystalBall": {
+    "tag": "CrystalBall",
+    "affectedCategories": [
+      "Primary"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "targetCategories"
+    ]
+  },
+  "Darkstone": {
+    "tag": "Darkstone",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "DeckOfCards": {
+    "tag": "DeckOfCards",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "DeliveryCart": {
+    "tag": "DeliveryCart",
+    "affectedCategories": [
+      "Trader"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Detonator": {
+    "tag": "Detonator",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "DiamondPick": {
+    "tag": "DiamondPick",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Industrial"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "DiamondRing": {
+    "tag": "DiamondRing",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "DiceCup": {
+    "tag": "DiceCup",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Disguise": {
+    "tag": "Disguise",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "DivingHelmet": {
+    "tag": "DivingHelmet",
+    "affectedCategories": [
+      "Marine"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "DraftingRuler": {
+    "tag": "DraftingRuler",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Dynamite": {
+    "tag": "Dynamite",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "EmptyCage": {
+    "tag": "EmptyCage",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "FawkesMask": {
+    "tag": "FawkesMask",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Rogues"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "Fertilizer": {
+    "tag": "Fertilizer",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Commercial",
+      "Frontier"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "FishingNet": {
+    "tag": "FishingNet",
+    "affectedCategories": [
+      "Marine"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "FishingRod": {
+    "tag": "FishingRod",
+    "affectedCategories": [
+      "Fishing",
+      "Marine"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "ForemansHammer": {
+    "tag": "ForemansHammer",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Furniture": {
+    "tag": "Furniture",
+    "affectedCategories": [
+      "Civic"
+    ],
+    "affectedGuildsDirect": [
+      "Civic"
+    ],
+    "sources": [
+      "consumerBuilding",
+      "ownTrigger"
+    ]
+  },
+  "Gearwheel": {
+    "tag": "Gearwheel",
+    "affectedCategories": [
+      "Industrial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "GemAmethyst": {
+    "tag": "GemAmethyst",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemAquamarine": {
+    "tag": "GemAquamarine",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemEmerald": {
+    "tag": "GemEmerald",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemGarnet": {
+    "tag": "GemGarnet",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemJasper": {
+    "tag": "GemJasper",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemOnyx": {
+    "tag": "GemOnyx",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemPearl": {
+    "tag": "GemPearl",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemSapphire": {
+    "tag": "GemSapphire",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GemTopaz": {
+    "tag": "GemTopaz",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Goblet": {
+    "tag": "Goblet",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GoldNugget": {
+    "tag": "GoldNugget",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GoldenEgg": {
+    "tag": "GoldenEgg",
+    "affectedCategories": [
+      "Neutral"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "GoldenHorseshoe": {
+    "tag": "GoldenHorseshoe",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "GuildSeal": {
+    "tag": "GuildSeal",
+    "affectedCategories": [
+      "Commercial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "Harpoon": {
+    "tag": "Harpoon",
+    "affectedCategories": [
+      "Martial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Heraldry": {
+    "tag": "Heraldry",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "HotelBell": {
+    "tag": "HotelBell",
+    "affectedCategories": [
+      "Residence"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Hourglass": {
+    "tag": "Hourglass",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "HousingMandate": {
+    "tag": "HousingMandate",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "HuntingBow": {
+    "tag": "HuntingBow",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Ingots": {
+    "tag": "Ingots",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "JarOfHoney": {
+    "tag": "JarOfHoney",
+    "affectedCategories": [
+      "Agricultural"
+    ],
+    "affectedGuildsDirect": [
+      "Agricultural"
+    ],
+    "sources": [
+      "consumerBuilding",
+      "ownTrigger"
+    ]
+  },
+  "JesterHat": {
+    "tag": "JesterHat",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "JewelleryBox": {
+    "tag": "JewelleryBox",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "LegionStandard": {
+    "tag": "LegionStandard",
+    "affectedCategories": [
+      "Martial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "LoadedDice": {
+    "tag": "LoadedDice",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "LookingGlass": {
+    "tag": "LookingGlass",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "LostCrown": {
+    "tag": "LostCrown",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "LotteryTicket": {
+    "tag": "LotteryTicket",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Mace": {
+    "tag": "Mace",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "MarblePillar": {
+    "tag": "MarblePillar",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Civic"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "MarketProduce": {
+    "tag": "MarketProduce",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Civic"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "Millstone": {
+    "tag": "Millstone",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Mirror": {
+    "tag": "Mirror",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Missive": {
+    "tag": "Missive",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "MobiusComplex": {
+    "tag": "MobiusComplex",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "ModelBridge": {
+    "tag": "ModelBridge",
+    "affectedCategories": [
+      "Resource"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "ModifiedSapling": {
+    "tag": "ModifiedSapling",
+    "affectedCategories": [
+      "Engineering"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "MortarAndPestle": {
+    "tag": "MortarAndPestle",
+    "affectedCategories": [
+      "Frontier"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "MossyLog": {
+    "tag": "MossyLog",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "MysteryMeat": {
+    "tag": "MysteryMeat",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "NestingDoll": {
+    "tag": "NestingDoll",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "OldBlueprint": {
+    "tag": "OldBlueprint",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Paintbrush": {
+    "tag": "Paintbrush",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Palette": {
+    "tag": "Palette",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "PhilosophersStone": {
+    "tag": "PhilosophersStone",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "PiggyBank": {
+    "tag": "PiggyBank",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Pitchfork": {
+    "tag": "Pitchfork",
+    "affectedCategories": [
+      "Agricultural",
+      "Crop"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "Plow": {
+    "tag": "Plow",
+    "affectedCategories": [
+      "Agricultural"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "affectsNote"
+    ]
+  },
+  "PocketWatch": {
+    "tag": "PocketWatch",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "PokerChip": {
+    "tag": "PokerChip",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Pontoon": {
+    "tag": "Pontoon",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Marine"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "PotionRack": {
+    "tag": "PotionRack",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Pottery": {
+    "tag": "Pottery",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "PrayerFlags": {
+    "tag": "PrayerFlags",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Printer": {
+    "tag": "Printer",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "RabbitsFoot": {
+    "tag": "RabbitsFoot",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "RainbowFlag": {
+    "tag": "RainbowFlag",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "RareHerb": {
+    "tag": "RareHerb",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Frontier"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "RareSkull": {
+    "tag": "RareSkull",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "RedEarth": {
+    "tag": "RedEarth",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "RustedBlade": {
+    "tag": "RustedBlade",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Saddle": {
+    "tag": "Saddle",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Saw": {
+    "tag": "Saw",
+    "affectedCategories": [
+      "Frontier"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "Scythe": {
+    "tag": "Scythe",
+    "affectedCategories": [
+      "Farm"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Shears": {
+    "tag": "Shears",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Silk": {
+    "tag": "Silk",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [
+      "Commercial"
+    ],
+    "sources": [
+      "consumerBuilding"
+    ]
+  },
+  "Sledgehammer": {
+    "tag": "Sledgehammer",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "SlotMachine": {
+    "tag": "SlotMachine",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Standard": {
+    "tag": "Standard",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Statuette": {
+    "tag": "Statuette",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Sundial": {
+    "tag": "Sundial",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Talisman": {
+    "tag": "Talisman",
+    "affectedCategories": [
+      "Neutral"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "TopHat": {
+    "tag": "TopHat",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Torch": {
+    "tag": "Torch",
+    "affectedCategories": [
+      "Martial"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "ToyBoat": {
+    "tag": "ToyBoat",
+    "affectedCategories": [
+      "Ship"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "consumerDispatcher"
+    ]
+  },
+  "Transmutor": {
+    "tag": "Transmutor",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "TreasureMap": {
+    "tag": "TreasureMap",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "Triquetra": {
+    "tag": "Triquetra",
+    "affectedCategories": [
+      "Nature"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "UncommonTome": {
+    "tag": "UncommonTome",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "VoodooDoll": {
+    "tag": "VoodooDoll",
+    "affectedCategories": [
+      "Hazard"
+    ],
+    "affectedGuildsDirect": [],
+    "sources": [
+      "ownTrigger"
+    ]
+  },
+  "WeightedScale": {
+    "tag": "WeightedScale",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  },
+  "WorkersRosary": {
+    "tag": "WorkersRosary",
+    "affectedCategories": [],
+    "affectedGuildsDirect": [],
+    "sources": []
+  }
+}
