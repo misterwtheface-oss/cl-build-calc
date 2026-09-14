@@ -283,14 +283,25 @@ for (const b of interactions.buildings) {
     ...(b.emitsEvents || []).map((e) => e.event),
     ...(b.listensForEvents || []).map((e) => e.event),
   ])];
+  // Owned surface = every category this building carries (major + minors) plus its tag —
+  // what OTHER buildings' effects/qualifiers can match against.
+  const ownedCats = [...new Set([...(b.owned?.minors || []),
+    ...(b.owned?.major ? [b.owned.major] : [])])];
+  // A qualified listener only reacts to an event that involves a specific category/tag
+  // (e.g. Windmill: transformation of a Crop). Kept per-event so the client can narrow a
+  // shared-event link to guilds that actually own the qualifying surface.
+  const listenQualifiers = {};
+  for (const e of b.listensForEvents || [])
+    if (e.qualifier) listenQualifiers[e.event] = { cats: e.qualifier.cats || [], tags: e.qualifier.tags || [] };
 
   buildings.push({
-    key, name, guild: b.guild,
+    key, name, guild: b.guild, gameTag: b.owned?.gameTag || null,
     rarity: params.rarity || null, rarityRank: rarityRank(params.rarity),
-    ownedMinors, ownedFunctional,
+    ownedMinors, ownedFunctional, ownedCats,
     interactions: inter, interactionGuilds, natureNodes, events,
     emits: (b.emitsEvents || []).map((e) => e.event),
     listens: (b.listensForEvents || []).map((e) => e.event),
+    listenQualifiers,
     sprite: resolveBuildingSprite(key, b.owned?.gameTag, name),
     _rawDesc: stringOf(key).description || "",   // expanded into desc/descHTML below
   });
@@ -513,10 +524,13 @@ if (tokWarn.size) warnings.push(`description DSL: ${tokWarn.size} unmapped token
 const guilds = GUILD_IDS.map((id) => {
   const own = buildings.filter((b) => b.guild === id);
   const funcs = new Set(); const evs = new Set(); const nats = new Set();
+  const ocats = new Set(); const otags = new Set();
   for (const b of own) {
     b.ownedFunctional.forEach((f) => funcs.add(f));
     b.events.forEach((e) => evs.add(e));
     b.natureNodes.forEach((n) => nats.add(n));
+    b.ownedCats.forEach((c) => ocats.add(c));       // every category this guild can field —
+    if (b.gameTag) otags.add(b.gameTag);            // used to test other guilds' listener qualifiers
   }
   return {
     id, name: prettify(id), color: GUILD_COLOR[id],
@@ -526,6 +540,7 @@ const guilds = GUILD_IDS.map((id) => {
     isCore: CORE_GUILDS.has(id), isAdvanced: !CORE_GUILDS.has(id),
     buildingCount: own.length,
     functionalCategories: [...funcs], events: [...evs], natureNodes: [...nats],
+    ownedCats: [...ocats], ownedTags: [...otags],
   };
 });
 // Guild asset guardrails are hard errors — a guild is the primary UI element.

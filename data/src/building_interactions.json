@@ -723,18 +723,6 @@
      }
     },
     {
-     "kind": "effectTag",
-     "value": "SunflowerFarm",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Irrigation.cs:49 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
-     }
-    },
-    {
      "kind": "effectCategory",
      "value": "Crop",
      "source": "effect",
@@ -745,18 +733,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Irrigation.cs:49 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
       "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "SunflowerFarm",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Irrigation.cs:28 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
      }
     },
     {
@@ -948,18 +924,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Reservoir.cs:48",
       "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.Irrigation);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "SunflowerFarm",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Reservoir.cs:30 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
      }
     },
     {
@@ -1337,10 +1301,16 @@
    "listensForEvents": [
     {
      "event": "BuildingTransformationOccurred",
-     "note": "reacts to BuildingTransformationOccurred",
+     "note": "reacts to BuildingTransformationOccurred — only when it involves a Crop",
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
       "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+     },
+     "qualifier": {
+      "cats": [
+       "Crop"
+      ],
+      "tags": []
      }
     }
    ]
@@ -1512,18 +1482,6 @@
     ]
    },
    "interactions": [
-    {
-     "kind": "effectTag",
-     "value": "SunflowerFarm",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Fountain.cs:27 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
-     }
-    },
     {
      "kind": "effectCategory",
      "value": "Crop",
@@ -1703,25 +1661,7 @@
      "Engineering"
     ]
    },
-   "interactions": [
-    {
-     "kind": "effectCategory",
-     "value": "Nature",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural",
-      "Arcane",
-      "Civic",
-      "Commercial",
-      "Frontier",
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mason.cs:59",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && !neighbour.Building.Categories.Contains(GamePieceCategory.Nature)) >= 1;"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [],
    "listensForEvents": []
   },
@@ -1964,18 +1904,6 @@
       "Civic"
      ],
      "anchor": {
-      "line": "Entities.BuildingBehaviours\\TaxCollector.cs:54",
-      "snippet": "if (item2 != null && !item2.IsEmpty && item2.Building.Tag.IsHouse() && item2.Building.Tag != GameTag.HousePlot)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "HousePlot",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Civic"
-     ],
-     "anchor": {
       "line": "Entities.BuildingBehaviours\\TaxCollector.cs:66",
       "snippet": "building.TransformBuildingInto(GameTag.HousePlot, taxCollector, building.Values, building.BuildingPaint);"
      }
@@ -2037,44 +1965,7 @@
      "Sacred"
     ]
    },
-   "interactions": [
-    {
-     "kind": "effectTag",
-     "value": "TempleWestWing",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Civic"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\TempleSouthWing.cs:39",
-      "snippet": "if (tile2.IsEmpty || tile2.Building.Tag != GameTag.TempleWestWing)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "TempleEastWing",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Civic"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\TempleSouthWing.cs:44",
-      "snippet": "if (tile3.IsEmpty || tile3.Building.Tag != GameTag.TempleEastWing)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "TempleNorthWing",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Civic"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\TempleSouthWing.cs:49",
-      "snippet": "if (tile4.IsEmpty || tile4.Building.Tag != GameTag.TempleNorthWing)"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [],
    "listensForEvents": []
   },
@@ -2277,54 +2168,6 @@
     },
     {
      "kind": "effectTag",
-     "value": "Herbs",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:90",
-      "snippet": "if (adjacentTiles.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.Herbs)))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:51 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
      "resolvesToGuilds": [
@@ -2368,6 +2211,18 @@
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699",
       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
      }
+    },
+    {
+     "kind": "effectTag",
+     "value": "CorruptedGrove",
+     "source": "effect",
+     "resolvesToGuilds": [
+      "Hazard"
+     ],
+     "anchor": {
+      "line": "Entities.BuildingBehaviours\\Apothecary.cs:51 -> Entities/_GamePieceBehaviour.cs:631",
+      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+     }
     }
    ],
    "emitsEvents": [
@@ -2391,10 +2246,17 @@
    "listensForEvents": [
     {
      "event": "BuildingRemovalOccurred",
-     "note": "reacts to BuildingRemovalOccurred",
+     "note": "reacts to BuildingRemovalOccurred — only when it involves a Healing, Nature",
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
       "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
+     },
+     "qualifier": {
+      "cats": [
+       "Healing",
+       "Nature"
+      ],
+      "tags": []
      }
     }
    ]
@@ -2441,16 +2303,6 @@
     ]
    },
    "interactions": [
-    {
-     "kind": "effectTag",
-     "value": "BsGreenPaint",
-     "source": "effect",
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Bank.cs:50",
-      "snippet": "if (otherBuilding.Behaviour.GetRerollsCountParam(otherBuilding) <= 0 && otherBuilding.BuildingPaint.PaintTag != GameTag.BsGreenPaint && otherBuilding.Behaviour.GetRemovesCountParam"
-     }
-    },
     {
      "kind": "effectTag",
      "value": "BsRedPaint",
@@ -3451,42 +3303,6 @@
     },
     {
      "kind": "effectTag",
-     "value": "Trees",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:82",
-      "snippet": "if (tilesInRange.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.Trees)))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
      "resolvesToGuilds": [
@@ -3953,10 +3769,16 @@
    "listensForEvents": [
     {
      "event": "BuildingConstructionOccurred",
-     "note": "reacts to BuildingConstructionOccurred",
+     "note": "reacts to BuildingConstructionOccurred — only when it involves a Nature",
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
       "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+     },
+     "qualifier": {
+      "cats": [
+       "Nature"
+      ],
+      "tags": []
      }
     }
    ]
@@ -4236,18 +4058,7 @@
     "major": "Hazard",
     "minors": []
    },
-   "interactions": [
-    {
-     "kind": "effectCategory",
-     "value": "Hazard",
-     "source": "effect",
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedFort.cs:20",
-      "snippet": "Building randomBuildingInRangeWithCondition = fort.GetRandomBuildingInRangeWithCondition((Building b) => b.Behaviour.CanRemove(b) && !b.Categories.ContainsCategory(GamePieceCategor"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [
     {
      "event": "BuildingRemovalOccurred",
@@ -4341,30 +4152,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22",
       "snippet": "InstantiateAndBuildNatureResourceAt(mine.GetTilesInRange(), allowedTileTypes, GameTag.Rocks, mine);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -4496,18 +4283,7 @@
     "major": "Hazard",
     "minors": []
    },
-   "interactions": [
-    {
-     "kind": "effectCategory",
-     "value": "Hazard",
-     "source": "effect",
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedTemple.cs:20",
-      "snippet": "Building randomBuildingInRangeWithCondition = fort.GetRandomBuildingInRangeWithCondition((Building b) => b.Behaviour.CanRemove(b) && !b.Categories.ContainsCategory(GamePieceCategor"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [
     {
      "event": "BuildingRemovalOccurred",
@@ -4540,18 +4316,7 @@
     "major": "Hazard",
     "minors": []
    },
-   "interactions": [
-    {
-     "kind": "effectCategory",
-     "value": "Hazard",
-     "source": "effect",
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedTower.cs:21",
-      "snippet": "Building randomBuildingInRangeWithCondition = tower.GetRandomBuildingInRangeWithCondition((Building b) => !b.Categories.ContainsCategory(GamePieceCategory.Hazard) && b.Behaviour.Ge"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [
     {
      "event": "BuildingTransformationOccurred",
@@ -4867,30 +4632,6 @@
     },
     {
      "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
      "value": "Ore",
      "source": "effect",
      "resolvesToGuilds": [
@@ -4982,30 +4723,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Mine.cs:61",
       "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Rocks) > 0;"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -5181,30 +4898,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
       "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -5529,10 +5222,17 @@
    "listensForEvents": [
     {
      "event": "BuildingConstructionOccurred",
-     "note": "reacts to BuildingConstructionOccurred",
+     "note": "reacts to BuildingConstructionOccurred — only when it involves a Engineering, Woodworking",
      "anchor": {
       "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
       "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+     },
+     "qualifier": {
+      "cats": [
+       "Engineering",
+       "Woodworking"
+      ],
+      "tags": []
      }
     }
    ]
@@ -5741,42 +5441,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:65",
       "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Fish",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:69",
-      "snippet": "if (tilesInRange.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.Fish)))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -6084,42 +5748,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:67",
       "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:71",
-      "snippet": "if (tilesInRange.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.KelpField)))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Scaffolding",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Neutral"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "KelpField",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Marine"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -7277,15 +6905,16 @@
    },
    "interactions": [
     {
-     "kind": "effectTag",
-     "value": "SunflowerFarm",
+     "kind": "effectCategory",
+     "value": "Crop",
      "source": "effect",
      "resolvesToGuilds": [
-      "Agricultural"
+      "Agricultural",
+      "Commercial"
      ],
      "anchor": {
-      "line": "Entities.BuildingBehaviours\\Well.cs:26 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
+      "line": "Entities.BuildingBehaviours\\Well.cs:38 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
      }
     },
     {
@@ -7298,31 +6927,6 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Well.cs:26 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "SunflowerFarm",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Well.cs:38 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
-     }
-    },
-    {
-     "kind": "effectCategory",
-     "value": "Crop",
-     "source": "effect",
-     "resolvesToGuilds": [
-      "Agricultural",
-      "Commercial"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Well.cs:38 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
       "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
      }
     }

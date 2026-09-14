@@ -231,6 +231,7 @@ h2, h3 { font-weight: 700; }
   background: var(--surface3); border: 1px solid var(--border); color: var(--text-muted); cursor: pointer;
 }
 .event-chip:hover { border-color: var(--accent); color: var(--text); }
+.chip-qual { font-style: italic; font-weight: 500; opacity: .75; }
 
 /* hero prompt when nothing selected */
 .hero { text-align: center; padding: 1rem .75rem; color: var(--text-muted); }

@@ -140,6 +140,18 @@
   // Why is a building an overlap candidate against the OTHER guild? Any of:
   // cross-targets it, shares an owned functional category, shares an event type,
   // or touches a shared nature node. (Confirmed rule: "any cross-guild link".)
+  // Is a building's participation in `ev` a LIVE cross-guild link against `other`?
+  // Emitting an event is unconditional. A qualified listener (e.g. Windmill only reacts to a
+  // transformation of a Crop) counts only when `other` actually owns the qualifying surface —
+  // otherwise the reaction could only ever involve its own guild, so it is not a crossover.
+  function eventLinkActive(b, ev, other) {
+    if ((b.emits || []).includes(ev)) return true;
+    if (!(b.listens || []).includes(ev)) return false;
+    const q = (b.listenQualifiers || {})[ev];
+    if (!q) return true;
+    return (q.cats || []).some((c) => other.ownedCats.includes(c))
+        || (q.tags || []).some((t) => other.ownedTags.includes(t));
+  }
   function buildingReasons(b, other) {
     const r = [];
     if (b.interactionGuilds.includes(other.id))
@@ -150,7 +162,7 @@
     const cats = b.ownedFunctional.filter((c) =>
       other.functionalCategories.includes(c) && catHasInteractor(c, selfG, other));
     if (cats.length) r.push({ k: "cat", g: "▤", t: `Shared category: ${cats.join(", ")}` });
-    const evs = b.events.filter((e) => other.events.includes(e));
+    const evs = b.events.filter((e) => other.events.includes(e) && eventLinkActive(b, e, other));
     if (evs.length) r.push({ k: "event", g: "◆", t: `Shared event: ${evs.map((e) => (eventById.get(e) || {}).name || e).join(", ")}` });
     const nat = b.natureNodes.filter((n) => other.natureNodes.includes(n));
     if (nat.length) r.push({ k: "nature", g: "❦", t: `Shared nature: ${nat.map((n) => (natureByKey.get(n) || {}).name || n).join(", ")}` });
@@ -251,7 +263,12 @@
     // Only shared categories that some building actually interacts with — a
     // surface owned by both guilds but targeted by nothing is not a real tag.
     const cats = validSharedCats(a, b);
-    const sharedEvents = a.events.filter((e) => b.events.includes(e));
+    // Shared events, each narrowed to its live members up-front so the chip index and the
+    // section list agree — an event whose only links are unsatisfied qualifiers drops out.
+    const eventSections = a.events.filter((e) => b.events.includes(e))
+      .map((ev) => ({ ev, members: overlapBuildingsForEvent(ev, a, b) }))
+      .filter((s) => s.members.length);
+    const sharedEvents = eventSections.map((s) => s.ev);
     const sharedNature = combo.sharedNature || [];
     const sharedCouncil = (DATA.counselors || []).filter((c) => c.guildReach.includes(a.id) && c.guildReach.includes(b.id));
 
@@ -274,10 +291,7 @@
 
     // overlap buildings grouped by shared EVENT — same treatment as traits
     let eventOverlap = "";
-    for (const ev of sharedEvents) {
-      const members = overlapBuildingsForEvent(ev, a, b);
-      if (members.length) eventOverlap += eventSectionHTML(ev, members);
-    }
+    for (const { ev, members } of eventSections) eventOverlap += eventSectionHTML(ev, members);
     const eventBlock = eventOverlap
       ? `<div class="overlap-wrap"><h3 class="centre-h">Overlapping buildings — by shared event</h3>${eventOverlap}</div>`
       : block("Shared events", `<p class="empty-note">No shared event links.</p>`);
@@ -337,20 +351,27 @@
     if (targets) rs.push({ k: "target", g: "⇄", t: "Scores off / targets this trait" });
     return ovTile(b, rs);
   }
-  // Event overlap tile — emits ▲ / listens ▼ for the section's event.
-  function eventTile(b, emits, listens) {
+  const qualLabel = (q) => [...(q.cats || []), ...(q.tags || [])]
+    .map((c) => (catById.get(c) || {}).name || (natureByKey.get(c) || {}).name || c).join(", ");
+  // Event overlap tile — emits ▲ / listens ▼ for the section's event. A qualified listener
+  // notes what the event must involve (e.g. "▼ only a Crop").
+  function eventTile(b, emits, listens, qualifier) {
     const rs = [];
     if (emits) rs.push({ k: "event", g: "▲", t: "Emits this event" });
-    if (listens) rs.push({ k: "event", g: "▼", t: "Listens for this event" });
+    if (listens) rs.push({ k: "event", g: "▼", t: qualifier
+      ? `Listens — only when it involves a ${qualLabel(qualifier)}` : "Listens for this event" });
     return ovTile(b, rs);
   }
-  // Buildings from BOTH guilds that emit or listen for a shared event — the
-  // members of that event's overlap section (mirrors overlapBuildingsForCat).
+  // Buildings from BOTH guilds that emit or listen for a shared event — the members of that
+  // event's overlap section. A building that only LISTENS via a qualifier the OTHER guild
+  // can't satisfy is dropped: its reaction can't be triggered by anything that guild fields.
   function overlapBuildingsForEvent(ev, a, b) {
     const out = [];
-    for (const g of [a, b]) for (const bld of buildingsByGuild.get(g.id) || []) {
+    for (const [g, other] of [[a, b], [b, a]]) for (const bld of buildingsByGuild.get(g.id) || []) {
       const emits = (bld.emits || []).includes(ev), listens = (bld.listens || []).includes(ev);
-      if (emits || listens) out.push({ bld, emits, listens });
+      if (!emits && !listens) continue;
+      if (!emits && listens && !eventLinkActive(bld, ev, other)) continue;
+      out.push({ bld, emits, listens, qualifier: (bld.listenQualifiers || {})[ev] || null });
     }
     return out.sort((x, y) => (x.bld.rarityRank - y.bld.rarityRank) || x.bld.name.localeCompare(y.bld.name));
   }
@@ -358,7 +379,7 @@
   // short-named) event, tinted with the interactive accent colour.
   function eventSectionHTML(ev, members) {
     const e = eventById.get(ev) || { name: ev, note: "" };
-    const tiles = members.map((m) => eventTile(m.bld, m.emits, m.listens)).join("");
+    const tiles = members.map((m) => eventTile(m.bld, m.emits, m.listens, m.qualifier)).join("");
     return `<section class="trait-section event-section">
       <div class="trait-section-head" data-action="detail-event" data-id="${esc(ev)}"
         style="--aff-color:var(--accent);--aff-text:#fff" title="${esc(e.note || "")}">
@@ -507,7 +528,11 @@
       ...b.listens.map((e) => ({ e, dir: "listens" })),
     ];
     const eventsHTML = events.length
-      ? `<div class="event-list">${events.map((x) => `<span class="event-chip" data-action="detail-event" data-id="${esc(x.e)}">${x.dir === "emits" ? "▲" : "▼"} ${esc((eventById.get(x.e) || {}).name || x.e)}</span>`).join("")}</div>`
+      ? `<div class="event-list">${events.map((x) => {
+          const q = x.dir === "listens" ? (b.listenQualifiers || {})[x.e] : null;
+          const suffix = q ? ` <em class="chip-qual">(only ${esc(qualLabel(q))})</em>` : "";
+          return `<span class="event-chip" data-action="detail-event" data-id="${esc(x.e)}">${x.dir === "emits" ? "▲" : "▼"} ${esc((eventById.get(x.e) || {}).name || x.e)}${suffix}</span>`;
+        }).join("")}</div>`
       : "";
 
     renderDetail(esc(b.name), `

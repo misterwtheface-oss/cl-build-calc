@@ -14,35 +14,35 @@
   "Arcane->Civic": 1,
   "Arcane->Commercial": 1,
   "Arcane->Frontier": 2,
-  "Arcane->Industrial": 3,
+  "Arcane->Industrial": 2,
   "Arcane->Martial": 3,
-  "Civic->Agricultural": 9,
-  "Civic->Arcane": 6,
-  "Civic->Commercial": 11,
-  "Civic->Frontier": 8,
+  "Civic->Agricultural": 6,
+  "Civic->Arcane": 5,
+  "Civic->Commercial": 10,
+  "Civic->Frontier": 7,
   "Civic->Industrial": 4,
-  "Civic->Marine": 4,
+  "Civic->Marine": 3,
   "Civic->Martial": 4,
   "Commercial->Agricultural": 17,
   "Commercial->Arcane": 5,
   "Commercial->Civic": 21,
   "Commercial->Frontier": 13,
-  "Commercial->Industrial": 10,
-  "Commercial->Marine": 6,
+  "Commercial->Industrial": 9,
+  "Commercial->Marine": 5,
   "Commercial->Martial": 12,
-  "Frontier->Agricultural": 12,
+  "Frontier->Agricultural": 9,
   "Frontier->Arcane": 4,
   "Frontier->Civic": 11,
   "Frontier->Commercial": 14,
   "Frontier->Industrial": 5,
-  "Frontier->Marine": 6,
+  "Frontier->Marine": 5,
   "Frontier->Martial": 7,
   "Industrial->Agricultural": 16,
   "Industrial->Arcane": 1,
   "Industrial->Civic": 10,
-  "Industrial->Commercial": 11,
-  "Industrial->Frontier": 16,
-  "Industrial->Marine": 7,
+  "Industrial->Commercial": 5,
+  "Industrial->Frontier": 11,
+  "Industrial->Marine": 4,
   "Industrial->Martial": 26,
   "Industrial->Rogues": 1,
   "Marine->Agricultural": 5,
@@ -63,8 +63,8 @@
   "Rogues->Agricultural": 1,
   "Rogues->Civic": 2,
   "Rogues->Commercial": 2,
-  "Rogues->Frontier": 2,
-  "Rogues->Industrial": 2
+  "Rogues->Frontier": 1,
+  "Rogues->Industrial": 1
  },
  "pairs": [
   {
@@ -143,9 +143,9 @@
     "Civic"
    ],
    "name": "Crofter's Collective",
-   "edgeCount": 24,
-   "structuralEdges": 16,
-   "eventEdges": 8,
+   "edgeCount": 21,
+   "structuralEdges": 14,
+   "eventEdges": 7,
    "sharedNatureCount": 0,
    "sharedNature": [],
    "AtoB": [
@@ -357,19 +357,6 @@
      "building": "Fountain",
      "buildingDisplay": "Fountain",
      "interaction": {
-      "kind": "effectTag",
-      "value": "SunflowerFarm",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Fountain.cs:27 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:856",
-      "snippet": "calls IrrigateAdjacent(...): if (crop.Tag != GameTag.SunflowerFarm)"
-     }
-    },
-    {
-     "building": "Fountain",
-     "buildingDisplay": "Fountain",
-     "interaction": {
       "kind": "effectCategory",
       "value": "Crop",
       "source": "effect"
@@ -390,19 +377,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
       "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
-     }
-    },
-    {
-     "building": "Mason",
-     "buildingDisplay": "Mason",
-     "interaction": {
-      "kind": "effectCategory",
-      "value": "Nature",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mason.cs:59",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && !neighbour.Building.Categories.Contains(GamePieceCategory.Nature)) >= 1;"
      }
     },
     {
@@ -455,20 +429,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\TownHall.cs:21",
       "snippet": "SetTargetCategories((GamePieceCategory.Residence, 50));"
-     }
-    },
-    {
-     "building": "TaxCollector",
-     "buildingDisplay": "Tax Collector",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingTransformationOccurred->BuildingTransformationOccurred",
-      "source": "event",
-      "listener": "Windmill"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\TaxCollector.cs:66",
-      "snippet": "building.TransformBuildingInto(GameTag.HousePlot, taxCollector, building.Values, building.BuildingPaint);"
      }
     }
    ]
@@ -1077,9 +1037,9 @@
     "Frontier"
    ],
    "name": "Fieldwatchers",
-   "edgeCount": 26,
+   "edgeCount": 23,
    "structuralEdges": 14,
-   "eventEdges": 12,
+   "eventEdges": 9,
    "sharedNatureCount": 0,
    "sharedNature": [],
    "AtoB": [
@@ -1363,48 +1323,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Woodcutter.cs:47",
       "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(tree, woodcutter);"
-     }
-    },
-    {
-     "building": "CampfireDepleted",
-     "buildingDisplay": "Ash",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingTransformationOccurred->BuildingTransformationOccurred",
-      "source": "event",
-      "listener": "Windmill"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CampfireDepleted.cs:37",
-      "snippet": "depleted.TransformBuildingInto(GameTag.Campfire, depleted, depleted.Values, depleted.BuildingPaint);"
-     }
-    },
-    {
-     "building": "Campfire",
-     "buildingDisplay": "Campfire",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingTransformationOccurred->BuildingTransformationOccurred",
-      "source": "event",
-      "listener": "Windmill"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Campfire.cs:48",
-      "snippet": "building.TransformBuildingInto(GameTag.CampfireDepleted, building, building.Values, building.BuildingPaint);"
-     }
-    },
-    {
-     "building": "Excavation",
-     "buildingDisplay": "Excavation",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingTransformationOccurred->BuildingTransformationOccurred",
-      "source": "event",
-      "listener": "Windmill"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Excavation.cs:38",
-      "snippet": "excavation.TransformBuildingInto(GameTag.ExcavationUncovered, excavation, excavation.Values, excavation.BuildingPaint);"
      }
     },
     {
@@ -2140,8 +2058,8 @@
     "Civic"
    ],
    "name": null,
-   "edgeCount": 7,
-   "structuralEdges": 6,
+   "edgeCount": 6,
+   "structuralEdges": 5,
    "eventEdges": 1,
    "sharedNatureCount": 0,
    "sharedNature": [],
@@ -2173,19 +2091,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
       "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
-     }
-    },
-    {
-     "building": "Mason",
-     "buildingDisplay": "Mason",
-     "interaction": {
-      "kind": "effectCategory",
-      "value": "Nature",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mason.cs:59",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && !neighbour.Building.Categories.Contains(GamePieceCategory.Nature)) >= 1;"
      }
     },
     {
@@ -2433,9 +2338,9 @@
     "Industrial"
    ],
    "name": null,
-   "edgeCount": 4,
+   "edgeCount": 3,
    "structuralEdges": 1,
-   "eventEdges": 3,
+   "eventEdges": 2,
    "sharedNatureCount": 0,
    "sharedNature": [],
    "AtoB": [
@@ -2461,20 +2366,6 @@
       "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
       "source": "event",
       "listener": "Depot"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\NomadWagon.cs:45",
-      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.NomadWagon, randomAdjacentTileWithCondition.X, randomAdjacentTileWithCondition."
-     }
-    },
-    {
-     "building": "NomadWagon",
-     "buildingDisplay": "Nomad's Wagon",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
-      "listener": "Tool Shed"
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\NomadWagon.cs:45",
@@ -2628,8 +2519,8 @@
     "Commercial"
    ],
    "name": "Merchants",
-   "edgeCount": 32,
-   "structuralEdges": 23,
+   "edgeCount": 31,
+   "structuralEdges": 22,
    "eventEdges": 9,
    "sharedNatureCount": 0,
    "sharedNature": [],
@@ -2671,19 +2562,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
       "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
-     }
-    },
-    {
-     "building": "Mason",
-     "buildingDisplay": "Mason",
-     "interaction": {
-      "kind": "effectCategory",
-      "value": "Nature",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mason.cs:59",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && !neighbour.Building.Categories.Contains(GamePieceCategory.Nature)) >= 1;"
      }
     },
     {
@@ -3057,8 +2935,8 @@
     "Frontier"
    ],
    "name": "Pioneers",
-   "edgeCount": 19,
-   "structuralEdges": 15,
+   "edgeCount": 18,
+   "structuralEdges": 14,
    "eventEdges": 4,
    "sharedNatureCount": 0,
    "sharedNature": [],
@@ -3100,19 +2978,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
       "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
-     }
-    },
-    {
-     "building": "Mason",
-     "buildingDisplay": "Mason",
-     "interaction": {
-      "kind": "effectCategory",
-      "value": "Nature",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mason.cs:59",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && !neighbour.Building.Categories.Contains(GamePieceCategory.Nature)) >= 1;"
      }
     },
     {
@@ -3529,8 +3394,8 @@
     "Marine"
    ],
    "name": "Harbourmasters",
-   "edgeCount": 8,
-   "structuralEdges": 7,
+   "edgeCount": 7,
+   "structuralEdges": 6,
    "eventEdges": 1,
    "sharedNatureCount": 0,
    "sharedNature": [],
@@ -3546,19 +3411,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Church.cs:14",
       "snippet": "SetTargetCategories((GamePieceCategory.Sacred, 30));"
-     }
-    },
-    {
-     "building": "Mason",
-     "buildingDisplay": "Mason",
-     "interaction": {
-      "kind": "effectCategory",
-      "value": "Nature",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mason.cs:59",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && !neighbour.Building.Categories.Contains(GamePieceCategory.Nature)) >= 1;"
      }
     },
     {
@@ -3825,7 +3677,6 @@
      "resourceTag": "Herbs",
      "guildA": "Commercial",
      "aBuildings": [
-      "Apothecary",
       "Apothecary"
      ],
      "guildB": "Frontier",
@@ -3833,8 +3684,7 @@
       "Herbalist"
      ],
      "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70",
-      "Entities.BuildingBehaviours\\Apothecary.cs:90"
+      "Entities.BuildingBehaviours\\Apothecary.cs:70"
      ],
      "bAnchors": [
       "Entities.BuildingBehaviours\\Herbalist.cs:13"
@@ -3890,7 +3740,6 @@
      "guildB": "Frontier",
      "bBuildings": [
       "Forester",
-      "Forester",
       "Grove",
       "Hunting Lodge",
       "Watch Tower",
@@ -3902,7 +3751,6 @@
      ],
      "bAnchors": [
       "Entities.BuildingBehaviours\\Forester.cs:49",
-      "Entities.BuildingBehaviours\\Forester.cs:82",
       "Entities.BuildingBehaviours\\Grove.cs:55",
       "Entities.BuildingBehaviours\\HuntingLodge.cs:14",
       "Entities.BuildingBehaviours\\WatchTower.cs:42",
@@ -4262,9 +4110,9 @@
     "Industrial"
    ],
    "name": "Merchandisers",
-   "edgeCount": 21,
+   "edgeCount": 14,
    "structuralEdges": 11,
-   "eventEdges": 10,
+   "eventEdges": 3,
    "sharedNatureCount": 4,
    "sharedNature": [
     {
@@ -4474,20 +4322,6 @@
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70",
       "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)"
      }
-    },
-    {
-     "building": "Apothecary",
-     "buildingDisplay": "Apothecary",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
-      "listener": "Tool Shed"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)"
-     }
     }
    ],
    "BtoA": [
@@ -4556,90 +4390,6 @@
       "line": "Entities.BuildingBehaviours\\Workshop.cs:41",
       "snippet": "ChangeMoney(GetMoneyParam(), triggerSource, workshop);"
      }
-    },
-    {
-     "building": "Blacksmith",
-     "buildingDisplay": "Blacksmith",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingRemovalOccurred->BuildingRemovalOccurred",
-      "source": "event",
-      "listener": "Apothecary"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
-     }
-    },
-    {
-     "building": "Carpenter",
-     "buildingDisplay": "Carpenter",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingRemovalOccurred->BuildingRemovalOccurred",
-      "source": "event",
-      "listener": "Apothecary"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Carpenter.cs:29",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
-     }
-    },
-    {
-     "building": "Depot",
-     "buildingDisplay": "Depot",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingRemovalOccurred->BuildingRemovalOccurred",
-      "source": "event",
-      "listener": "Apothecary"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Depot.cs:48",
-      "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(built, factory);"
-     }
-    },
-    {
-     "building": "Nitrary",
-     "buildingDisplay": "Nitrary",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingRemovalOccurred->BuildingRemovalOccurred",
-      "source": "event",
-      "listener": "Apothecary"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Nitrary.cs:57",
-      "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(building, nitrary);"
-     }
-    },
-    {
-     "building": "Sawmill",
-     "buildingDisplay": "Sawmill",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingRemovalOccurred->BuildingRemovalOccurred",
-      "source": "event",
-      "listener": "Apothecary"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Sawmill.cs:35",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
-     }
-    },
-    {
-     "building": "Smelter",
-     "buildingDisplay": "Smelter",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingRemovalOccurred->BuildingRemovalOccurred",
-      "source": "event",
-      "listener": "Apothecary"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
-     }
     }
    ]
   },
@@ -4649,8 +4399,8 @@
     "Marine"
    ],
    "name": "Merchant Marine",
-   "edgeCount": 15,
-   "structuralEdges": 13,
+   "edgeCount": 14,
+   "structuralEdges": 12,
    "eventEdges": 2,
    "sharedNatureCount": 2,
    "sharedNature": [
@@ -4713,19 +4463,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:19",
       "snippet": "SetTargetCategories(GamePieceCategory.Nature, GamePieceCategory.Healing);"
-     }
-    },
-    {
-     "building": "Apothecary",
-     "buildingDisplay": "Apothecary",
-     "interaction": {
-      "kind": "effectTag",
-      "value": "KelpField",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -5237,9 +4974,9 @@
     "Industrial"
    ],
    "name": "Lumberjacks",
-   "edgeCount": 21,
+   "edgeCount": 16,
    "structuralEdges": 6,
-   "eventEdges": 15,
+   "eventEdges": 10,
    "sharedNatureCount": 3,
    "sharedNature": [
     {
@@ -5312,7 +5049,6 @@
      "guildA": "Frontier",
      "aBuildings": [
       "Forester",
-      "Forester",
       "Grove",
       "Hunting Lodge",
       "Watch Tower",
@@ -5325,7 +5061,6 @@
      ],
      "aAnchors": [
       "Entities.BuildingBehaviours\\Forester.cs:49",
-      "Entities.BuildingBehaviours\\Forester.cs:82",
       "Entities.BuildingBehaviours\\Grove.cs:55",
       "Entities.BuildingBehaviours\\HuntingLodge.cs:14",
       "Entities.BuildingBehaviours\\WatchTower.cs:42",
@@ -5495,39 +5230,11 @@
       "kind": "event",
       "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
       "source": "event",
-      "listener": "Stone Lantern"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Depot.cs:49",
-      "snippet": "Building building = MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(built.Tag, randomAdjacentTileWithCondition.X, randomAdjacentTileWit"
-     }
-    },
-    {
-     "building": "Depot",
-     "buildingDisplay": "Depot",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
       "listener": "Witch's Hut"
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Depot.cs:49",
       "snippet": "Building building = MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(built.Tag, randomAdjacentTileWithCondition.X, randomAdjacentTileWit"
-     }
-    },
-    {
-     "building": "Lumberyard",
-     "buildingDisplay": "Lumberyard",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
-      "listener": "Stone Lantern"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(sawmill.GetAdjacentTiles(), allowedTileTypes, GameTag.Lumber, sawmill) > 0f)"
      }
     },
     {
@@ -5551,20 +5258,6 @@
       "kind": "event",
       "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
       "source": "event",
-      "listener": "Stone Lantern"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(mine.GetAdjacentTiles(), allowedTileTypes, GameTag.Ore, mine) > 0f)"
-     }
-    },
-    {
-     "building": "Mine",
-     "buildingDisplay": "Mine",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
       "listener": "Witch's Hut"
      },
      "anchor": {
@@ -5579,39 +5272,11 @@
       "kind": "event",
       "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
       "source": "event",
-      "listener": "Stone Lantern"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(quarry.GetTilesInRange(), allowedTileTypes, toCreate, quarry) > 0f)"
-     }
-    },
-    {
-     "building": "Quarry",
-     "buildingDisplay": "Quarry",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
       "listener": "Witch's Hut"
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:46",
       "snippet": "if (InstantiateAndBuildNatureResourceAt(quarry.GetTilesInRange(), allowedTileTypes, toCreate, quarry) > 0f)"
-     }
-    },
-    {
-     "building": "ShantyTown",
-     "buildingDisplay": "Slums",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
-      "listener": "Stone Lantern"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\ShantyTown.cs:52",
-      "snippet": "instance.InstantiateAndBuildBuildingAt(GameTag.ShantyTown, tile2.X, tile2.Y, playerInitiated: false, triggerOnBuild: true, building);"
      }
     },
     {
@@ -5636,8 +5301,8 @@
     "Marine"
    ],
    "name": "Shoreward Rangers",
-   "edgeCount": 15,
-   "structuralEdges": 10,
+   "edgeCount": 14,
+   "structuralEdges": 9,
    "eventEdges": 5,
    "sharedNatureCount": 2,
    "sharedNature": [
@@ -5689,19 +5354,6 @@
     }
    ],
    "AtoB": [
-    {
-     "building": "Forester",
-     "buildingDisplay": "Forester",
-     "interaction": {
-      "kind": "effectTag",
-      "value": "KelpField",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
     {
      "building": "Shrine",
      "buildingDisplay": "Shrine",
@@ -6126,27 +5778,13 @@
     "Rogues"
    ],
    "name": null,
-   "edgeCount": 2,
+   "edgeCount": 1,
    "structuralEdges": 0,
-   "eventEdges": 2,
+   "eventEdges": 1,
    "sharedNatureCount": 0,
    "sharedNature": [],
    "AtoB": [],
    "BtoA": [
-    {
-     "building": "PirateShip",
-     "buildingDisplay": "Pirate Ship",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
-      "listener": "Stone Lantern"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\PirateShip.cs:48",
-      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.TreasureChest, randomTileInRangeWithCondition, playerInitiated: false, triggerO"
-     }
-    },
     {
      "building": "PirateShip",
      "buildingDisplay": "Pirate Ship",
@@ -6169,8 +5807,8 @@
     "Marine"
    ],
    "name": "Riggers",
-   "edgeCount": 14,
-   "structuralEdges": 10,
+   "edgeCount": 11,
+   "structuralEdges": 7,
    "eventEdges": 4,
    "sharedNatureCount": 2,
    "sharedNature": [
@@ -6260,32 +5898,6 @@
      }
     },
     {
-     "building": "Lumberyard",
-     "buildingDisplay": "Lumberyard",
-     "interaction": {
-      "kind": "effectTag",
-      "value": "KelpField",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
-     "building": "Mine",
-     "buildingDisplay": "Mine",
-     "interaction": {
-      "kind": "effectTag",
-      "value": "KelpField",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
-     }
-    },
-    {
      "building": "Nitrary",
      "buildingDisplay": "Nitrary",
      "interaction": {
@@ -6296,19 +5908,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Nitrary.cs:19",
       "snippet": "SetTargetCategories(GamePieceCategory.Nature, GamePieceCategory.Resource);"
-     }
-    },
-    {
-     "building": "Quarry",
-     "buildingDisplay": "Quarry",
-     "interaction": {
-      "kind": "effectTag",
-      "value": "KelpField",
-      "source": "effect"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:684",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): List<Tile> list2 = tiles.Where((Tile t) => !t.IsEmpty && allowedTileTypes.Contains(t.Type) && t.Building.Tag != toCreate && t.Building.Data.CanBeBuiltOver && t.Building.Tag != Game"
      }
     },
     {
@@ -6927,9 +6526,9 @@
     "Rogues"
    ],
    "name": null,
-   "edgeCount": 3,
+   "edgeCount": 2,
    "structuralEdges": 1,
-   "eventEdges": 2,
+   "eventEdges": 1,
    "sharedNatureCount": 0,
    "sharedNature": [],
    "AtoB": [
@@ -6956,20 +6555,6 @@
       "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
       "source": "event",
       "listener": "Depot"
-     },
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\PirateShip.cs:48",
-      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.TreasureChest, randomTileInRangeWithCondition, playerInitiated: false, triggerO"
-     }
-    },
-    {
-     "building": "PirateShip",
-     "buildingDisplay": "Pirate Ship",
-     "interaction": {
-      "kind": "event",
-      "value": "BuildingConstructionOccurred->BuildingConstructionOccurred",
-      "source": "event",
-      "listener": "Tool Shed"
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PirateShip.cs:48",
@@ -7185,7 +6770,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7203,7 +6789,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Shaman.cs:17",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.RerollGained);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7221,7 +6808,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7239,7 +6827,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Shaman.cs:17",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.RerollGained);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7257,7 +6846,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7275,7 +6865,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Shaman.cs:17",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.RerollGained);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7293,7 +6884,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7311,7 +6903,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Shaman.cs:17",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.RerollGained);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7329,7 +6922,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7347,7 +6941,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7365,7 +6960,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Shaman.cs:17",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.RerollGained);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7383,7 +6979,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RerollGained",
@@ -7401,7 +6998,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Shaman.cs:17",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.RerollGained);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7419,7 +7017,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7437,7 +7036,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7452,7 +7052,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7467,7 +7068,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7482,7 +7084,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7497,7 +7100,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7512,7 +7116,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7527,7 +7132,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7542,7 +7148,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7557,7 +7164,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7575,7 +7183,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "RemoveGained",
@@ -7593,7 +7202,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Bank.cs:15",
     "snippet": "SetValidTriggers(TriggerType.RerollGained, TriggerType.ConsumableUsed, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7611,7 +7221,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7629,7 +7240,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7647,7 +7259,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7665,7 +7278,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7683,7 +7297,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7701,7 +7316,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7719,7 +7335,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7737,7 +7354,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7755,7 +7373,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7773,7 +7392,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7791,7 +7411,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7809,7 +7430,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7827,7 +7449,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7845,7 +7468,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7863,7 +7487,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7881,7 +7506,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7899,7 +7525,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7917,7 +7544,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7935,7 +7563,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7953,7 +7582,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7971,7 +7601,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -7989,7 +7620,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -8007,7 +7639,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Treasury.cs:18",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "MoneyEarned",
@@ -8025,7 +7658,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Circus.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.MoneyEarned);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8043,7 +7677,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8061,6 +7696,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Healing",
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -8079,7 +7721,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8097,7 +7740,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8115,7 +7759,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8133,7 +7778,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8151,7 +7797,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8169,7 +7816,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8187,6 +7835,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Healing",
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -8205,7 +7860,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8223,7 +7879,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8241,7 +7898,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8259,7 +7917,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8277,7 +7936,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8295,7 +7955,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8313,6 +7974,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Healing",
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -8331,7 +7999,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8349,7 +8018,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8367,7 +8037,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8385,7 +8056,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8403,7 +8075,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8421,7 +8094,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8439,6 +8113,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Healing",
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -8457,7 +8138,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8475,7 +8157,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8493,7 +8176,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8511,7 +8195,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8529,7 +8214,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8547,25 +8233,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "CorruptedFort",
-   "emitterDisplay": "Corrupted Fort",
-   "emitterGuild": "Hazard",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\CorruptedFort.cs:23",
-    "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(randomBuildingInRangeWithCondition, fort);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8583,7 +8252,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8601,7 +8271,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8619,7 +8290,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8637,7 +8309,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8655,7 +8328,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8673,25 +8347,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "CorruptedTemple",
-   "emitterDisplay": "Corrupted Temple",
-   "emitterGuild": "Hazard",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\CorruptedTemple.cs:23",
-    "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(randomBuildingInRangeWithCondition, fort);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8709,7 +8366,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8727,7 +8385,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8745,7 +8404,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8763,7 +8423,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8781,7 +8442,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8799,25 +8461,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Blacksmith",
-   "emitterDisplay": "Blacksmith",
-   "emitterGuild": "Industrial",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-    "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8835,7 +8480,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8853,7 +8499,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8871,7 +8518,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8889,7 +8537,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8907,7 +8556,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8925,25 +8575,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Carpenter",
-   "emitterDisplay": "Carpenter",
-   "emitterGuild": "Industrial",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Carpenter.cs:29",
-    "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8961,7 +8594,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8979,7 +8613,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -8997,7 +8632,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9015,7 +8651,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9033,7 +8670,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9051,25 +8689,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Depot",
-   "emitterDisplay": "Depot",
-   "emitterGuild": "Industrial",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Depot.cs:48",
-    "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(built, factory);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9087,7 +8708,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9105,7 +8727,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9123,7 +8746,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9141,7 +8765,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9159,7 +8784,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9177,25 +8803,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Nitrary",
-   "emitterDisplay": "Nitrary",
-   "emitterGuild": "Industrial",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Nitrary.cs:57",
-    "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(building, nitrary);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9213,7 +8822,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9231,7 +8841,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9249,7 +8860,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9267,7 +8879,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9285,7 +8898,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9303,25 +8917,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Sawmill",
-   "emitterDisplay": "Sawmill",
-   "emitterGuild": "Industrial",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Sawmill.cs:35",
-    "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9339,7 +8936,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9357,7 +8955,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9375,7 +8974,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9393,7 +8993,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9411,7 +9012,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9429,25 +9031,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Smelter",
-   "emitterDisplay": "Smelter",
-   "emitterGuild": "Industrial",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
-    "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9465,7 +9050,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9483,7 +9069,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9501,7 +9088,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9519,7 +9107,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9537,7 +9126,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9555,7 +9145,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9573,6 +9164,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Healing",
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -9591,7 +9189,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9609,7 +9208,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9627,7 +9227,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9645,7 +9246,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9663,7 +9265,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Composter.cs:13",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate, TriggerType.OnEndOfTurn);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9681,25 +9284,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Graveyard.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred);"
-   }
-  },
-  {
-   "event": "BuildingRemovalOccurred",
-   "listenEvent": "BuildingRemovalOccurred",
-   "emitter": "Sewer",
-   "emitterDisplay": "Sewer",
-   "emitterGuild": "Neutral",
-   "listener": "Apothecary",
-   "listenerDisplay": "Apothecary",
-   "listenerGuild": "Commercial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Sewer.cs:39",
-    "snippet": "MonoSingleton<BuildingController>.Instance.RemoveBuilding(adjacentTile.Building, sewer);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:16",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.OnBuild, TriggerType.BuildingRemovalOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9717,7 +9303,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Workshop.cs:14",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9735,7 +9322,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fortress.cs:15",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9753,7 +9341,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\GuardTower.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingRemovalOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingRemovalOccurred",
@@ -9771,7 +9360,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\JoustingArena.cs:13",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingRemovalOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9789,6 +9379,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -9807,7 +9403,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9825,7 +9422,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9843,6 +9441,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -9861,7 +9465,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9879,7 +9484,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9897,6 +9503,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -9915,7 +9527,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9933,7 +9546,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9951,6 +9565,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -9969,7 +9589,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -9987,7 +9608,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10005,6 +9627,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -10023,7 +9651,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10041,25 +9670,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingTransformationOccurred",
-   "listenEvent": "BuildingTransformationOccurred",
-   "emitter": "TaxCollector",
-   "emitterDisplay": "Tax Collector",
-   "emitterGuild": "Civic",
-   "listener": "Windmill",
-   "listenerDisplay": "Windmill",
-   "listenerGuild": "Agricultural",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\TaxCollector.cs:66",
-    "snippet": "building.TransformBuildingInto(GameTag.HousePlot, taxCollector, building.Values, building.BuildingPaint);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10077,7 +9689,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10095,7 +9708,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10113,6 +9727,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -10131,7 +9751,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10149,7 +9770,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10167,6 +9789,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Crop"
+    ],
+    "tags": []
    }
   },
   {
@@ -10185,7 +9813,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10203,25 +9832,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingTransformationOccurred",
-   "listenEvent": "BuildingTransformationOccurred",
-   "emitter": "CampfireDepleted",
-   "emitterDisplay": "Ash",
-   "emitterGuild": "Frontier",
-   "listener": "Windmill",
-   "listenerDisplay": "Windmill",
-   "listenerGuild": "Agricultural",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\CampfireDepleted.cs:37",
-    "snippet": "depleted.TransformBuildingInto(GameTag.Campfire, depleted, depleted.Values, depleted.BuildingPaint);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10239,7 +9851,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10257,25 +9870,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingTransformationOccurred",
-   "listenEvent": "BuildingTransformationOccurred",
-   "emitter": "Campfire",
-   "emitterDisplay": "Campfire",
-   "emitterGuild": "Frontier",
-   "listener": "Windmill",
-   "listenerDisplay": "Windmill",
-   "listenerGuild": "Agricultural",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Campfire.cs:48",
-    "snippet": "building.TransformBuildingInto(GameTag.CampfireDepleted, building, building.Values, building.BuildingPaint);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10293,7 +9889,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10311,25 +9908,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingTransformationOccurred",
-   "listenEvent": "BuildingTransformationOccurred",
-   "emitter": "Excavation",
-   "emitterDisplay": "Excavation",
-   "emitterGuild": "Frontier",
-   "listener": "Windmill",
-   "listenerDisplay": "Windmill",
-   "listenerGuild": "Agricultural",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Excavation.cs:38",
-    "snippet": "excavation.TransformBuildingInto(GameTag.ExcavationUncovered, excavation, excavation.Values, excavation.BuildingPaint);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10347,7 +9927,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10365,25 +9946,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingTransformationOccurred",
-   "listenEvent": "BuildingTransformationOccurred",
-   "emitter": "CorruptedTower",
-   "emitterDisplay": "Corrupted Tower",
-   "emitterGuild": "Hazard",
-   "listener": "Windmill",
-   "listenerDisplay": "Windmill",
-   "listenerGuild": "Agricultural",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\CorruptedTower.cs:30",
-    "snippet": "randomBuildingInRangeWithCondition.TransformBuildingInto(singleRoll, tower, randomBuildingInRangeWithCondition.Values, randomBuildingInRangeWithCondition.Buildi"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10401,7 +9965,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10419,25 +9984,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingTransformationOccurred",
-   "listenEvent": "BuildingTransformationOccurred",
-   "emitter": "BerryBushEmpty",
-   "emitterDisplay": "Empty Bush",
-   "emitterGuild": "Resource",
-   "listener": "Windmill",
-   "listenerDisplay": "Windmill",
-   "listenerGuild": "Agricultural",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\BerryBushEmpty.cs:37",
-    "snippet": "emptyBush.TransformBuildingInto(GameTag.BerryBush, emptyBush, emptyBush.Values, emptyBush.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Windmill.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.BuildingTransformationOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10455,7 +10003,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Fountain.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnEndOfTurn, TriggerType.BuildingTransformationOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingTransformationOccurred",
@@ -10473,7 +10022,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Brewery.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingTransformationOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10491,7 +10041,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10509,6 +10060,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -10527,7 +10084,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10545,7 +10103,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10563,6 +10122,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -10581,7 +10147,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10599,7 +10166,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10617,6 +10185,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -10635,7 +10209,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10653,7 +10228,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10671,6 +10247,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -10689,7 +10272,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10707,7 +10291,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10725,6 +10310,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -10743,7 +10334,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10761,25 +10353,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "NomadWagon",
-   "emitterDisplay": "Nomad's Wagon",
-   "emitterGuild": "Arcane",
-   "listener": "ToolShed",
-   "listenerDisplay": "Tool Shed",
-   "listenerGuild": "Industrial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\NomadWagon.cs:45",
-    "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.NomadWagon, randomAdjacentTileWithCondition.X, randomAdjacentTileWithCondition."
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10797,7 +10372,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10815,7 +10391,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10833,6 +10410,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -10851,7 +10434,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10869,25 +10453,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "Apothecary",
-   "emitterDisplay": "Apothecary",
-   "emitterGuild": "Commercial",
-   "listener": "ToolShed",
-   "listenerDisplay": "Tool Shed",
-   "listenerGuild": "Industrial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Apothecary.cs:70",
-    "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10905,7 +10472,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10923,7 +10491,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10941,6 +10510,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -10959,7 +10534,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10977,7 +10553,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -10995,6 +10572,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11013,7 +10597,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11031,7 +10616,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11049,6 +10635,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -11067,7 +10659,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11085,7 +10678,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11103,6 +10697,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11121,7 +10722,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11139,25 +10741,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "CorruptedMine",
-   "emitterDisplay": "Corrupted Mine",
-   "emitterGuild": "Hazard",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22",
-    "snippet": "InstantiateAndBuildNatureResourceAt(mine.GetTilesInRange(), allowedTileTypes, GameTag.Rocks, mine);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11175,7 +10760,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11193,25 +10779,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "CorruptedMine",
-   "emitterDisplay": "Corrupted Mine",
-   "emitterGuild": "Hazard",
-   "listener": "ToolShed",
-   "listenerDisplay": "Tool Shed",
-   "listenerGuild": "Industrial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22",
-    "snippet": "InstantiateAndBuildNatureResourceAt(mine.GetTilesInRange(), allowedTileTypes, GameTag.Rocks, mine);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11229,7 +10798,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11247,25 +10817,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "Depot",
-   "emitterDisplay": "Depot",
-   "emitterGuild": "Industrial",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Depot.cs:49",
-    "snippet": "Building building = MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(built.Tag, randomAdjacentTileWithCondition.X, randomAdjacentTileWit"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11283,7 +10836,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11301,6 +10855,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11319,7 +10880,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11337,25 +10899,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "Lumberyard",
-   "emitterDisplay": "Lumberyard",
-   "emitterGuild": "Industrial",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43",
-    "snippet": "if (InstantiateAndBuildNatureResourceAt(sawmill.GetAdjacentTiles(), allowedTileTypes, GameTag.Lumber, sawmill) > 0f)"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11373,7 +10918,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11391,7 +10937,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11409,6 +10956,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11427,7 +10981,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11445,25 +11000,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "Mine",
-   "emitterDisplay": "Mine",
-   "emitterGuild": "Industrial",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Mine.cs:43",
-    "snippet": "if (InstantiateAndBuildNatureResourceAt(mine.GetAdjacentTiles(), allowedTileTypes, GameTag.Ore, mine) > 0f)"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11481,7 +11019,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11499,7 +11038,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11517,6 +11057,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11535,7 +11082,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11553,25 +11101,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "Quarry",
-   "emitterDisplay": "Quarry",
-   "emitterGuild": "Industrial",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\Quarry.cs:46",
-    "snippet": "if (InstantiateAndBuildNatureResourceAt(quarry.GetTilesInRange(), allowedTileTypes, toCreate, quarry) > 0f)"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11589,7 +11120,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11607,7 +11139,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11625,6 +11158,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11643,7 +11183,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11661,25 +11202,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "ShantyTown",
-   "emitterDisplay": "Slums",
-   "emitterGuild": "Industrial",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\ShantyTown.cs:52",
-    "snippet": "instance.InstantiateAndBuildBuildingAt(GameTag.ShantyTown, tile2.X, tile2.Y, playerInitiated: false, triggerOnBuild: true, building);"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11697,7 +11221,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11715,7 +11240,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11733,6 +11259,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11751,7 +11284,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11769,7 +11303,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11787,6 +11322,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -11805,7 +11346,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11823,7 +11365,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11841,6 +11384,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11859,7 +11409,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11877,7 +11428,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11895,6 +11447,12 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Nature"
+    ],
+    "tags": []
    }
   },
   {
@@ -11913,7 +11471,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11931,7 +11490,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11949,6 +11509,13 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
+   },
+   "listenerQualifier": {
+    "cats": [
+     "Engineering",
+     "Woodworking"
+    ],
+    "tags": []
    }
   },
   {
@@ -11967,7 +11534,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -11985,25 +11553,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Harvester.cs:18",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "PirateShip",
-   "emitterDisplay": "Pirate Ship",
-   "emitterGuild": "Rogues",
-   "listener": "Lantern",
-   "listenerDisplay": "Stone Lantern",
-   "listenerGuild": "Frontier",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\PirateShip.cs:48",
-    "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.TreasureChest, randomTileInRangeWithCondition, playerInitiated: false, triggerO"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\Lantern.cs:12",
-    "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred, TriggerType.OnActivate);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -12021,7 +11572,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WitchHut.cs:15",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -12039,25 +11591,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\Depot.cs:17",
     "snippet": "SetValidTriggers(TriggerType.BuildingConstructionOccurred);"
-   }
-  },
-  {
-   "event": "BuildingConstructionOccurred",
-   "listenEvent": "BuildingConstructionOccurred",
-   "emitter": "PirateShip",
-   "emitterDisplay": "Pirate Ship",
-   "emitterGuild": "Rogues",
-   "listener": "ToolShed",
-   "listenerDisplay": "Tool Shed",
-   "listenerGuild": "Industrial",
-   "emitterAnchor": {
-    "line": "Entities.BuildingBehaviours\\PirateShip.cs:48",
-    "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.TreasureChest, randomTileInRangeWithCondition, playerInitiated: false, triggerO"
    },
-   "listenerAnchor": {
-    "line": "Entities.BuildingBehaviours\\ToolShed.cs:15",
-    "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.BuildingConstructionOccurred);"
-   }
+   "listenerQualifier": null
   },
   {
    "event": "BuildingConstructionOccurred",
@@ -12075,7 +11610,8 @@
    "listenerAnchor": {
     "line": "Entities.BuildingBehaviours\\WayStation.cs:21",
     "snippet": "SetValidTriggers(TriggerType.OnActivate, TriggerType.OnBuild, TriggerType.OnEndOfTurn, TriggerType.BuildingConstructionOccurred);"
-   }
+   },
+   "listenerQualifier": null
   }
  ],
  "natureResourceGuildMap": {
@@ -12195,16 +11731,6 @@
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Apothecary.cs:70",
        "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)"
-      }
-     },
-     {
-      "building": "Apothecary",
-      "buildingDisplay": "Apothecary",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Apothecary.cs:90",
-       "snippet": "if (adjacentTiles.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.Herbs)))"
       }
      }
     ],
@@ -12562,16 +12088,6 @@
       }
      },
      {
-      "building": "Forester",
-      "buildingDisplay": "Forester",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Forester.cs:82",
-       "snippet": "if (tilesInRange.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.Trees)))"
-      }
-     },
-     {
       "building": "Grove",
       "buildingDisplay": "Grove",
       "kind": "effectTag",
@@ -12747,16 +12263,6 @@
       "anchor": {
        "line": "Entities.BuildingBehaviours\\FishFarm.cs:49",
        "snippet": "if (InstantiateAndBuildNatureResourceAt(fishFarm.GetTilesInRange(), hashSet, GameTag.Fish, fishFarm) > 0f)"
-      }
-     },
-     {
-      "building": "FishFarm",
-      "buildingDisplay": "Fish Farm",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\FishFarm.cs:69",
-       "snippet": "if (tilesInRange.Contains(tile) && (tile.IsEmpty || (tileBuilding.Data.CanBeBuiltOver && tileBuilding.Tag != GameTag.Fish)))"
       }
      }
     ]
