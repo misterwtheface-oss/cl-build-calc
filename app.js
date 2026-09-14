@@ -90,6 +90,52 @@
     : "";
   const placeholder = (name) => `<span class="ph">${esc((name || "?")[0])}</span>`;
 
+  // ── Interaction → plain English ────────────────────────────────────────────
+  // The extract stores each interaction as raw game params: a `kind`
+  // (targetTag / targetCategory / targetRarity / effectTag / effectCategory), an
+  // internal `value` (a GameTag or GamePieceCategory id), and the decompiled C#
+  // `snippet` it was anchored to. Turn that into a sentence a player can read.
+  const prettyTag = (v) => String(v || "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/_/g, " ").trim();
+  function interValName(it) {
+    const v = it.value;
+    if (/Category$/.test(it.kind) && catById.get(v)) return catById.get(v).name;
+    return (buildingByKey.get(v) || heirloomByKey.get(v) || natureByKey.get(v)
+      || catById.get(v) || {}).name || prettyTag(v);
+  }
+  // Returns HTML (the resolved name is bolded + escaped); do not esc() the result.
+  function describeInteraction(it) {
+    const nm = `<b>${esc(interValName(it))}</b>`;
+    const isCat = /Category$/.test(it.kind);
+    const noun = isCat ? `${nm} buildings` : nm;
+    const s = it.snippet || "";
+
+    if (it.source === "declared") {
+      const bonus = it.score ? ` <span class="i-bonus">+${it.score}</span>` : "";
+      if (it.kind === "targetRarity") return `Wants ${nm}-rarity pieces nearby${bonus}`;
+      if (isCat) return `Wants any ${nm} building nearby${bonus}`;
+      return `Wants ${nm} nearby${bonus}`;
+    }
+    // effect-sourced — infer the verb from the decompiled snippet
+    if (/TransformBuildingInto/.test(s))                       return `Can turn a tile into ${nm}`;
+    if (/InstantiateAndBuild(?:NatureResource|Building)?At/.test(s)) return `Spawns ${nm} on a nearby tile`;
+    if (/AddConsumable/.test(s))                               return `Grants a ${nm} consumable`;
+    if (/GetItemWithTagEquipped|ItemHeirloomController/.test(s)) return `Scales with your equipped ${nm} heirloom(s)`;
+    if (/ScoreSpecialResource/.test(s))                        return `Scores the ${nm} special resource`;
+    if (/RemoveResourceIfPossible/.test(s))                    return `Consumes ${nm}`;
+    if (/CurrentTagCount/.test(s))                             return `Counts how many ${nm} you own`;
+    if (/GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent/.test(s)) return `Counts adjacent ${noun}`;
+    if (/HasAnyBuildingOf(?:Type|Category)Adjacent/.test(s))   return `Activates when a ${nm} is adjacent`;
+    if (/IrrigateAdjacent/.test(s))                            return `Irrigates adjacent ${noun}`;
+    if (/AddLocalStatChange/.test(s))                          return `Buffs adjacent ${noun}`;
+    if (/PaintTag/.test(s))                                    return `Reacts to ${nm}-painted buildings`;
+    if (/GetScoreForTag|^\s*\},\s*Game(?:Tag|PieceCategory)\./.test(s)) return `Scores adjacent ${noun}`;
+    if (/^\s*GameTag\.\w+,?\s*$/.test(s))                      return `Works together with ${nm}`;
+    if (/\.Tag\s*[!=]=|\btag\s*==\s*GameTag|otherBuilding\.Tag|ContainsCategory|Categories\.Contains/.test(s))
+      return `Checks nearby tiles for ${noun}`;
+    return `Interacts with ${noun}`;
+  }
+
   // ── overlap computation ──
   // Why is a building an overlap candidate against the OTHER guild? Any of:
   // cross-targets it, shares an owned functional category, shares an event type,
@@ -98,7 +144,11 @@
     const r = [];
     if (b.interactionGuilds.includes(other.id))
       r.push({ k: "target", g: "⇄", t: `Scores / affects ${other.name} buildings` });
-    const cats = b.ownedFunctional.filter((c) => other.functionalCategories.includes(c));
+    // A shared owned category only counts if something interacts with it (see
+    // catHasInteractor); a surface both guilds merely own is not an association.
+    const selfG = guildById.get(b.guild);
+    const cats = b.ownedFunctional.filter((c) =>
+      other.functionalCategories.includes(c) && catHasInteractor(c, selfG, other));
     if (cats.length) r.push({ k: "cat", g: "▤", t: `Shared category: ${cats.join(", ")}` });
     const evs = b.events.filter((e) => other.events.includes(e));
     if (evs.length) r.push({ k: "event", g: "◆", t: `Shared event: ${evs.map((e) => (eventById.get(e) || {}).name || e).join(", ")}` });
@@ -166,6 +216,18 @@
   const targetsCat = (b, cat) => (b.interactions || []).some((it) => it.value === cat);
   const isOverlap = (b, other) => buildingReasons(b, other).length > 0;
 
+  // A shared owned category is only a REAL association if at least one building
+  // (in either guild) actually interacts with that surface. Two guilds both
+  // OWNING a category but with nothing that targets it is not an interaction —
+  // it's a coincidental shared label, so it must not count as an overlap tag.
+  function catHasInteractor(cat, g1, g2) {
+    for (const g of [g1, g2]) for (const bld of buildingsByGuild.get(g.id) || [])
+      if (targetsCat(bld, cat)) return true;
+    return false;
+  }
+  const validSharedCats = (a, b) =>
+    sharedFunctionalCats(a, b).filter((c) => catHasInteractor(c, a, b));
+
   // Buildings from BOTH guilds that OWN or TARGET a shared category — the members
   // of that trait's overlap section (e.g. crop buildings + buildings that score off crops).
   function overlapBuildingsForCat(cat, a, b) {
@@ -186,7 +248,9 @@
       <p>Choose the other banner to reveal the overlap between the two guilds.</p></div>`;
 
     const combo = comboFor(a.id, b.id) || {};
-    const cats = sharedFunctionalCats(a, b);
+    // Only shared categories that some building actually interacts with — a
+    // surface owned by both guilds but targeted by nothing is not a real tag.
+    const cats = validSharedCats(a, b);
     const sharedEvents = a.events.filter((e) => b.events.includes(e));
     const sharedNature = combo.sharedNature || [];
     const sharedCouncil = (DATA.counselors || []).filter((c) => c.guildReach.includes(a.id) && c.guildReach.includes(b.id));
@@ -432,10 +496,10 @@
     const inter = (b.interactions || []).filter((it) => it.guilds.length);
     const interHTML = inter.length ? `<div class="inter-list">${inter.map((it) => `
       <div class="inter">
-        <div class="i-head"><span class="i-kind">${esc(it.kind)}${it.source ? " · " + esc(it.source) : ""}</span>
-          <span class="i-val">${esc(it.value)}</span>${it.score != null ? ` <span class="i-kind">(+${it.score})</span>` : ""}
-          <span class="i-guilds">${it.guilds.map(guildTag).join("")}</span></div>
-        ${it.snippet ? `<div class="i-snippet">${esc(it.snippet)}</div>` : ""}
+        <div class="i-head">
+          <span class="i-desc"${it.snippet ? ` title="${esc(it.snippet)}"` : ""}>${describeInteraction(it)}</span>
+          <span class="i-guilds">${it.guilds.map(guildTag).join("")}</span>
+        </div>
       </div>`).join("")}</div>` : `<p class="empty-note">No declared cross-piece targets (scores via owned traits / universal modifiers).</p>`;
 
     const events = [

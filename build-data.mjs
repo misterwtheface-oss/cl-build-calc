@@ -41,6 +41,14 @@ const GUILD_IDS = ["Agricultural", "Commercial", "Marine", "Civic",
 const CORE_GUILDS = new Set(["Agricultural", "Commercial", "Marine", "Civic",
   "Industrial", "Martial", "Frontier"]);
 const NON_GUILD_MAJORS = new Set(["Hazard", "Neutral", "Resource", "None"]);
+// Orphan stubs: behaviour classes with no real game identity — no ScriptableObject,
+// no sprite anywhere in the carve, and nothing that spawns, upgrades-into, or drafts
+// them. The player can never place or encounter them, so they don't belong in the calc.
+//   Bakery / Excavation / ExcavationUncovered — have GameTags but CanBeDraftedByPlayer => false.
+//   PaintersStall — worse: constructed as base(GameTag.None), so it has no tag at all
+//     (every real stall — Supplies/Grocer/Deli/Botany — carries its own GameTag).
+// Verified in _cl_extract (Assembly-CSharp/Entities/BuildingBehaviours/*.cs + GameTag.cs).
+const ORPHAN_STUBS = new Set(["Bakery", "Excavation", "ExcavationUncovered", "PaintersStall"]);
 
 // Per-guild accent colour, pulled from the game's actual banner art (green
 // Agricultural, amber Commercial, blue Marine, slate Civic, steel Industrial,
@@ -249,6 +257,7 @@ for (const b of interactions.buildings) {
   const key = b.building;
   if (NON_GUILD_MAJORS.has(b.guild)) continue;          // keep only the 9 guilds
   if (/(?:Empty|Depleted)$/.test(key)) continue;        // transient placement states
+  if (ORPHAN_STUBS.has(key)) continue;                  // non-draftable, no art (see set above)
   const params = bParamByKey.get(key) || {};
   const nm = stringOf(key).name;
   const name = nm || b.display || prettify(key);

@@ -304,11 +304,11 @@ h2, h3 { font-weight: 700; }
   background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
   padding: .4rem .55rem; font-size: .8rem;
 }
-.inter .i-head { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; }
-.inter .i-kind { font-size: .62rem; color: var(--text-dim); text-transform: uppercase; }
-.inter .i-val { font-weight: 700; }
+.inter .i-head { display: flex; flex-wrap: wrap; gap: .35rem .5rem; align-items: baseline; justify-content: space-between; }
+.inter .i-desc { flex: 1 1 60%; font-size: .82rem; line-height: 1.35; }
+.inter .i-desc b { font-weight: 700; }
+.inter .i-bonus { font-size: .68rem; font-weight: 700; color: var(--rar-rare, #5ab); white-space: nowrap; }
 .inter .i-guilds { display: flex; gap: .25rem; flex-wrap: wrap; }
-.inter .i-snippet { font-family: ui-monospace, "Cascadia Code", monospace; font-size: .66rem; color: var(--text-dim); margin-top: .25rem; word-break: break-all; }
 .gtag { font-size: .62rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; background: var(--g-color); color: #fff; }
 
 .detail-users { display: flex; flex-wrap: wrap; gap: .35rem; }
