@@ -111,9 +111,11 @@
   }
   // Returns HTML (the resolved name is bolded + escaped); do not esc() the result.
   function describeInteraction(it) {
-    const nm = `<b>${esc(interValName(it))}</b>`;
+    const rawName = interValName(it);
+    const nm = `<b>${esc(rawName)}</b>`;
     const isCat = /Category$/.test(it.kind);
     const noun = isCat ? `${nm} buildings` : nm;
+    const art = /^[aeiou]/i.test(rawName) ? "an" : "a";   // article for "a/an <name>"
     const s = it.snippet || "";
 
     // The extractor recovers the MAIN action verb a building performs on this
@@ -131,28 +133,36 @@
 
     if (it.source === "declared") {
       const bonus = it.score ? ` <span class="i-bonus">+${it.score}</span>` : "";
-      if (it.kind === "targetRarity") return `Wants ${nm}-rarity pieces nearby${bonus}`;
-      if (isCat) return `Wants any ${nm} building nearby${bonus}`;
-      return `Wants ${nm} nearby${bonus}`;
+      if (it.kind === "targetRarity") return `Scores off adjacent ${nm}-rarity pieces${bonus}`;
+      return `Scores off adjacent ${noun}${bonus}`;
     }
     // effect-sourced — infer the verb from the decompiled snippet
     if (/TransformBuildingInto/.test(s))                       return `Can turn a tile into ${nm}`;
     if (/InstantiateAndBuild(?:NatureResource|Building)?At/.test(s)) return `Spawns ${nm} on a nearby tile`;
-    if (/AddConsumable/.test(s))                               return `Grants a ${nm} consumable`;
+    if (/AddConsumable/.test(s))                               return `Grants ${art} ${nm} consumable`;
     if (/GetItemWithTagEquipped|ItemHeirloomController/.test(s)) return `Scales with your equipped ${nm} heirloom(s)`;
     if (/ScoreSpecialResource/.test(s))                        return `Scores the ${nm} special resource`;
-    if (/RemoveResourceIfPossible/.test(s))                    return `Consumes ${nm}`;
-    if (/CurrentTagCount/.test(s))                             return `Counts how many ${nm} you own`;
-    if (/GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent/.test(s)) return `Counts adjacent ${noun}`;
-    if (/HasAnyBuildingOf(?:Type|Category)Adjacent/.test(s))   return `Activates when a ${nm} is adjacent`;
+    if (/RemoveResourceIfPossible/.test(s))                    return `Consumes an adjacent ${nm}`;
+    if (/CurrentTagCount/.test(s))                             return `Scores for every ${nm} you own`;
+    if (/GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent/.test(s)) return `Scores off each adjacent ${noun}`;
+    if (/HasAnyBuildingOf(?:Type|Category)Adjacent/.test(s))   return `Activates only when ${art} ${nm} is adjacent`;
     if (/IrrigateAdjacent/.test(s))                            return `Irrigates adjacent ${noun}`;
     if (/AddLocalStatChange/.test(s))                          return `Buffs adjacent ${noun}`;
-    if (/PaintTag/.test(s))                                    return `Reacts to ${nm}-painted buildings`;
-    if (/GetScoreForTag|^\s*\},\s*Game(?:Tag|PieceCategory)\./.test(s)) return `Scores adjacent ${noun}`;
+    if (/PaintTag/.test(s))                                    return `Triggers off ${nm}-painted buildings`;
+    if (/GetScoreForTag|^\s*\},\s*Game(?:Tag|PieceCategory)\./.test(s)) return `Scores off adjacent ${noun}`;
     if (/^\s*GameTag\.\w+,?\s*$/.test(s))                      return `Works together with ${nm}`;
     if (/\.Tag\s*[!=]=|\btag\s*==\s*GameTag|otherBuilding\.Tag|ContainsCategory|Categories\.Contains/.test(s))
-      return `Checks nearby tiles for ${noun}`;
+      return `Reacts to a nearby ${nm}`;
     return `Interacts with ${noun}`;
+  }
+  // Which side of the relationship this interaction is: `out` = the building acts on /
+  // scores off the value (it is the interactor); `in` = the building's own activation or
+  // scaling DEPENDS on the value being present (the value interfaces into it). Drives the
+  // two labelled groups in the building detail.
+  const OUT_SNIPPET = /TransformBuildingInto|InstantiateAndBuild|AddConsumable|RemoveResourceIfPossible|ScoreSpecialResource|IrrigateAdjacent|AddLocalStatChange|GetScoreForTag|GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent|CurrentTagCount/;
+  function interactionRole(it) {
+    if (it.action || it.source === "declared") return "out";
+    return OUT_SNIPPET.test(it.snippet || "") ? "out" : "in";
   }
 
   // ── overlap computation ──
@@ -322,7 +332,7 @@
     const natureBlock = block("Shared nature interactions", sharedNature.length
       ? sharedNature.map((n) => natureRowHTML(n, a, b)).join("")
       : `<p class="empty-note">No shared nature-resource interactions.</p>`);
-    const neutralBlock = block("Shared neutral buildings — unowned map structures", sharedNeutral.length
+    const neutralBlock = block("Shared neutral buildings", sharedNeutral.length
       ? sharedNeutral.map((n) => neutralRowHTML(n, a, b)).join("")
       : `<p class="empty-note">No neutral building bridges both guilds.</p>`);
     const councilBlock = block("Shared counselors — votes to focus", sharedCouncil.length
@@ -357,16 +367,24 @@
     return title + tagIndex + overlapBlock + eventBlock + natureBlock + neutralBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}${otherHeirBlock}</div>`;
   }
 
-  // A shared-trait section: the trait banner is the header; tiles are the member
-  // buildings (from either guild) that own or target the trait.
+  // A labelled sub-group of tiles within an overlap section (the two halves of the
+  // interactor / interface split).
+  function ovSubGroup(label, tilesHTML) {
+    return tilesHTML ? `<div class="ov-subgroup"><div class="ov-sub-label">${esc(label)}</div>
+      <div class="tile-grid">${tilesHTML}</div></div>` : "";
+  }
+  // A shared-trait section: headed by the trait banner, then split into the two roles
+  // so it's clear which buildings ACT ON the trait (score off / target it) and which
+  // PROVIDE it (carry the trait as their own surface). A building doing both appears in both.
   function traitSectionHTML(cat, members) {
     const c = catById.get(cat); if (!c) return "";
-    const tiles = members.map((m) => overlapTile(m.bld, m.owns, m.targets)).join("");
+    const interactors = members.filter((m) => m.targets).map((m) => overlapTile(m.bld, false, true)).join("");
+    const carriers = members.filter((m) => m.owns).map((m) => overlapTile(m.bld, true, false)).join("");
     return `<section class="trait-section">
       <div class="trait-section-head" data-action="nav-cat" data-cat="${esc(cat)}"
         style="--aff-color:${esc(c.color)};--aff-text:${textColorFor(c.color)}">
         <span class="ts-name">${esc(c.name)}</span><span class="ts-count">${members.length}</span></div>
-      <div class="tile-grid">${tiles}</div></section>`;
+      ${ovSubGroup(`Score off / act on ${c.name}`, interactors)}${ovSubGroup(`Provide ${c.name}`, carriers)}</section>`;
   }
 
   // Overlap tile — shows which guild it belongs to (badge + coloured border) and
@@ -415,12 +433,13 @@
   // short-named) event, tinted with the interactive accent colour.
   function eventSectionHTML(ev, members) {
     const e = eventById.get(ev) || { name: ev, note: "" };
-    const tiles = members.map((m) => eventTile(m.bld, m.emits, m.listens, m.qualifier)).join("");
+    const emitters = members.filter((m) => m.emits).map((m) => eventTile(m.bld, true, false, null)).join("");
+    const reactors = members.filter((m) => m.listens).map((m) => eventTile(m.bld, false, true, m.qualifier)).join("");
     return `<section class="trait-section event-section">
       <div class="trait-section-head" data-action="detail-event" data-id="${esc(ev)}"
         style="--aff-color:var(--accent);--aff-text:#fff" title="${esc(e.note || "")}">
         <span class="ts-name">${esc(e.name)}</span><span class="ts-count">${members.length}</span></div>
-      <div class="tile-grid">${tiles}</div></section>`;
+      ${ovSubGroup(`Emit ${e.name}`, emitters)}${ovSubGroup(`React to ${e.name}`, reactors)}</section>`;
   }
 
   function sectionHTML(id, title, bodyHTML, count, isPrimary, collapsedDefault) {
@@ -571,13 +590,23 @@
     // "Neutral" major; show just the functional minors it actually carries.
     const owned = isNeutral ? b.ownedMinors : [b.guild, ...b.ownedMinors];
     const inter = (b.interactions || []).filter((it) => it.guilds.length);
-    const interHTML = inter.length ? `<div class="inter-list">${inter.map((it) => `
+    // Two clearly-separated groups: what the building ACTS ON (its targets/effects) vs
+    // what it RESPONDS TO (conditions/scaling that must be present for it to work).
+    const interRow = (it) => `
       <div class="inter">
         <div class="i-head">
           <span class="i-desc"${it.snippet ? ` title="${esc(it.snippet)}"` : ""}>${describeInteraction(it)}</span>
           <span class="i-guilds">${it.guilds.map(guildTag).join("")}</span>
         </div>
-      </div>`).join("")}</div>` : `<p class="empty-note">No declared cross-piece targets (scores via owned traits / universal modifiers).</p>`;
+      </div>`;
+    const interGroup = (title, list) => list.length
+      ? `<div class="d-section"><h3>${esc(title)}</h3><div class="inter-list">${list.map(interRow).join("")}</div></div>` : "";
+    const actsOn = inter.filter((it) => interactionRole(it) === "out");
+    const respondsTo = inter.filter((it) => interactionRole(it) === "in");
+    const interHTML = (actsOn.length || respondsTo.length)
+      ? interGroup("Acts on — pieces it scores off / affects", actsOn)
+        + interGroup("Responds to — must be present for it to work", respondsTo)
+      : `<div class="d-section"><h3>Interacts with</h3><p class="empty-note">No declared cross-piece targets (scores via owned traits / universal modifiers).</p></div>`;
 
     const events = [
       ...b.emits.map((e) => ({ e, dir: "emits" })),
@@ -595,14 +624,14 @@
       <div class="detail-hero">
         <span class="d-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
         <div class="d-meta"><h2>${esc(b.name)}</h2>
-          <div class="d-tags">${isNeutral ? `<span class="pill neutral-pill">Neutral · unowned</span>` : guildTag(b.guild)}<span class="pill rarity" style="color:var(--rar-${rarLower(b.rarity)})">${esc(b.rarity || "—")}</span></div>
+          <div class="d-tags">${isNeutral ? `<span class="pill neutral-pill">Neutral</span>` : guildTag(b.guild)}<span class="pill rarity" style="color:var(--rar-${rarLower(b.rarity)})">${esc(b.rarity || "—")}</span></div>
         </div></div>
       ${b.descHTML ? `<div class="d-desc">${b.descHTML}</div>` : ""}
       <div class="d-section"><h3>Owned categories — its targetable surface</h3>
         <div class="trait-list">${owned.map((c) => traitBanner(c)).join("")}</div></div>
       ${isNeutral && (b.reachesGuilds || []).length ? `<div class="d-section"><h3>Guilds that interact with it</h3>
         <div class="d-tags">${b.reachesGuilds.map(guildTag).join("")}</div></div>` : ""}
-      <div class="d-section"><h3>Interacts with</h3>${interHTML}</div>
+      ${interHTML}
       ${eventsHTML ? `<div class="d-section"><h3>Events (▲ emits · ▼ listens)</h3>${eventsHTML}</div>` : ""}`);
   }
 

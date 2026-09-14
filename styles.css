@@ -118,6 +118,10 @@ h2, h3 { font-weight: 700; }
 .trait-section-head:hover { filter: brightness(1.08); }
 .trait-section-head .ts-count { margin-left: auto; font-size: .72rem; opacity: .9; background: rgba(0,0,0,.2); border-radius: 10px; padding: 0 .5rem; }
 .trait-section .tile-grid { padding: .55rem; }
+/* interactor / interface split inside an overlap section */
+.ov-subgroup + .ov-subgroup { border-top: 1px dashed var(--border); }
+.ov-sub-label { font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700;
+  color: var(--text-muted); padding: .45rem .7rem 0; }
 .rest-wrap { margin-top: .5rem; }
 /* overlap tile carries its guild identity: coloured left border + badge corner */
 .tile.ov { border-left: 3px solid var(--g-color); }
@@ -253,7 +257,8 @@ h2, h3 { font-weight: 700; }
 #appendix-root { z-index: 150; }
 #detail-overlay-root { z-index: 200; }
 #overlay-root.hidden, #appendix-root.hidden, #detail-overlay-root.hidden { display: none; }
-#appendix-root .overlay-panel { width: 92vw; max-width: 560px; max-height: 88vh; }
+/* Fixed height so the panel never resizes/jumps as the result list shrinks under a filter. */
+#appendix-root .overlay-panel { width: 92vw; max-width: 560px; height: 88vh; max-height: 88vh; }
 
 /* ═══ APPENDIX (searchable index of every detail page) ═══ */
 .apx-body { flex-direction: column; }
