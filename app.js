@@ -52,6 +52,8 @@
     pair: load(),        // [guildIdA|null, guildIdB|null]
     ovl: null,           // { side, pending } while the guild selector is open
     collapsed: new Set(),// section ids the user has collapsed
+    detailGlobal: false, // category/event detail scope: false = the active pair, true = ALL guilds
+                         // (set true when a detail is opened from the Appendix global search)
   };
 
   function load() {
@@ -614,15 +616,22 @@
       ${c.milestones.length ? `<div class="d-section"><h3>Vote rewards</h3><div class="inter-list">${c.milestones.map((m) => `<div class="inter"><div class="i-head"><span class="i-kind">${m.votes} votes</span><span class="i-val">${esc(m.reward)}</span></div></div>`).join("")}</div></div>` : ""}`);
   }
 
-  // Category detail: which guilds share it, and (if a pair is active) which
-  // buildings in each selected guild OWN or TARGET it.
+  // Guilds a category/event detail lists building members for. Opened from the
+  // main page it is SCOPED to the two active guilds (showing "None." where empty
+  // so the pair reads consistently). Opened from the Appendix global search
+  // (state.detailGlobal) it spans ALL guilds, omitting guilds with no members.
+  const detailScopeGuilds = () => state.detailGlobal
+    ? (DATA.guilds || [])
+    : state.pair.map((x) => (x ? guildById.get(x) : null)).filter(Boolean);
+
+  // Category detail: which guilds share it, and which buildings OWN or TARGET it.
   function openCategoryDetail(id) {
     const c = catById.get(id); if (!c) return;
-    const [a, b] = state.pair.map((x) => (x ? guildById.get(x) : null));
     const usersFor = (g) => {
       if (!g) return "";
       const owners = (buildingsByGuild.get(g.id) || []).filter((x) => x.ownedMinors.includes(id) || x.guild === id);
       const targeters = (buildingsByGuild.get(g.id) || []).filter((x) => (x.interactions || []).some((it) => it.value === id));
+      if (state.detailGlobal && !owners.length && !targeters.length) return ""; // global view omits guilds with nothing
       const list = (arr) => arr.length ? `<div class="detail-users">${arr.map((x) => `<span class="u" data-action="detail-building" data-key="${esc(x.key)}">${x.sprite ? iconImg(x.sprite) : ""}${esc(x.name)}</span>`).join("")}</div>` : `<p class="empty-note">None.</p>`;
       return `<div class="d-section"><h3>${esc(g.name)} — owns it</h3>${list(owners)}</div>
         <div class="d-section"><h3>${esc(g.name)} — targets it</h3>${list(targeters)}</div>`;
@@ -633,21 +642,21 @@
         <div class="c-theme" style="margin-top:.4rem">${c.kind === "guild" ? "Guild category" : c.kind === "resource" ? "Resource category" : "Functional category"}</div>
       </div></div>
       ${c.guildsSharing.length ? `<div class="d-section"><h3>Guilds carrying this category</h3><div class="d-tags">${c.guildsSharing.map(guildTag).join("")}</div></div>` : ""}
-      ${usersFor(a)}${usersFor(b)}`);
+      ${detailScopeGuilds().map(usersFor).join("")}`);
   }
 
   function openEventDetail(id) {
     const ev = eventById.get(id) || { name: id, note: "" };
-    const [a, b] = state.pair.map((x) => (x ? guildById.get(x) : null));
     const sideFor = (g) => {
       if (!g) return "";
       const emit = (buildingsByGuild.get(g.id) || []).filter((x) => x.emits.includes(id));
       const listen = (buildingsByGuild.get(g.id) || []).filter((x) => x.listens.includes(id));
+      if (state.detailGlobal && !emit.length && !listen.length) return ""; // global view omits guilds with nothing
       const list = (arr) => arr.length ? `<div class="detail-users">${arr.map((x) => `<span class="u" data-action="detail-building" data-key="${esc(x.key)}">${x.sprite ? iconImg(x.sprite) : ""}${esc(x.name)}</span>`).join("")}</div>` : `<p class="empty-note">None.</p>`;
       return `<div class="d-section"><h3>${esc(g.name)} — ▲ emits</h3>${list(emit)}</div>
         <div class="d-section"><h3>${esc(g.name)} — ▼ listens</h3>${list(listen)}</div>`;
     };
-    renderDetail(esc(ev.name), `${ev.note ? `<div class="d-desc">${esc(ev.note)}</div>` : ""}${sideFor(a)}${sideFor(b)}`);
+    renderDetail(esc(ev.name), `${ev.note ? `<div class="d-desc">${esc(ev.note)}</div>` : ""}${detailScopeGuilds().map(sideFor).join("")}`);
   }
 
   function openNatureDetail(tag) {
@@ -731,6 +740,9 @@
   function onAppendixClick(e) {
     const el = e.target.closest("[data-action]");
     if (!el) { if (e.target.id === "appendix-root") closeAppendix(); return; }
+    // Appendix is a GLOBAL search — details opened from it span all guilds, not
+    // the active pair. onDetailClick preserves this while navigating within.
+    state.detailGlobal = true;
     switch (el.dataset.action) {
       case "close-appendix": closeAppendix(); break;
       // A result opens its detail page on the layer above; appendix stays open.
@@ -746,6 +758,8 @@
   // ═══════════════════════════════════ EVENT DELEGATION ══════════════════════
   function onAppClick(e) {
     const el = e.target.closest("[data-action]"); if (!el) return;
+    // Details opened from the main page are scoped to the active pair.
+    state.detailGlobal = false;
     switch (el.dataset.action) {
       case "open-guild": openGuildSelector(Number(el.dataset.side)); break;
       case "clear": state.pair = [null, null]; persist(); renderApp(); break;
