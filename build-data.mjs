@@ -86,6 +86,8 @@ const RARITY_RANK = { Common: 0, Uncommon: 1, Rare: 2, Masterwork: 3, Legendary:
 const rarityRank = (r) => (r in RARITY_RANK ? RARITY_RANK[r] : 99);
 
 // Event vocabulary — the trigger-driven links buildings share (emit/listen).
+// EVENT_META = the full sentence (detail overlay + tooltip); EVENT_LABEL = the
+// short chip/section-header name (drop the "Building…Occurred" scaffolding).
 const EVENT_META = {
   RerollGained: "A reroll is granted",
   RemoveGained: "A remove is granted",
@@ -96,6 +98,17 @@ const EVENT_META = {
   ScoringOccurred: "A building scores",
   ConsumableUsed: "A consumable is used",
   OnRemove: "This building is itself removed",
+};
+const EVENT_LABEL = {
+  RerollGained: "Reroll Gained",
+  RemoveGained: "Remove Gained",
+  BuildingRemovalOccurred: "Removal",
+  BuildingConstructionOccurred: "Construction",
+  BuildingTransformationOccurred: "Transformation",
+  MoneyEarned: "Gold Earned",
+  ScoringOccurred: "Scoring",
+  ConsumableUsed: "Consumable Used",
+  OnRemove: "Self Removed",
 };
 
 // ── load source ───────────────────────────────────────────────────────────
@@ -108,7 +121,10 @@ const edges = readJSON("guild_edges.json");
 const interactions = readJSON("building_interactions.json");
 
 const bParamByKey = new Map(bParams.map((b) => [b.className, b]));
+const iParamByKey = new Map(iParams.map((i) => [i.className, i]));
 const stringOf = (key) => strings[key] || {};
+const escHTML = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 // ── text helpers ──────────────────────────────────────────────────────────
 const prettify = (k) => String(k).replace(/([a-z])([A-Z])/g, "$1 $2").trim();
@@ -259,7 +275,7 @@ for (const b of interactions.buildings) {
     emits: (b.emitsEvents || []).map((e) => e.event),
     listens: (b.listensForEvents || []).map((e) => e.event),
     sprite: resolveBuildingSprite(key, b.owned?.gameTag, name),
-    desc: cleanDesc(stringOf(key).description),
+    _rawDesc: stringOf(key).description || "",   // expanded into desc/descHTML below
   });
 }
 buildings.forEach((b) => { if (!b.sprite) warnings.push(`building "${b.key}" -> no sprite (placeholder)`); });
@@ -303,7 +319,7 @@ for (const it of iParams) {
     reachesCategories, reachesGuilds,
     passive: !!it.paramOnly || it.hasRealTrigger === false,
     sprite: resolveItemSprite(key),
-    desc: cleanDesc(stringOf(key).description),
+    _rawDesc: stringOf(key).description || "",   // expanded into desc/descHTML below
   });
 }
 heirlooms.forEach((h) => { if (!h.sprite) warnings.push(`heirloom "${h.key}" -> no sprite (placeholder)`); });
@@ -325,6 +341,156 @@ for (const [name, c] of Object.entries(council.counselors || {})) {
     sprite,
   });
 }
+
+// ── description [Token] DSL → bold, clickable keywords ────────────────────
+// entity_strings descriptions use a [Token] / {directive:} DSL. In-game each
+// value token ([Cooldown], [BaseScore]…) is swapped for the piece's LIVE
+// computed number; we inject the real value from the piece's params where we
+// have it and fall back to naming the stat otherwise. Category / entity /
+// counselor / nature tokens become <b> keywords that OPEN the matching detail
+// overlay (data-action reuses the same dispatch as the rest of the UI).
+// Family tokens ([TagScore<Tag>], [CategoryScore<Cat>]…) render the per-target
+// score. See _cl_extract/labels.json for the authoritative dictionary.
+
+// clickable-resolution sets (built from the finished entity arrays)
+const _catIds        = new Set(categories.map((c) => c.id));
+const _counselorSet  = new Set(counselors.map((c) => c.name));
+const _buildingKeys  = new Set(buildings.map((b) => b.key));
+const _heirloomKeys  = new Set(heirlooms.map((h) => h.key));
+const _natureByTag   = new Map(natureResources.map((n) => [n.key, n]));
+const _nameByKey     = new Map(Object.entries(strings)
+  .filter(([, v]) => v && v.name).map(([k, v]) => [k, v.name]));
+
+// value token → param field(s) to read (buildings & items name a few fields
+// differently, so try each in order); + how to phrase it when the value is null.
+const VALUE_FIELDS = {
+  Cooldown: ["cooldown", "cooldownParam"], CooldownParam: ["cooldown", "cooldownParam"],
+  Range: ["range"], BaseScore: ["baseScore", "scoreParam"],
+  Mult: ["multiplier", "behaviourMultiplier"], mult: ["multiplier", "behaviourMultiplier"],
+  MultParam: ["multParam"], ActivationCount: ["activationCount"],
+  PercentageChance: ["activationChance"], Percentage2Chance: ["activationChance"],
+  MoneyCount: ["moneyParam"], RerollCount: ["rerollsCount", "rerollsCountParam"],
+  RemoveCount: ["removesCount", "removesCountParam"],
+  DismissCount: ["dismissesCount", "dismissesCountParam"],
+  EnchantmentParam: ["enchantParam"], RangeModificationParam: ["rangeMod", "rangeModificationParam"],
+  CooldownModificationParam: ["cooldownMod", "cooldownModificationParam"],
+};
+const VALUE_NAME = {
+  Cooldown: "cooldown", CooldownParam: "cooldown", Range: "range", BaseScore: "base score",
+  Mult: "multiplier", mult: "multiplier", MultParam: "multiplier bonus",
+  ActivationCount: "activation count", PercentageChance: "chance", Percentage2Chance: "secondary chance",
+  MoneyCount: "gold", RerollCount: "rerolls", RemoveCount: "removes", DismissCount: "dismisses",
+  EnchantmentParam: "enchantment", RangeModificationParam: "range modifier",
+  CooldownModificationParam: "cooldown modifier", TriggerCountModificationParam: "trigger-count modifier",
+  QuestAmount: "quest amount", QuestAmountPoints: "quest points",
+};
+const RESOURCE_TOK = {
+  Gold: "Gold", Blueprint: "Blueprint", Heirloom: "Heirloom", Heirlooms: "Heirlooms",
+  Reroll: "Reroll", Remove: "Remove", Dismiss: "Dismiss", Potion: "Potion",
+  CouncilVote: "Council Vote", BuildingUpgrade: "Building Upgrade", Consumable: "Consumable",
+  TotalHeirloomSellValueSum: "total heirloom sell value",
+};
+const PAINT_TOK = {
+  BsRainbowPaint: "Rainbow Paint", BsSpectralPaint: "Spectral Paint", BsNegBlackPaint: "Black Paint",
+  BsStatModMult: "+Multiplier mod", BsStatModCooldown: "−Cooldown mod", BsStatModRange: "+Range mod",
+  BsNegCooldown: "+Cooldown mod", BsNegRange: "−Range mod",
+};
+const RARITIES = new Set(["Common", "Uncommon", "Rare", "Masterwork", "Legendary"]);
+const TILETYPES = new Set(["Grass", "Sand", "Shore", "Ocean"]);
+const tokWarn = new Set(); // unresolved tokens → one warning each
+
+const firstVal = (p, fields) => {
+  if (!p) return null;
+  for (const f of fields) if (p[f] != null) return p[f];
+  return null;
+};
+const num = (v) => (Number.isInteger(v) ? String(v) : String(+(+v).toFixed(2)));
+function fmtValue(tok, v) {
+  if (tok === "MultParam") return `+${num(v)}×`;
+  if (tok === "Mult" || tok === "mult") return `×${num(v)}`;
+  if (tok === "PercentageChance" || tok === "Percentage2Chance") return `${Math.round(v * 100)}%`;
+  if (tok === "MoneyCount") return `${num(v)} gold`;
+  if (tok === "BaseScore") return `+${num(v)}`;
+  if (/Modification/.test(tok)) return `${v >= 0 ? "+" : ""}${num(v)}`;
+  return num(v);
+}
+const kw = (text, cls, attrs = "") => `<b class="tok ${cls}"${attrs}>${escHTML(text)}</b>`;
+const scoreOf = (list, key, val) =>
+  (list || []).map((t) => (typeof t === "string" ? { [key]: t } : t))
+    .find((t) => (t[key] ?? t.tag ?? t.category) === val)?.score;
+
+function resolveToken(tok, p) {
+  // location qualifiers
+  if (tok === "Adjacent") return kw("adjacent", "tok-loc");
+  if (tok === "Connected") return kw("connected", "tok-loc");
+  if (tok === "InRange") { const r = firstVal(p, ["range"]); return kw(r != null ? `in range ${r}` : "in range", "tok-loc"); }
+  // family score tokens (suffix = a Category / Tag / TileType / Rarity name)
+  let m;
+  if ((m = /^CategoryScore(.+)$/.exec(tok))) {
+    if (m[1] === "Primary") { const s = scoreOf(p?.targetCategories, "category", (p?.targetCategories || [])[0]?.category); return kw(s != null ? `+${s}` : "points", "tok-val"); }
+    const s = scoreOf(p?.targetCategories, "category", m[1]); return kw(s != null ? `+${s}` : "points", "tok-val");
+  }
+  if ((m = /^TagScore(.+)$/.exec(tok)))      { const s = scoreOf(p?.targetTags, "tag", m[1]);            return kw(s != null ? `+${s}` : "points", "tok-val"); }
+  if ((m = /^TileTypeScore(.+)$/.exec(tok))) { const s = scoreOf(p?.targetTileTypes, "tileType", m[1]);  return kw(s != null ? `+${s}` : "points", "tok-val"); }
+  if ((m = /^RarityScore(.+)$/.exec(tok)))   { const s = scoreOf(p?.targetRarities, "rarity", m[1]);     return kw(s != null ? `+${s}` : "points", "tok-val"); }
+  if (tok === "TargetCategory1" || tok === "TargetCategory2") {
+    const c = (p?.targetCategories || []).map((t) => (typeof t === "string" ? t : t.category))[tok.endsWith("1") ? 0 : 1];
+    return c ? catKeyword(c) : kw("target category", "tok-val");
+  }
+  if (tok === "QuestTargetCategory") return kw("target category", "tok-val");
+  // value tokens — inject the piece's real number, else name the stat
+  if (tok in VALUE_FIELDS || tok in VALUE_NAME) {
+    const v = firstVal(p, VALUE_FIELDS[tok] || []);
+    return v != null ? kw(fmtValue(tok, v), "tok-val") : kw(VALUE_NAME[tok] || prettify(tok), "tok-val");
+  }
+  // fixed vocab
+  if (RARITIES.has(tok)) return kw(tok, "tok-rar");
+  if (TILETYPES.has(tok)) return kw(tok, "tok-tile");
+  if (tok in RESOURCE_TOK) return kw(RESOURCE_TOK[tok], "tok-res");
+  if (tok in PAINT_TOK) return kw(PAINT_TOK[tok], "tok-paint");
+  // clickable entities
+  if (_counselorSet.has(tok)) return kw(tok, "tok-link tok-counselor", ` data-action="detail-counselor" data-name="${escHTML(tok)}"`);
+  if (_catIds.has(tok)) return catKeyword(tok);
+  if (_natureByTag.has(tok)) { const n = _natureByTag.get(tok); return kw(n.name, "tok-link tok-nature", ` data-action="detail-nature" data-key="${escHTML(tok)}"`); }
+  if (_buildingKeys.has(tok)) return kw(_nameByKey.get(tok) || prettify(tok), "tok-link tok-piece", ` data-action="detail-building" data-key="${escHTML(tok)}"`);
+  if (_heirloomKeys.has(tok)) return kw(_nameByKey.get(tok) || prettify(tok), "tok-link tok-piece", ` data-action="detail-heirloom" data-key="${escHTML(tok)}"`);
+  if (_nameByKey.has(tok)) return kw(_nameByKey.get(tok), "tok-piece"); // known name, no detail page (transient state, cut piece)
+  tokWarn.add(tok);
+  return kw(prettify(tok), "tok-misc");
+}
+function catKeyword(id) {
+  if (/^RandomCategory\d*$/.test(id)) return kw("category", "tok-cat"); // source already says "a random …"
+  const c = catById.get(id);
+  if (!c) return kw(prettify(id), "tok-cat"); // not a real category → bold, non-clickable
+  return kw(c.name, "tok-link tok-cat", ` data-action="nav-cat" data-cat="${escHTML(id)}"`);
+}
+
+function expandDesc(raw, p) {
+  if (!raw) return "";
+  let s = escHTML(raw);
+  s = s.replace(/\[BREAK\]/g, "<br>");             // hard line breaks
+  s = s.replace(/\s*@\s*/g, " ");                   // effect-clause marker → space
+  // trigger / directive clauses {…}. Braces are occasionally unbalanced in the
+  // source, so match only well-formed inner clauses and drop any stray braces.
+  s = s.replace(/\{([^{}]*)\}/g, (_, inner) => `<em class="d-clause">${inner.trim()}</em>`);
+  s = s.replace(/[{}]/g, "");
+  // expand every remaining [Token] (also those nested inside the <em> clauses)
+  s = s.replace(/\[([A-Za-z0-9]+)\]/g, (_, tok) => resolveToken(tok, p));
+  return s.replace(/[ \t]+/g, " ").replace(/\s+<br>\s*/g, "<br>").trim();
+}
+const stripTags = (h) => h.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+
+for (const b of buildings) {
+  b.descHTML = expandDesc(b._rawDesc, bParamByKey.get(b.key));
+  b.desc = stripTags(b.descHTML);
+  delete b._rawDesc;
+}
+for (const h of heirlooms) {
+  h.descHTML = expandDesc(h._rawDesc, iParamByKey.get(h.key));
+  h.desc = stripTags(h.descHTML);
+  delete h._rawDesc;
+}
+if (tokWarn.size) warnings.push(`description DSL: ${tokWarn.size} unmapped token(s) rendered as plain text: ${[...tokWarn].sort().join(", ")}`);
 
 // ── per-guild rollups (used by the client to compute overlap) ─────────────
 const guilds = GUILD_IDS.map((id) => {
@@ -385,7 +551,7 @@ const universalModifiers = (interactions.universalAdjacencyModifiers || []).map(
 
 // ── events ────────────────────────────────────────────────────────────────
 const usedEvents = new Set(buildings.flatMap((b) => b.events));
-const events = [...usedEvents].map((id) => ({ id, name: prettify(id), note: EVENT_META[id] || "" }));
+const events = [...usedEvents].map((id) => ({ id, name: EVENT_LABEL[id] || prettify(id), note: EVENT_META[id] || "" }));
 
 // ── reference guardrails ──────────────────────────────────────────────────
 for (const b of buildings) {

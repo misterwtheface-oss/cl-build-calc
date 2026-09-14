@@ -207,6 +207,16 @@
       ? `<div class="overlap-wrap"><h3 class="centre-h">Overlapping buildings — by shared trait</h3>${overlap}</div>`
       : block("Overlapping buildings", `<p class="empty-note">No shared functional categories.</p>`);
 
+    // overlap buildings grouped by shared EVENT — same treatment as traits
+    let eventOverlap = "";
+    for (const ev of sharedEvents) {
+      const members = overlapBuildingsForEvent(ev, a, b);
+      if (members.length) eventOverlap += eventSectionHTML(ev, members);
+    }
+    const eventBlock = eventOverlap
+      ? `<div class="overlap-wrap"><h3 class="centre-h">Overlapping buildings — by shared event</h3>${eventOverlap}</div>`
+      : block("Shared events", `<p class="empty-note">No shared event links.</p>`);
+
     const natureBlock = block("Shared nature interactions", sharedNature.length
       ? sharedNature.map((n) => natureRowHTML(n, a, b)).join("")
       : `<p class="empty-note">No shared nature-resource interactions.</p>`);
@@ -229,7 +239,7 @@
         others.length + heirs.length, false, true);
     }).join("");
 
-    return title + tagIndex + overlapBlock + natureBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}</div>`;
+    return title + tagIndex + overlapBlock + eventBlock + natureBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}</div>`;
   }
 
   // A shared-trait section: the trait banner is the header; tiles are the member
@@ -245,12 +255,10 @@
   }
 
   // Overlap tile — shows which guild it belongs to (badge + coloured border) and
-  // whether it owns (▤) or targets (⇄) the trait.
-  function overlapTile(b, owns, targets) {
+  // one or more "reason" markers (why it's in this section). Shared by the trait
+  // sections (owns ▤ / targets ⇄) and the event sections (emits ▲ / listens ▼).
+  function ovTile(b, rs) {
     const g = guildById.get(b.guild) || {};
-    const rs = [];
-    if (owns) rs.push({ k: "cat", g: "▤", t: `${b.guild} building carrying this trait` });
-    if (targets) rs.push({ k: "target", g: "⇄", t: "Scores off / targets this trait" });
     return `<div class="tile ov" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)} (${esc(b.guild)})" style="--g-color:${esc(g.color)}">
       ${g.badge ? `<img class="tile-guild" src="${esc(g.badge)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
       <span class="rar-dot" style="background:var(--rar-${rarLower(b.rarity)})" title="${esc(b.rarity || "—")}"></span>
@@ -258,6 +266,40 @@
       <span class="tile-name">${esc(b.name)}</span>
       <span class="reasons">${rs.map((r) => `<span class="reason r-${r.k}" title="${esc(r.t)}">${r.g}</span>`).join("")}</span>
     </div>`;
+  }
+  function overlapTile(b, owns, targets) {
+    const rs = [];
+    if (owns) rs.push({ k: "cat", g: "▤", t: `${b.guild} building carrying this trait` });
+    if (targets) rs.push({ k: "target", g: "⇄", t: "Scores off / targets this trait" });
+    return ovTile(b, rs);
+  }
+  // Event overlap tile — emits ▲ / listens ▼ for the section's event.
+  function eventTile(b, emits, listens) {
+    const rs = [];
+    if (emits) rs.push({ k: "event", g: "▲", t: "Emits this event" });
+    if (listens) rs.push({ k: "event", g: "▼", t: "Listens for this event" });
+    return ovTile(b, rs);
+  }
+  // Buildings from BOTH guilds that emit or listen for a shared event — the
+  // members of that event's overlap section (mirrors overlapBuildingsForCat).
+  function overlapBuildingsForEvent(ev, a, b) {
+    const out = [];
+    for (const g of [a, b]) for (const bld of buildingsByGuild.get(g.id) || []) {
+      const emits = (bld.emits || []).includes(ev), listens = (bld.listens || []).includes(ev);
+      if (emits || listens) out.push({ bld, emits, listens });
+    }
+    return out.sort((x, y) => (x.bld.rarityRank - y.bld.rarityRank) || x.bld.name.localeCompare(y.bld.name));
+  }
+  // An event section — same shape as a trait section but headed by the (now
+  // short-named) event, tinted with the interactive accent colour.
+  function eventSectionHTML(ev, members) {
+    const e = eventById.get(ev) || { name: ev, note: "" };
+    const tiles = members.map((m) => eventTile(m.bld, m.emits, m.listens)).join("");
+    return `<section class="trait-section event-section">
+      <div class="trait-section-head" data-action="detail-event" data-id="${esc(ev)}"
+        style="--aff-color:var(--accent);--aff-text:#fff" title="${esc(e.note || "")}">
+        <span class="ts-name">${esc(e.name)}</span><span class="ts-count">${members.length}</span></div>
+      <div class="tile-grid">${tiles}</div></section>`;
   }
 
   function sectionHTML(id, title, bodyHTML, count, isPrimary, collapsedDefault) {
@@ -410,7 +452,7 @@
         <div class="d-meta"><h2>${esc(b.name)}</h2>
           <div class="d-tags">${guildTag(b.guild)}<span class="pill rarity" style="color:var(--rar-${rarLower(b.rarity)})">${esc(b.rarity || "—")}</span></div>
         </div></div>
-      ${b.desc ? `<div class="d-desc">${esc(b.desc)}</div>` : ""}
+      ${b.descHTML ? `<div class="d-desc">${b.descHTML}</div>` : ""}
       <div class="d-section"><h3>Owned categories — its targetable surface</h3>
         <div class="trait-list">${owned.map((c) => traitBanner(c)).join("")}</div></div>
       <div class="d-section"><h3>Interacts with</h3>${interHTML}</div>
@@ -427,7 +469,7 @@
           <span class="pill rarity" style="color:var(--rar-${rarLower(h.rarity)})">${esc(h.rarity || "—")}</span>
           ${h.passive ? `<span class="pill">passive</span>` : ""}</div>
         </div></div>
-      ${h.desc ? `<div class="d-desc">${esc(h.desc)}</div>` : ""}
+      ${h.descHTML ? `<div class="d-desc">${h.descHTML}</div>` : ""}
       ${h.targetCategories.length ? `<div class="d-section"><h3>Targets categories</h3>
         <div class="trait-list">${h.targetCategories.map((c) => traitBanner(c)).join("")}</div></div>` : ""}
       ${h.reachesGuilds.length ? `<div class="d-section"><h3>Reaches guilds</h3>
@@ -543,6 +585,7 @@
       case "detail-heirloom": openHeirloomDetail(el.dataset.key); break;
       case "detail-counselor": openCounselorDetail(el.dataset.name); break;
       case "detail-event": openEventDetail(el.dataset.id); break;
+      case "detail-nature": openNatureDetail(el.dataset.key); break;
       case "nav-cat": openCategoryDetail(el.dataset.cat); break;
     }
   }

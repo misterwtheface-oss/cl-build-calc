@@ -26,7 +26,6 @@ universal-modifier section (P1).
       **universal adjacency modifiers** (Campfire/Obelisk/Wall/Town Bell…)
 - [ ] Better heirloom↔pair resolution (count target *tags*, not only categories)
       and show heirloom↔building synergy within a pair
-- [ ] Expand `[Token]` description DSL to readable text (wire in labels.json)
 - [ ] Raise sprite join rate (see Known issues)
 
 ### Later (P2)
@@ -39,6 +38,20 @@ universal-modifier section (P1).
 - [x] Skeleton scaffolded, P0 comparison flow runnable (2026-09-13)
 - [x] build-data.mjs data contract + hygiene guardrails (2026-09-13)
 - [x] Game-derived parchment/gold palette with per-guild banner colours (2026-09-13)
+- [x] **`[Token]` description DSL → bold, clickable keywords** (2026-09-13). All 205
+      description tokens map to plain language: value tokens ([Cooldown], [BaseScore],
+      [MultParam], score families…) inject the piece's REAL number from its `*_params`
+      (247/295 injected; 48 fall back to the stat name where the value is computed in a
+      code override); category/nature/building/counselor tokens become links that open
+      the matching detail overlay; {directive:} clauses render italic, [BREAK]→line
+      break. `build-data.mjs::expandDesc()` emits `descHTML` per building/heirloom;
+      dictionary documented in `_cl_extract/labels.json` (descriptionTokens).
+- [x] **Overlap sections by shared EVENT** (2026-09-13), mirroring the shared-trait
+      sections: one section per shared event, headed by the event, holding buildings
+      from both guilds that emit (▲) / listen (▼). Event names shortened to the middle
+      word (`EVENT_LABEL` in build-data.mjs): Building*Occurred → Removal / Construction
+      / Transformation, ScoringOccurred → Scoring, OnRemove → Self Removed, etc.; the
+      full sentence stays in `.note` for the detail overlay + tooltip.
 
 ## Known issues / warnings
 - **~28 building sprites unresolved** → text-letter placeholder (AppleOrchard,
@@ -54,7 +67,8 @@ universal-modifier section (P1).
   pieces so they're kept, not excluded.
 - Cross-targeting is from *base* target tags only; conditional overrides + dynamic
   granters mean real in-play overlap can exceed what's shown (documented, P1).
-- Full description `[Token]` DSL is only lightly cleaned (P1).
+- 48 value tokens render the stat name (not a number) because that piece computes the
+  value in a code override (null in `*_params`) — same open item as the base-tag limit.
 
 ## Session log
 - 2026-09-13 (2): Layout revision per user. **Only the 7 core guilds are
