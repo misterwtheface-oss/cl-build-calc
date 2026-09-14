@@ -272,12 +272,42 @@ function buildRecord(b) {
   // internal effect tags (BsStatMod*, paints) that resolve to nothing. `action` is
   // the main verb the building performs on the value (remove/transform/buff/…),
   // recovered by the extractor so the detail page shows the ACTION, not just a scan.
+  // Where the interaction reaches: declared scorers use the building's ScorePreviewMode
+  // (+range); effect refs carry the locality in their snippet (…InRange / …Adjacent).
+  // Surfaced so the detail page can say "in range 5" / "adjacent" instead of guessing.
+  const scoreMode = params.scorePreviewMode || null;
+  const bRange = params.range ?? null;
+  // A bare SetTargetCategories/Tags (no score) does NOT mean the building scores off
+  // that piece — most such buildings CONFER the category on their neighbours ("Other
+  // adjacent buildings are considered [Husbandry]", Trapper's Lodge). Detect that from
+  // the authoritative description DSL so the detail page names the grant, not a phantom
+  // "Scores off". The conferred piece is whatever sits in a `considered [X]` clause.
+  const rawDescForGrant = stringOf(key).description || "";
+  const conferred = new Set();
+  for (const m of rawDescForGrant.matchAll(/considered\s+\[(\w+)\](?:\s+and\s+\[(\w+)\])?/gi)) {
+    if (m[1]) conferred.add(m[1]);
+    if (m[2]) conferred.add(m[2]);
+  }
+  const localityOf = (it) => {
+    const s = it.anchor?.snippet || "";
+    if (it.source === "declared") {
+      if (scoreMode === "InRange") return { locality: "range", range: bRange };
+      if (scoreMode === "Adjacent") return { locality: "adjacent", range: null };
+      if (scoreMode === "SelfOnly") return { locality: "self", range: null };
+      return { locality: null, range: null };
+    }
+    if (/InRange/.test(s)) return { locality: "range", range: bRange };
+    if (/Adjacent/.test(s)) return { locality: "adjacent", range: null };
+    return { locality: null, range: null };
+  };
   const inter = (b.interactions || [])
     .filter((it) => (it.resolvesToGuilds || []).length)
     .map((it) => ({
       kind: it.kind, value: it.value, guilds: (it.resolvesToGuilds || []).slice(),
       source: it.source, score: it.score ?? null, action: it.action ?? null,
       snippet: it.anchor?.snippet || "", line: it.anchor?.line || "",
+      method: it.anchor?.method || null, confers: conferred.has(it.value),
+      ...localityOf(it),
     }));
   const interactionGuilds = [...new Set(inter.flatMap((it) => it.guilds)
     .filter((g) => GUILD_IDS.includes(g) && g !== b.guild))];
@@ -363,9 +393,14 @@ neutralBuildings.forEach((n) => { if (!n.sprite) warnings.push(`neutral building
 const itemSpriteDir = new Set(
   fs.readdirSync(path.join(ASSETS, "items")).filter((f) => f.endsWith(".png"))
 );
+// The item key rarely matches its Sprite asset name (AnimalFeedBag → ItemFeedBag,
+// Abacus → ItemBlueDiamond, …). ITEM_SPRITES is the authoritative key→sprite map
+// pulled from each item SO's _sprite GUID (tools/gen_item_sprites.mjs); the old
+// Item{key}/Gem{key}/{key} guesses stay as a fallback for anything unmapped.
+const ITEM_SPRITES = readJSON("item_sprites.json");
 function resolveItemSprite(key) {
-  for (const p of [`Item${key}`, `Gem${key}`, key]) {
-    if (itemSpriteDir.has(`${p}.png`)) return url(`items/${p}.png`);
+  for (const p of [ITEM_SPRITES[key], `Item${key}`, `Gem${key}`, key]) {
+    if (p && itemSpriteDir.has(`${p}.png`)) return url(`items/${p}.png`);
   }
   return null;
 }
@@ -516,9 +551,13 @@ function fmtValue(tok, v) {
   return num(v);
 }
 const kw = (text, cls, attrs = "") => `<b class="tok ${cls}"${attrs}>${escHTML(text)}</b>`;
-const scoreOf = (list, key, val) =>
-  (list || []).map((t) => (typeof t === "string" ? { [key]: t } : t))
-    .find((t) => (t[key] ?? t.tag ?? t.category) === val)?.score;
+// A target entry's id lives under a per-list field name (categories: `cat`,
+// tags: `tag`, tile types: `tile`, rarities: `rarity`); read whichever is set so
+// a score token like [CategoryScoreFarm] resolves to its real "+30" and not "points".
+const entryId = (t) => (typeof t === "string" ? t
+  : (t.cat ?? t.tag ?? t.tile ?? t.rarity ?? t.category ?? t.tileType));
+const scoreOf = (list, _key, val) =>
+  (list || []).find((t) => entryId(t) === val)?.score;
 
 function resolveToken(tok, p) {
   // location qualifiers
@@ -528,7 +567,7 @@ function resolveToken(tok, p) {
   // family score tokens (suffix = a Category / Tag / TileType / Rarity name)
   let m;
   if ((m = /^CategoryScore(.+)$/.exec(tok))) {
-    if (m[1] === "Primary") { const s = scoreOf(p?.targetCategories, "category", (p?.targetCategories || [])[0]?.category); return kw(s != null ? `+${s}` : "points", "tok-val"); }
+    if (m[1] === "Primary") { const s = scoreOf(p?.targetCategories, "category", entryId((p?.targetCategories || [])[0])); return kw(s != null ? `+${s}` : "points", "tok-val"); }
     const s = scoreOf(p?.targetCategories, "category", m[1]); return kw(s != null ? `+${s}` : "points", "tok-val");
   }
   if ((m = /^TagScore(.+)$/.exec(tok)))      { const s = scoreOf(p?.targetTags, "tag", m[1]);            return kw(s != null ? `+${s}` : "points", "tok-val"); }

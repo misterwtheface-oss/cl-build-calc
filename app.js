@@ -118,23 +118,44 @@
     const art = /^[aeiou]/i.test(rawName) ? "an" : "a";   // article for "a/an <name>"
     const s = it.snippet || "";
 
+    // How far the effect reaches, from the building's ScorePreviewMode / the snippet
+    // (build-data resolves it to locality + range). `adjWord` prefixes the noun for
+    // adjacency; `rngSuffix` trails it with the concrete tile radius when known.
+    const adjWord = it.locality === "adjacent" ? "adjacent " : "";
+    const rngSuffix = it.locality === "range" ? (it.range != null ? ` in range ${it.range}` : " in range")
+      : it.locality === "self" ? " (itself)" : "";
+
     // The extractor recovers the MAIN action verb a building performs on this
     // value (removes/transforms/buffs/…) — surface it directly rather than the
     // generic "wants/counts" fallback, which hid the primary effect (Composter
     // removes Manure; Woodcutter harvests Trees; Composter buffs Farm in range).
     switch (it.action) {
-      case "remove":    return `Removes ${noun} in range`;
-      case "transform": return `Transforms ${noun} in range`;
+      case "remove":    return `Removes ${adjWord}${noun}${rngSuffix}`;
+      case "transform": return `Transforms ${adjWord}${noun}${rngSuffix}`;
       case "spawn":     return `Spawns ${nm} on a nearby tile`;
-      case "buff":      return `Buffs ${noun} in range`;
-      case "irrigate":  return `Irrigates ${noun}`;
+      case "buff":      return `Buffs ${adjWord}${noun}${rngSuffix}`;
+      case "irrigate":  return `Makes adjacent ${noun} grow in 1 week`;
       case "grant":     return `Grants a bonus per ${nm}`;
     }
 
     if (it.source === "declared") {
-      const bonus = it.score ? ` <span class="i-bonus">+${it.score}</span>` : "";
-      if (it.kind === "targetRarity") return `Scores off adjacent ${nm}-rarity pieces${bonus}`;
-      return `Scores off adjacent ${noun}${bonus}`;
+      // A declared target is just what the building OPERATES on — not proof it scores.
+      // Grant ("considered X") and no-score targets get honest wording; only a real
+      // point value earns "Scores off … +N". (Details always live in the description.)
+      if (it.confers) return `Makes nearby buildings count as ${nm}`;
+      if (it.score) {
+        const bonus = ` <span class="i-bonus">+${it.score}</span>`;
+        if (it.kind === "targetRarity") return `Scores off ${adjWord}${nm}-rarity pieces${rngSuffix}${bonus}`;
+        return `Scores off ${adjWord}${noun}${rngSuffix}${bonus}`;
+      }
+      return `Affects ${adjWord}${noun}${rngSuffix}`;
+    }
+    // Boolean gate methods (Can…) express a REQUIREMENT for the building to exist/appear —
+    // never an effect or a score. Read the specific gate off the method name.
+    if (/^Can[A-Z]/.test(it.method || "")) {
+      if (it.method === "CanAddToDraftingPool")   return `Enters the draft pool once you own ${art} ${nm}`;
+      if (/CanBe(Built|Placed)On/.test(it.method)) return `Can only be built next to ${nm}`;
+      return `Requires ${art} ${nm} to be in play`;
     }
     // effect-sourced — infer the verb from the decompiled snippet
     if (/TransformBuildingInto/.test(s))                       return `Can turn a tile into ${nm}`;
@@ -143,10 +164,19 @@
     if (/GetItemWithTagEquipped|ItemHeirloomController/.test(s)) return `Scales with your equipped ${nm} heirloom(s)`;
     if (/ScoreSpecialResource/.test(s))                        return `Scores the ${nm} special resource`;
     if (/RemoveResourceIfPossible/.test(s))                    return `Consumes an adjacent ${nm}`;
-    if (/CurrentTagCount/.test(s))                             return `Scores for every ${nm} you own`;
-    if (/GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent/.test(s)) return `Scores off each adjacent ${noun}`;
-    if (/HasAnyBuildingOf(?:Type|Category)Adjacent/.test(s))   return `Activates only when ${art} ${nm} is adjacent`;
-    if (/IrrigateAdjacent/.test(s))                            return `Irrigates adjacent ${noun}`;
+    // CurrentTagCount just COUNTS owned pieces (gate uses handled above) — scaling, not scoring.
+    if (/CurrentTagCount/.test(s))                             return `Scales with how many ${nm} you own`;
+    if (/GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent/.test(s)) return `Counts adjacent ${noun}`;
+    // An adjacency check isn't a gate — the enclosing method tells us what it changes:
+    // Irrigator adjacency drops a crop's cooldown to 1 (matures in 1 week); a multiplier
+    // method adds score; a cooldown method speeds the next trigger.
+    if (/HasAnyBuildingOf(?:Type|Category)Adjacent/.test(s)) {
+      if (it.value === "Irrigator")                     return `Matures in 1 week while adjacent to ${art} ${nm}`;
+      if (it.method === "GetBehaviourMultiplier")       return `Scores more while adjacent to ${art} ${nm}`;
+      if (it.method === "GetBehaviourCooldownParam")    return `Triggers faster while adjacent to ${art} ${nm}`;
+      return `Benefits from ${art} adjacent ${nm}`;
+    }
+    if (/IrrigateAdjacent/.test(s))                            return `Makes adjacent ${noun} grow in 1 week`;
     if (/AddLocalStatChange/.test(s))                          return `Buffs adjacent ${noun}`;
     if (/PaintTag/.test(s))                                    return `Triggers off ${nm}-painted buildings`;
     if (/GetScoreForTag|^\s*\},\s*Game(?:Tag|PieceCategory)\./.test(s)) return `Scores off adjacent ${noun}`;
@@ -161,7 +191,9 @@
   // two labelled groups in the building detail.
   const OUT_SNIPPET = /TransformBuildingInto|InstantiateAndBuild|AddConsumable|RemoveResourceIfPossible|ScoreSpecialResource|IrrigateAdjacent|AddLocalStatChange|GetScoreForTag|GetCountOfBuildings|GetBuildingsOf(?:Type|Category)Adjacent|CurrentTagCount/;
   function interactionRole(it) {
+    if (it.confers) return "provides";   // pushes a category onto neighbours — it indirectly PROVIDES that tag
     if (it.action || it.source === "declared") return "out";
+    if (/^Can[A-Z]/.test(it.method || "")) return "in";   // a Can… gate is a requirement, not an effect
     return OUT_SNIPPET.test(it.snippet || "") ? "out" : "in";
   }
 
@@ -254,7 +286,11 @@
     return [...new Set(list)].filter((c) => (catById.get(c) || {}).kind === "functional").sort();
   }
   const ownsCat = (b, cat) => b.ownedMinors.includes(cat);
-  const targetsCat = (b, cat) => (b.interactions || []).some((it) => it.value === cat);
+  // A confers interaction PROVIDES the category to neighbours — it is not scoring/acting
+  // on it. Keep the two split so a granter (Trapper's Lodge → Husbandry) is filed under
+  // "Provide", not "Score off / act on".
+  const providesCat = (b, cat) => (b.interactions || []).some((it) => it.value === cat && it.confers);
+  const targetsCat = (b, cat) => (b.interactions || []).some((it) => it.value === cat && !it.confers);
   const isOverlap = (b, other) => buildingReasons(b, other).length > 0;
 
   // A shared owned category is only a REAL association if at least one building
@@ -263,7 +299,7 @@
   // it's a coincidental shared label, so it must not count as an overlap tag.
   function catHasInteractor(cat, g1, g2) {
     for (const g of [g1, g2]) for (const bld of buildingsByGuild.get(g.id) || [])
-      if (targetsCat(bld, cat)) return true;
+      if (targetsCat(bld, cat) || providesCat(bld, cat)) return true;
     return false;
   }
   const validSharedCats = (a, b) =>
@@ -274,8 +310,8 @@
   function overlapBuildingsForCat(cat, a, b) {
     const out = [];
     for (const g of [a, b]) for (const bld of buildingsByGuild.get(g.id) || []) {
-      const owns = ownsCat(bld, cat), targets = targetsCat(bld, cat);
-      if (owns || targets) out.push({ bld, owns, targets });
+      const owns = ownsCat(bld, cat), targets = targetsCat(bld, cat), provides = providesCat(bld, cat);
+      if (owns || targets || provides) out.push({ bld, owns, targets, provides });
     }
     return out.sort((x, y) => (x.bld.rarityRank - y.bld.rarityRank) || x.bld.name.localeCompare(y.bld.name));
   }
@@ -375,16 +411,18 @@
   }
   // A shared-trait section: headed by the trait banner, then split into the two roles
   // so it's clear which buildings ACT ON the trait (score off / target it) and which
-  // PROVIDE it (carry the trait as their own surface). A building doing both appears in both.
+  // PROVIDE it — either by carrying it as their own surface OR by granting it to their
+  // neighbours (Trapper's Lodge → Husbandry). A building doing both appears in both.
   function traitSectionHTML(cat, members) {
     const c = catById.get(cat); if (!c) return "";
-    const interactors = members.filter((m) => m.targets).map((m) => overlapTile(m.bld, false, true)).join("");
-    const carriers = members.filter((m) => m.owns).map((m) => overlapTile(m.bld, true, false)).join("");
+    const interactors = members.filter((m) => m.targets).map((m) => overlapTile(m.bld, { targets: true })).join("");
+    const providers = members.filter((m) => m.owns || m.provides)
+      .map((m) => overlapTile(m.bld, { owns: m.owns, provides: m.provides })).join("");
     return `<section class="trait-section">
       <div class="trait-section-head" data-action="nav-cat" data-cat="${esc(cat)}"
         style="--aff-color:${esc(c.color)};--aff-text:${textColorFor(c.color)}">
         <span class="ts-name">${esc(c.name)}</span><span class="ts-count">${members.length}</span></div>
-      ${ovSubGroup(`Score off / act on ${c.name}`, interactors)}${ovSubGroup(`Provide ${c.name}`, carriers)}</section>`;
+      ${ovSubGroup(`Score off / act on ${c.name}`, interactors)}${ovSubGroup(`Provide ${c.name}`, providers)}</section>`;
   }
 
   // Overlap tile — shows which guild it belongs to (badge + coloured border) and
@@ -399,9 +437,10 @@
       <span class="reasons">${rs.map((r) => `<span class="reason r-${r.k}" title="${esc(r.t)}">${r.g}</span>`).join("")}</span>
     </div>`;
   }
-  function overlapTile(b, owns, targets) {
+  function overlapTile(b, { owns, targets, provides } = {}) {
     const rs = [];
     if (owns) rs.push({ k: "cat", g: "▤", t: `${b.guild} building carrying this trait` });
+    if (provides) rs.push({ k: "provide", g: "⤳", t: "Grants this trait to nearby buildings" });
     if (targets) rs.push({ k: "target", g: "⇄", t: "Scores off / targets this trait" });
     return ovTile(b, rs);
   }
@@ -602,9 +641,11 @@
     const interGroup = (title, list) => list.length
       ? `<div class="d-section"><h3>${esc(title)}</h3><div class="inter-list">${list.map(interRow).join("")}</div></div>` : "";
     const actsOn = inter.filter((it) => interactionRole(it) === "out");
+    const provides = inter.filter((it) => interactionRole(it) === "provides");
     const respondsTo = inter.filter((it) => interactionRole(it) === "in");
-    const interHTML = (actsOn.length || respondsTo.length)
-      ? interGroup("Acts on — pieces it scores off / affects", actsOn)
+    const interHTML = (actsOn.length || provides.length || respondsTo.length)
+      ? interGroup("Provides — grants a category to nearby buildings", provides)
+        + interGroup("Acts on — pieces it scores off / affects", actsOn)
         + interGroup("Responds to — must be present for it to work", respondsTo)
       : `<div class="d-section"><h3>Interacts with</h3><p class="empty-note">No declared cross-piece targets (scores via owned traits / universal modifiers).</p></div>`;
 
@@ -683,10 +724,12 @@
     const usersFor = (g) => {
       if (!g) return "";
       const owners = (buildingsByGuild.get(g.id) || []).filter((x) => x.ownedMinors.includes(id) || x.guild === id);
-      const targeters = (buildingsByGuild.get(g.id) || []).filter((x) => (x.interactions || []).some((it) => it.value === id));
-      if (state.detailGlobal && !owners.length && !targeters.length) return ""; // global view omits guilds with nothing
+      const granters = (buildingsByGuild.get(g.id) || []).filter((x) => providesCat(x, id));
+      const targeters = (buildingsByGuild.get(g.id) || []).filter((x) => targetsCat(x, id));
+      if (state.detailGlobal && !owners.length && !granters.length && !targeters.length) return ""; // global view omits guilds with nothing
       const list = (arr) => arr.length ? `<div class="detail-users">${arr.map((x) => `<span class="u" data-action="detail-building" data-key="${esc(x.key)}">${x.sprite ? iconImg(x.sprite) : ""}${esc(x.name)}</span>`).join("")}</div>` : `<p class="empty-note">None.</p>`;
       return `<div class="d-section"><h3>${esc(g.name)} — owns it</h3>${list(owners)}</div>
+        ${granters.length ? `<div class="d-section"><h3>${esc(g.name)} — grants it to neighbours</h3>${list(granters)}</div>` : ""}
         <div class="d-section"><h3>${esc(g.name)} — targets it</h3>${list(targeters)}</div>`;
     };
     renderDetail(esc(c.name), `

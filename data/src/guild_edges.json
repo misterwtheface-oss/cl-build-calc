@@ -159,7 +159,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchardEmpty.cs:68",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -172,7 +173,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchard.cs:60",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -198,7 +200,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SunflowerFarm.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -211,7 +214,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SunflowerFarmEmpty.cs:49",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -224,7 +228,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WheatField.cs:42",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -237,7 +242,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WheatFieldEmpty.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -363,7 +369,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Fountain.cs:27 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -376,7 +383,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -415,7 +423,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:72",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -507,7 +516,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Granary.cs:42",
-      "snippet": "}, GamePieceCategory.Crop);"
+      "snippet": "}, GamePieceCategory.Crop);",
+      "method": "Activate"
      }
     },
     {
@@ -520,7 +530,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Granary.cs:48",
-      "snippet": "if (origin.GetTilesInRange().Contains(tile) && (bool)tileBuilding && tileBuilding.Categories.ContainsCategory(GamePieceCategory.Crop) && tileBuilding.Data.AlternatePlacedType != 0)"
+      "snippet": "if (origin.GetTilesInRange().Contains(tile) && (bool)tileBuilding && tileBuilding.Categories.ContainsCategory(GamePieceCategory.Crop) && tileBuilding.Data.AlternatePlacedType != 0)",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     },
     {
@@ -546,7 +557,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Irrigation.cs:49 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -559,7 +571,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Irrigation.cs:28 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -572,7 +585,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Reservoir.cs:30 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -650,7 +664,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Windmill.cs:29",
-      "snippet": "if (building2.Categories.ContainsCategory(GamePieceCategory.Crop) && building.IsTileAdjacentToBuilding(building2.Tile))"
+      "snippet": "if (building2.Categories.ContainsCategory(GamePieceCategory.Crop) && building.IsTileAdjacentToBuilding(building2.Tile))",
+      "method": "Trigger"
      }
     },
     {
@@ -663,7 +678,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Windmill.cs:52",
-      "snippet": "return otherBuilding.Categories.ContainsCategory(GamePieceCategory.Crop);"
+      "snippet": "return otherBuilding.Categories.ContainsCategory(GamePieceCategory.Crop);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -868,7 +884,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonField.cs:64",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -881,7 +898,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonFieldEmpty.cs:47",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -957,7 +975,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Vineyard.cs:40",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -970,7 +989,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\VineyardEmpty.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -1243,7 +1263,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shrine.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -1269,7 +1290,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:49",
-      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);"
+      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -2090,7 +2112,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2129,7 +2152,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:72",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2288,7 +2312,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shrine.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2314,7 +2339,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:49",
-      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);"
+      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -2535,7 +2561,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Fountain.cs:27 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -2548,7 +2575,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2561,7 +2589,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2574,7 +2603,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:55",
-      "snippet": "int num2 = ((Building)source).GetBuildingsOfCategoryAdjacent(GamePieceCategory.Stall).Count();"
+      "snippet": "int num2 = ((Building)source).GetBuildingsOfCategoryAdjacent(GamePieceCategory.Stall).Count();",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -2613,7 +2643,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:72",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2718,7 +2749,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonField.cs:64",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -2731,7 +2763,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonFieldEmpty.cs:47",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -2790,7 +2823,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:62",
-      "snippet": "foreach (Building item in MonoSingleton<BuildingController>.Instance.Buildings.Where((Building b) => b.Categories.ContainsCategory(GamePieceCategory.Stall)))"
+      "snippet": "foreach (Building item in MonoSingleton<BuildingController>.Instance.Buildings.Where((Building b) => b.Categories.ContainsCategory(GamePieceCategory.Stall)))",
+      "method": "Activate"
      }
     },
     {
@@ -2813,7 +2847,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Vineyard.cs:40",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -2826,7 +2861,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\VineyardEmpty.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -2964,7 +3000,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -2977,7 +3014,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3016,7 +3054,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:72",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3057,7 +3096,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shrine.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3083,7 +3123,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:49",
-      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);"
+      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -3205,7 +3246,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3218,7 +3260,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3436,7 +3479,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:72",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -3518,7 +3562,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3531,7 +3576,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3670,7 +3716,7 @@
    "edgeCount": 27,
    "structuralEdges": 17,
    "eventEdges": 10,
-   "sharedNatureCount": 4,
+   "sharedNatureCount": 2,
    "sharedNature": [
     {
      "resource": "Herbs",
@@ -3688,46 +3734,6 @@
      ],
      "bAnchors": [
       "Entities.BuildingBehaviours\\Herbalist.cs:13"
-     ]
-    },
-    {
-     "resource": "Ore",
-     "resourceTag": "Ore",
-     "guildA": "Commercial",
-     "aBuildings": [
-      "Apothecary",
-      "Apothecary"
-     ],
-     "guildB": "Frontier",
-     "bBuildings": [
-      "Forester",
-      "Forester"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    },
-    {
-     "resource": "Gold Ore",
-     "resourceTag": "GoldOre",
-     "guildA": "Commercial",
-     "aBuildings": [
-      "Apothecary"
-     ],
-     "guildB": "Frontier",
-     "bBuildings": [
-      "Forester"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699"
      ]
     },
     {
@@ -3935,7 +3941,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shrine.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -3961,7 +3968,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:49",
-      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);"
+      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -4113,72 +4121,8 @@
    "edgeCount": 14,
    "structuralEdges": 11,
    "eventEdges": 3,
-   "sharedNatureCount": 4,
+   "sharedNatureCount": 2,
    "sharedNature": [
-    {
-     "resource": "Ore",
-     "resourceTag": "Ore",
-     "guildA": "Commercial",
-     "aBuildings": [
-      "Apothecary",
-      "Apothecary"
-     ],
-     "guildB": "Industrial",
-     "bBuildings": [
-      "Blacksmith",
-      "Lumberyard",
-      "Lumberyard",
-      "Mine",
-      "Mine",
-      "Mine",
-      "Quarry",
-      "Quarry",
-      "Quarry",
-      "Smelter"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Mine.cs:43",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Quarry.cs:45",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Smelter.cs:27"
-     ]
-    },
-    {
-     "resource": "Gold Ore",
-     "resourceTag": "GoldOre",
-     "guildA": "Commercial",
-     "aBuildings": [
-      "Apothecary"
-     ],
-     "guildB": "Industrial",
-     "bBuildings": [
-      "Blacksmith",
-      "Lumberyard",
-      "Mine",
-      "Quarry",
-      "Smelter"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Smelter.cs:27"
-     ]
-    },
     {
      "resource": "Forest",
      "resourceTag": "Trees",
@@ -4402,55 +4346,8 @@
    "edgeCount": 14,
    "structuralEdges": 12,
    "eventEdges": 2,
-   "sharedNatureCount": 2,
-   "sharedNature": [
-    {
-     "resource": "Ore",
-     "resourceTag": "Ore",
-     "guildA": "Commercial",
-     "aBuildings": [
-      "Apothecary",
-      "Apothecary"
-     ],
-     "guildB": "Marine",
-     "bBuildings": [
-      "Fish Farm",
-      "Fish Farm",
-      "Ocean Shrine",
-      "Ocean Shrine"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    },
-    {
-     "resource": "Gold Ore",
-     "resourceTag": "GoldOre",
-     "guildA": "Commercial",
-     "aBuildings": [
-      "Apothecary"
-     ],
-     "guildB": "Marine",
-     "bBuildings": [
-      "Fish Farm",
-      "Ocean Shrine"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    }
-   ],
+   "sharedNatureCount": 0,
+   "sharedNature": [],
    "AtoB": [
     {
      "building": "Apothecary",
@@ -4977,72 +4874,8 @@
    "edgeCount": 16,
    "structuralEdges": 6,
    "eventEdges": 10,
-   "sharedNatureCount": 3,
+   "sharedNatureCount": 1,
    "sharedNature": [
-    {
-     "resource": "Ore",
-     "resourceTag": "Ore",
-     "guildA": "Frontier",
-     "aBuildings": [
-      "Forester",
-      "Forester"
-     ],
-     "guildB": "Industrial",
-     "bBuildings": [
-      "Blacksmith",
-      "Lumberyard",
-      "Lumberyard",
-      "Mine",
-      "Mine",
-      "Mine",
-      "Quarry",
-      "Quarry",
-      "Quarry",
-      "Smelter"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Mine.cs:43",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Quarry.cs:45",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Smelter.cs:27"
-     ]
-    },
-    {
-     "resource": "Gold Ore",
-     "resourceTag": "GoldOre",
-     "guildA": "Frontier",
-     "aBuildings": [
-      "Forester"
-     ],
-     "guildB": "Industrial",
-     "bBuildings": [
-      "Blacksmith",
-      "Lumberyard",
-      "Mine",
-      "Quarry",
-      "Smelter"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Smelter.cs:27"
-     ]
-    },
     {
      "resource": "Forest",
      "resourceTag": "Trees",
@@ -5304,55 +5137,8 @@
    "edgeCount": 14,
    "structuralEdges": 9,
    "eventEdges": 5,
-   "sharedNatureCount": 2,
-   "sharedNature": [
-    {
-     "resource": "Ore",
-     "resourceTag": "Ore",
-     "guildA": "Frontier",
-     "aBuildings": [
-      "Forester",
-      "Forester"
-     ],
-     "guildB": "Marine",
-     "bBuildings": [
-      "Fish Farm",
-      "Fish Farm",
-      "Ocean Shrine",
-      "Ocean Shrine"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    },
-    {
-     "resource": "Gold Ore",
-     "resourceTag": "GoldOre",
-     "guildA": "Frontier",
-     "aBuildings": [
-      "Forester"
-     ],
-     "guildB": "Marine",
-     "bBuildings": [
-      "Fish Farm",
-      "Ocean Shrine"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    }
-   ],
+   "sharedNatureCount": 0,
+   "sharedNature": [],
    "AtoB": [
     {
      "building": "Shrine",
@@ -5364,7 +5150,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shrine.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -5390,7 +5177,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:49",
-      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);"
+      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -5715,7 +5503,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Arsenal.cs:48",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Fortification));"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Fortification));",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -5810,79 +5599,8 @@
    "edgeCount": 11,
    "structuralEdges": 7,
    "eventEdges": 4,
-   "sharedNatureCount": 2,
-   "sharedNature": [
-    {
-     "resource": "Ore",
-     "resourceTag": "Ore",
-     "guildA": "Industrial",
-     "aBuildings": [
-      "Blacksmith",
-      "Lumberyard",
-      "Lumberyard",
-      "Mine",
-      "Mine",
-      "Mine",
-      "Quarry",
-      "Quarry",
-      "Quarry",
-      "Smelter"
-     ],
-     "guildB": "Marine",
-     "bBuildings": [
-      "Fish Farm",
-      "Fish Farm",
-      "Ocean Shrine",
-      "Ocean Shrine"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Mine.cs:43",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Quarry.cs:45",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Smelter.cs:27"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:694",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    },
-    {
-     "resource": "Gold Ore",
-     "resourceTag": "GoldOre",
-     "guildA": "Industrial",
-     "aBuildings": [
-      "Blacksmith",
-      "Lumberyard",
-      "Mine",
-      "Quarry",
-      "Smelter"
-     ],
-     "guildB": "Marine",
-     "bBuildings": [
-      "Fish Farm",
-      "Ocean Shrine"
-     ],
-     "aAnchors": [
-      "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\Smelter.cs:27"
-     ],
-     "bAnchors": [
-      "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699"
-     ]
-    }
-   ],
+   "sharedNatureCount": 0,
+   "sharedNature": [],
    "AtoB": [
     {
      "building": "Carpenter",
@@ -6462,7 +6180,8 @@
      },
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Arsenal.cs:48",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Fortification));"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Fortification));",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -11639,7 +11358,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Apiary.cs:63",
-       "snippet": "int countOfBuildingsOfTypeInRange = ((Building)source).GetCountOfBuildingsOfTypeInRange(GameTag.Flowers);"
+       "snippet": "int countOfBuildingsOfTypeInRange = ((Building)source).GetCountOfBuildingsOfTypeInRange(GameTag.Flowers);",
+       "method": "GetBehaviourMultiplier"
       }
      }
     ]
@@ -11669,7 +11389,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\BerryPicker.cs:40",
-       "snippet": "points.Add(new NumberObject(berryBush, GetScoreForTag(berryPicker, GameTag.BerryBush)));"
+       "snippet": "points.Add(new NumberObject(berryBush, GetScoreForTag(berryPicker, GameTag.BerryBush)));",
+       "method": "Activate"
       }
      },
      {
@@ -11679,7 +11400,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\BerryPicker.cs:41",
-       "snippet": "}, GameTag.BerryBush);"
+       "snippet": "}, GameTag.BerryBush);",
+       "method": "Activate"
       }
      }
     ]
@@ -11709,7 +11431,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\BerryPicker.cs:39",
-       "snippet": "berryBush.TransformBuildingInto(GameTag.BerryBushEmpty, berryPicker, berryBush.Values, berryBush.BuildingPaint);"
+       "snippet": "berryBush.TransformBuildingInto(GameTag.BerryBushEmpty, berryPicker, berryBush.Values, berryBush.BuildingPaint);",
+       "method": "Activate"
       }
      }
     ]
@@ -11730,7 +11453,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Apothecary.cs:70",
-       "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)"
+       "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)",
+       "method": "Activate"
       }
      }
     ],
@@ -11743,314 +11467,6 @@
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Herbalist.cs:13",
        "snippet": "SetTargetTags((GameTag.Herbs, 30), (GameTag.HerbGarden, 30));"
-      }
-     }
-    ]
-   }
-  },
-  "Ore": {
-   "tag": "Ore",
-   "guilds": [
-    "Commercial",
-    "Frontier",
-    "Industrial",
-    "Marine"
-   ],
-   "interactors": {
-    "Commercial": [
-     {
-      "building": "Apothecary",
-      "buildingDisplay": "Apothecary",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "Apothecary",
-      "buildingDisplay": "Apothecary",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     }
-    ],
-    "Frontier": [
-     {
-      "building": "Forester",
-      "buildingDisplay": "Forester",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "Forester",
-      "buildingDisplay": "Forester",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     }
-    ],
-    "Industrial": [
-     {
-      "building": "Blacksmith",
-      "buildingDisplay": "Blacksmith",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
-      }
-     },
-     {
-      "building": "Lumberyard",
-      "buildingDisplay": "Lumberyard",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "Lumberyard",
-      "buildingDisplay": "Lumberyard",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "Mine",
-      "buildingDisplay": "Mine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Mine.cs:43",
-       "snippet": "if (InstantiateAndBuildNatureResourceAt(mine.GetAdjacentTiles(), allowedTileTypes, GameTag.Ore, mine) > 0f)"
-      }
-     },
-     {
-      "building": "Mine",
-      "buildingDisplay": "Mine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "Mine",
-      "buildingDisplay": "Mine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "Quarry",
-      "buildingDisplay": "Quarry",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
-       "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :"
-      }
-     },
-     {
-      "building": "Quarry",
-      "buildingDisplay": "Quarry",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "Quarry",
-      "buildingDisplay": "Quarry",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "Smelter",
-      "buildingDisplay": "Smelter",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
-       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
-      }
-     }
-    ],
-    "Marine": [
-     {
-      "building": "FishFarm",
-      "buildingDisplay": "Fish Farm",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "FishFarm",
-      "buildingDisplay": "Fish Farm",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "OceanTemple",
-      "buildingDisplay": "Ocean Shrine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:694",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-      }
-     },
-     {
-      "building": "OceanTemple",
-      "buildingDisplay": "Ocean Shrine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     }
-    ]
-   }
-  },
-  "Gold Ore": {
-   "tag": "GoldOre",
-   "guilds": [
-    "Commercial",
-    "Frontier",
-    "Industrial",
-    "Marine"
-   ],
-   "interactors": {
-    "Commercial": [
-     {
-      "building": "Apothecary",
-      "buildingDisplay": "Apothecary",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     }
-    ],
-    "Frontier": [
-     {
-      "building": "Forester",
-      "buildingDisplay": "Forester",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     }
-    ],
-    "Industrial": [
-     {
-      "building": "Blacksmith",
-      "buildingDisplay": "Blacksmith",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
-      }
-     },
-     {
-      "building": "Lumberyard",
-      "buildingDisplay": "Lumberyard",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "Mine",
-      "buildingDisplay": "Mine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "Quarry",
-      "buildingDisplay": "Quarry",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "Smelter",
-      "buildingDisplay": "Smelter",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
-       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
-      }
-     }
-    ],
-    "Marine": [
-     {
-      "building": "FishFarm",
-      "buildingDisplay": "Fish Farm",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-      }
-     },
-     {
-      "building": "OceanTemple",
-      "buildingDisplay": "Ocean Shrine",
-      "kind": "effectTag",
-      "source": "effect",
-      "anchor": {
-       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699",
-       "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
       }
      }
     ]
@@ -12072,7 +11488,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\GoldPan.cs:50",
-       "snippet": "return building.Tag == GameTag.Trees;"
+       "snippet": "return building.Tag == GameTag.Trees;",
+       "method": "CanBeBuiltOn"
       }
      }
     ],
@@ -12084,7 +11501,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Forester.cs:49",
-       "snippet": "if (InstantiateAndBuildNatureResourceAt(forester.GetTilesInRange(), hashSet, GameTag.Trees, forester) > 0f)"
+       "snippet": "if (InstantiateAndBuildNatureResourceAt(forester.GetTilesInRange(), hashSet, GameTag.Trees, forester) > 0f)",
+       "method": "Activate"
       }
      },
      {
@@ -12094,7 +11512,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Grove.cs:55",
-       "snippet": "return building.Tag == GameTag.Trees;"
+       "snippet": "return building.Tag == GameTag.Trees;",
+       "method": "CanBeBuiltOn"
       }
      },
      {
@@ -12114,7 +11533,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\WatchTower.cs:42",
-       "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.Trees, adjacentTile.X, adjacentTile.Y, playerInitiated: false, triggerOnBuild: true, building);"
+       "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.Trees, adjacentTile.X, adjacentTile.Y, playerInitiated: false, triggerOnBuild: true, building);",
+       "method": "Trigger"
       }
      },
      {
@@ -12134,7 +11554,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Woodcutter.cs:67",
-       "snippet": "return tileBuilding.Tag == GameTag.Trees;"
+       "snippet": "return tileBuilding.Tag == GameTag.Trees;",
+       "method": "TileOrBuildingPositiveHighlight"
       }
      }
     ],
@@ -12146,7 +11567,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Lumberyard.cs:61",
-       "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Trees) > 0;"
+       "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Trees) > 0;",
+       "method": "CanBeBuiltOn"
       }
      }
     ]
@@ -12168,7 +11590,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Reliquary.cs:64",
-       "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Tag == GameTag.Rocks) >= 1;"
+       "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Tag == GameTag.Rocks) >= 1;",
+       "method": "CanBeBuiltOn"
       }
      }
     ],
@@ -12180,7 +11603,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Mine.cs:61",
-       "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Rocks) > 0;"
+       "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Rocks) > 0;",
+       "method": "CanBeBuiltOn"
       }
      },
      {
@@ -12190,7 +11614,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
-       "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :"
+       "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :",
+       "method": "Activate"
       }
      }
     ],
@@ -12203,6 +11628,92 @@
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Barracks.cs:14",
        "snippet": "SetTargetTags((GameTag.Rocks, 20));"
+      }
+     }
+    ]
+   }
+  },
+  "Ore": {
+   "tag": "Ore",
+   "guilds": [
+    "Industrial"
+   ],
+   "interactors": {
+    "Industrial": [
+     {
+      "building": "Blacksmith",
+      "buildingDisplay": "Blacksmith",
+      "kind": "effectTag",
+      "source": "effect",
+      "anchor": {
+       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
+       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+       "method": "Trigger"
+      }
+     },
+     {
+      "building": "Mine",
+      "buildingDisplay": "Mine",
+      "kind": "effectTag",
+      "source": "effect",
+      "anchor": {
+       "line": "Entities.BuildingBehaviours\\Mine.cs:43",
+       "snippet": "if (InstantiateAndBuildNatureResourceAt(mine.GetAdjacentTiles(), allowedTileTypes, GameTag.Ore, mine) > 0f)",
+       "method": "Activate"
+      }
+     },
+     {
+      "building": "Quarry",
+      "buildingDisplay": "Quarry",
+      "kind": "effectTag",
+      "source": "effect",
+      "anchor": {
+       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
+       "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :",
+       "method": "Activate"
+      }
+     },
+     {
+      "building": "Smelter",
+      "buildingDisplay": "Smelter",
+      "kind": "effectTag",
+      "source": "effect",
+      "anchor": {
+       "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
+       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+       "method": "Trigger"
+      }
+     }
+    ]
+   }
+  },
+  "Gold Ore": {
+   "tag": "GoldOre",
+   "guilds": [
+    "Industrial"
+   ],
+   "interactors": {
+    "Industrial": [
+     {
+      "building": "Blacksmith",
+      "buildingDisplay": "Blacksmith",
+      "kind": "effectTag",
+      "source": "effect",
+      "anchor": {
+       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
+       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+       "method": "Trigger"
+      }
+     },
+     {
+      "building": "Smelter",
+      "buildingDisplay": "Smelter",
+      "kind": "effectTag",
+      "source": "effect",
+      "anchor": {
+       "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
+       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+       "method": "Trigger"
       }
      }
     ]
@@ -12222,7 +11733,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Carpenter.cs:29",
-       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
+       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);",
+       "method": "Trigger"
       }
      },
      {
@@ -12232,7 +11744,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43",
-       "snippet": "if (InstantiateAndBuildNatureResourceAt(sawmill.GetAdjacentTiles(), allowedTileTypes, GameTag.Lumber, sawmill) > 0f)"
+       "snippet": "if (InstantiateAndBuildNatureResourceAt(sawmill.GetAdjacentTiles(), allowedTileTypes, GameTag.Lumber, sawmill) > 0f)",
+       "method": "Activate"
       }
      },
      {
@@ -12242,7 +11755,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\Sawmill.cs:35",
-       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
+       "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);",
+       "method": "Trigger"
       }
      }
     ]
@@ -12262,7 +11776,8 @@
       "source": "effect",
       "anchor": {
        "line": "Entities.BuildingBehaviours\\FishFarm.cs:49",
-       "snippet": "if (InstantiateAndBuildNatureResourceAt(fishFarm.GetTilesInRange(), hashSet, GameTag.Fish, fishFarm) > 0f)"
+       "snippet": "if (InstantiateAndBuildNatureResourceAt(fishFarm.GetTilesInRange(), hashSet, GameTag.Fish, fishFarm) > 0f)",
+       "method": "Activate"
       }
      }
     ]

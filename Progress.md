@@ -105,6 +105,22 @@ Next: trait × building cross-reference matrix; universal-modifier section (P1).
   value in a code override (null in `*_params`) — same open item as the base-tag limit.
 
 ## Session log
+- 2026-09-14 (5): Heirloom icons + interaction-truth pass per user. (a) **29 heirloom icons**
+  that 404'd to a letter placeholder now resolve — item keys rarely match their Sprite asset
+  name (AnimalFeedBag→ItemFeedBag), so `tools/gen_item_sprites.mjs` pulls the authoritative
+  key→sprite map from each item SO's `_sprite` GUID (`data/src/item_sprites.json`), consumed by
+  build-data as the primary resolver. (b) **Description "points" → real values** — `scoreOf` read
+  the wrong per-list field (`cat`/`tile` vs `category`), so Scarecrow etc. showed "points" not
+  "+30". (c) **Acts-on locality** — interactions carry `locality`/`range` from ScorePreviewMode /
+  snippet; "adjacent" vs "in range N" no longer guessed. (d) **Method-aware verbs** — extractor now
+  records each effect ref's enclosing `method`, killing a family of false "Scores off": Irrigator
+  adjacency → "Matures in 1 week"; `CanAddToDraftingPool` → "Enters the draft pool once you own X";
+  `CanBeBuiltOn` → "Can only be built next to X". (e) **Grant detection** — a bare SetTargetCategories
+  (score 0) that the description DSL marks `considered [X]` is now a **Provides** relationship, not
+  "Scores off" (Trapper's Lodge → Husbandry); split out in the building detail AND in the overlap
+  trait sections + category detail (`providesCat`; new ⤳ marker). (f) Removed two base-helper
+  over-attributions (`ScoreSpecialResource`→CorruptedGrove on 11 buildings; spurious Ore/GoldOre
+  spawns). "Scores off … +N" now appears only with a real score.
 - 2026-09-14 (4): Four UX fixes per user (`d3b5b78`). Appendix panel pinned to a fixed
   88vh (was max-height) so it no longer resizes/jumps as the filtered list shrinks.
   Dropped the "unowned map structures" / "· unowned" wording from neutral buildings —

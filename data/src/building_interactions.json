@@ -154,7 +154,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:46",
-      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.JarOfHoney);"
+      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.JarOfHoney);",
+      "method": "GetBehaviourRange"
      }
     },
     {
@@ -165,7 +166,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:49",
-      "snippet": "ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.JarOfHoney);"
+      "snippet": "ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.JarOfHoney);",
+      "method": "GetBehaviourRange"
      }
     },
     {
@@ -176,7 +178,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:60",
-      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.JarOfHoney);"
+      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.JarOfHoney);",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -189,7 +192,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:63",
-      "snippet": "int countOfBuildingsOfTypeInRange = ((Building)source).GetCountOfBuildingsOfTypeInRange(GameTag.Flowers);"
+      "snippet": "int countOfBuildingsOfTypeInRange = ((Building)source).GetCountOfBuildingsOfTypeInRange(GameTag.Flowers);",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -200,7 +204,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apiary.cs:64",
-      "snippet": "num += MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.JarOfHoney).GetMultParam * (float)countOfBuildingsOfTypeInRange * (float)countOfItemWithTagEqui"
+      "snippet": "num += MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.JarOfHoney).GetMultParam * (float)countOfBuildingsOfTypeInRange * (float)countOfItemWithTagEqui",
+      "method": "GetBehaviourMultiplier"
      }
     }
    ],
@@ -230,7 +235,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchardEmpty.cs:43",
-      "snippet": "emptyField.TransformBuildingInto(GameTag.AppleOrchard, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
+      "snippet": "emptyField.TransformBuildingInto(GameTag.AppleOrchard, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);",
+      "method": "Activate"
      }
     },
     {
@@ -243,7 +249,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchardEmpty.cs:50",
-      "snippet": "if (((Building)source).HasAnyBuildingOfTypeAdjacent(GameTag.Apiary))"
+      "snippet": "if (((Building)source).HasAnyBuildingOfTypeAdjacent(GameTag.Apiary))",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -256,7 +263,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchardEmpty.cs:61",
-      "snippet": "return otherBuilding.Tag == GameTag.Apiary;"
+      "snippet": "return otherBuilding.Tag == GameTag.Apiary;",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -270,7 +278,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchardEmpty.cs:68",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -309,7 +318,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Bakery.cs:39",
-      "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.WheatField);"
+      "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.WheatField);",
+      "method": "Activate"
      }
     },
     {
@@ -322,7 +332,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Bakery.cs:49",
-      "snippet": "return source.HasAnyBuildingOfTypeAdjacent(GameTag.Windmill);"
+      "snippet": "return source.HasAnyBuildingOfTypeAdjacent(GameTag.Windmill);",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -367,7 +378,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Composter.cs:44",
-      "snippet": "foreach (Building item in composter.GetBuildingsOfTypeAdjacent(GameTag.Manure))"
+      "snippet": "foreach (Building item in composter.GetBuildingsOfTypeAdjacent(GameTag.Manure))",
+      "method": "TryRemoveManure"
      }
     },
     {
@@ -378,7 +390,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Composter.cs:57",
-      "snippet": "inRange.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(building));"
+      "snippet": "inRange.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(building));",
+      "method": "Activate"
      }
     },
     {
@@ -391,7 +404,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Composter.cs:68",
-      "snippet": "if (otherBuilding.Tag == GameTag.Manure && composter.GetAdjacentTiles().Contains(otherBuilding.Tile))"
+      "snippet": "if (otherBuilding.Tag == GameTag.Manure && composter.GetAdjacentTiles().Contains(otherBuilding.Tile))",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -453,7 +467,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SheepFarm.cs:39",
-      "snippet": "where t.Type == TileType.Grass && (t.IsEmpty || t.Building.Tag == GameTag.Plateau)"
+      "snippet": "where t.Type == TileType.Grass && (t.IsEmpty || t.Building.Tag == GameTag.Plateau)",
+      "method": "Activate"
      }
     },
     {
@@ -466,7 +481,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SheepFarm.cs:49",
-      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.Manure, tile, playerInitiated: false, triggerOnBuild: true, sheep);"
+      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.Manure, tile, playerInitiated: false, triggerOnBuild: true, sheep);",
+      "method": "Activate"
      }
     }
    ],
@@ -505,7 +521,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchard.cs:42",
-      "snippet": "if (((Building)source).HasAnyBuildingOfTypeAdjacent(GameTag.Apiary))"
+      "snippet": "if (((Building)source).HasAnyBuildingOfTypeAdjacent(GameTag.Apiary))",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -518,7 +535,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchard.cs:53",
-      "snippet": "return otherBuilding.Tag == GameTag.Apiary;"
+      "snippet": "return otherBuilding.Tag == GameTag.Apiary;",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     },
     {
@@ -532,7 +550,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\AppleOrchard.cs:60",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -655,7 +674,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Granary.cs:42",
-      "snippet": "}, GamePieceCategory.Crop);"
+      "snippet": "}, GamePieceCategory.Crop);",
+      "method": "Activate"
      }
     },
     {
@@ -669,7 +689,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Granary.cs:48",
-      "snippet": "if (origin.GetTilesInRange().Contains(tile) && (bool)tileBuilding && tileBuilding.Categories.ContainsCategory(GamePieceCategory.Crop) && tileBuilding.Data.AlternatePlacedType != 0)"
+      "snippet": "if (origin.GetTilesInRange().Contains(tile) && (bool)tileBuilding && tileBuilding.Categories.ContainsCategory(GamePieceCategory.Crop) && tileBuilding.Data.AlternatePlacedType != 0)",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     }
    ],
@@ -749,7 +770,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Irrigation.cs:43",
-      "snippet": "return CurrentTagCount(GameTag.Reservoir) > 0;"
+      "snippet": "return CurrentTagCount(GameTag.Reservoir) > 0;",
+      "method": "CanAddToDraftingPool"
      }
     },
     {
@@ -763,7 +785,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Irrigation.cs:49 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -777,7 +800,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Irrigation.cs:28 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     }
    ],
@@ -865,7 +889,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BerryPicker.cs:39",
-      "snippet": "berryBush.TransformBuildingInto(GameTag.BerryBushEmpty, berryPicker, berryBush.Values, berryBush.BuildingPaint);"
+      "snippet": "berryBush.TransformBuildingInto(GameTag.BerryBushEmpty, berryPicker, berryBush.Values, berryBush.BuildingPaint);",
+      "method": "Activate"
      }
     },
     {
@@ -878,7 +903,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BerryPicker.cs:40",
-      "snippet": "points.Add(new NumberObject(berryBush, GetScoreForTag(berryPicker, GameTag.BerryBush)));"
+      "snippet": "points.Add(new NumberObject(berryBush, GetScoreForTag(berryPicker, GameTag.BerryBush)));",
+      "method": "Activate"
      }
     },
     {
@@ -891,7 +917,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BerryPicker.cs:41",
-      "snippet": "}, GameTag.BerryBush);"
+      "snippet": "}, GameTag.BerryBush);",
+      "method": "Activate"
      }
     }
    ],
@@ -962,7 +989,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Reservoir.cs:48",
-      "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.Irrigation);"
+      "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.Irrigation);",
+      "method": "Activate"
      }
     },
     {
@@ -976,7 +1004,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Reservoir.cs:30 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     }
    ],
@@ -1056,7 +1085,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SunflowerFarm.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -1101,7 +1131,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SunflowerFarmEmpty.cs:43",
-      "snippet": "emptyField.TransformBuildingInto(GameTag.SunflowerFarm, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
+      "snippet": "emptyField.TransformBuildingInto(GameTag.SunflowerFarm, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);",
+      "method": "Activate"
      }
     },
     {
@@ -1115,7 +1146,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SunflowerFarmEmpty.cs:49",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -1155,33 +1187,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WheatField.cs:42",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\WheatField.cs:35 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\WheatField.cs:36 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -1228,7 +1235,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WheatFieldEmpty.cs:42",
-      "snippet": "emptyField.TransformBuildingInto(GameTag.WheatField, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
+      "snippet": "emptyField.TransformBuildingInto(GameTag.WheatField, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);",
+      "method": "Activate"
      }
     },
     {
@@ -1242,7 +1250,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WheatFieldEmpty.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -1334,7 +1343,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Windmill.cs:29",
-      "snippet": "if (building2.Categories.ContainsCategory(GamePieceCategory.Crop) && building.IsTileAdjacentToBuilding(building2.Tile))"
+      "snippet": "if (building2.Categories.ContainsCategory(GamePieceCategory.Crop) && building.IsTileAdjacentToBuilding(building2.Tile))",
+      "method": "Trigger"
      }
     },
     {
@@ -1348,7 +1358,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Windmill.cs:52",
-      "snippet": "return otherBuilding.Categories.ContainsCategory(GamePieceCategory.Crop);"
+      "snippet": "return otherBuilding.Categories.ContainsCategory(GamePieceCategory.Crop);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -1381,21 +1392,7 @@
      "Monument"
     ]
    },
-   "interactions": [
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Enclave.cs:37 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [],
    "listensForEvents": []
   },
@@ -1550,7 +1547,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Fountain.cs:27 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     }
    ],
@@ -1661,7 +1659,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     },
     {
@@ -1677,7 +1676,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Inn.cs:55",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsAnyOf(GamePieceCategory.Residence, GamePieceCategory.Training))",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -1760,7 +1760,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:39",
-      "snippet": "GameTag gameTag = SerializedMonoSingleton<ConsumablesPool>.Instance.GetPaintRoll(1, GameTag.BsSpectralPaint)[0];"
+      "snippet": "GameTag gameTag = SerializedMonoSingleton<ConsumablesPool>.Instance.GetPaintRoll(1, GameTag.BsSpectralPaint)[0];",
+      "method": "Activate"
      }
     },
     {
@@ -1771,7 +1772,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:52",
-      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.MarketProduce);"
+      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.MarketProduce);",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -1785,7 +1787,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:55",
-      "snippet": "int num2 = ((Building)source).GetBuildingsOfCategoryAdjacent(GamePieceCategory.Stall).Count();"
+      "snippet": "int num2 = ((Building)source).GetBuildingsOfCategoryAdjacent(GamePieceCategory.Stall).Count();",
+      "method": "GetBehaviourMultiplier"
      }
     },
     {
@@ -1796,7 +1799,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PaintersStall.cs:56",
-      "snippet": "num += MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.MarketProduce).GetMultParam * (float)num2 * (float)countOfItemWithTagEquipped;"
+      "snippet": "num += MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.MarketProduce).GetMultParam * (float)num2 * (float)countOfItemWithTagEquipped;",
+      "method": "GetBehaviourMultiplier"
      }
     }
    ],
@@ -1896,7 +1900,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:46",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.MarblePillar))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.MarblePillar))",
+      "method": "Activate"
      }
     },
     {
@@ -1914,7 +1919,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Statue.cs:72",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -1953,7 +1959,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\TaxCollector.cs:44",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Furniture))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Furniture))",
+      "method": "Activate"
      }
     },
     {
@@ -1964,7 +1971,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\TaxCollector.cs:46",
-      "snippet": "foreach (ItemHeirloom item in MonoSingleton<ItemHeirloomController>.Instance.GetAllItemsWithTagEquipped(GameTag.Furniture))"
+      "snippet": "foreach (ItemHeirloom item in MonoSingleton<ItemHeirloomController>.Instance.GetAllItemsWithTagEquipped(GameTag.Furniture))",
+      "method": "Activate"
      }
     },
     {
@@ -1977,7 +1985,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\TaxCollector.cs:66",
-      "snippet": "building.TransformBuildingInto(GameTag.HousePlot, taxCollector, building.Values, building.BuildingPaint);"
+      "snippet": "building.TransformBuildingInto(GameTag.HousePlot, taxCollector, building.Values, building.BuildingPaint);",
+      "method": "Activate"
      }
     }
    ],
@@ -2145,7 +2154,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Treasury.cs:82",
-      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsGoldPaint;"
+      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsGoldPaint;",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -2218,7 +2228,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:66",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))",
+      "method": "Activate"
      }
     },
     {
@@ -2231,7 +2242,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:70",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)"
+      "snippet": "if (InstantiateAndBuildNatureResourceAt(apothecary.GetAdjacentTiles(), hashSet, GameTag.Herbs, apothecary) > 0f)",
+      "method": "Activate"
      }
     },
     {
@@ -2242,70 +2254,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Apothecary.cs:86",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:70 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Apothecary.cs:51 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     }
    ],
@@ -2396,20 +2346,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Bank.cs:52",
-      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsRedPaint;"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Bank.cs:42 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsRedPaint;",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -2549,7 +2487,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Circus.cs:47",
-      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsGoldPaint;"
+      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsGoldPaint;",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -2586,7 +2525,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonField.cs:41",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(cotton));"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(cotton));",
+      "method": "Activate"
      }
     },
     {
@@ -2600,7 +2540,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonField.cs:64",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -2630,7 +2571,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonFieldEmpty.cs:41",
-      "snippet": "emptyField.TransformBuildingInto(GameTag.CottonField, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
+      "snippet": "emptyField.TransformBuildingInto(GameTag.CottonField, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);",
+      "method": "Activate"
      }
     },
     {
@@ -2644,7 +2586,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CottonFieldEmpty.cs:47",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -2736,7 +2679,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\GoldPan.cs:50",
-      "snippet": "return building.Tag == GameTag.Trees;"
+      "snippet": "return building.Tag == GameTag.Trees;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -2847,7 +2791,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Jeweller.cs:50",
-      "snippet": "bool num3 = randomAdjacentTileWithCondition.Building.Categories.ContainsCategory(GamePieceCategory.Luxury);"
+      "snippet": "bool num3 = randomAdjacentTileWithCondition.Building.Categories.ContainsCategory(GamePieceCategory.Luxury);",
+      "method": "Activate"
      }
     },
     {
@@ -2858,7 +2803,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Jeweller.cs:58",
-      "snippet": "item.Values.AddLocalStatChange(GameTag.BsStatModSellValue, num2);"
+      "snippet": "item.Values.AddLocalStatChange(GameTag.BsStatModSellValue, num2);",
+      "method": "Activate"
      }
     }
    ],
@@ -2948,7 +2894,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:41",
-      "snippet": "GameTag.SuppliesStall,"
+      "snippet": "GameTag.SuppliesStall,",
+      "method": "Trigger"
      }
     },
     {
@@ -2961,7 +2908,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:42",
-      "snippet": "GameTag.GrocerStall,"
+      "snippet": "GameTag.GrocerStall,",
+      "method": "Trigger"
      }
     },
     {
@@ -2974,7 +2922,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:43",
-      "snippet": "GameTag.DeliStall,"
+      "snippet": "GameTag.DeliStall,",
+      "method": "Trigger"
      }
     },
     {
@@ -2987,7 +2936,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:44",
-      "snippet": "GameTag.BotanyStall"
+      "snippet": "GameTag.BotanyStall",
+      "method": "Trigger"
      }
     },
     {
@@ -2998,7 +2948,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:60",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && (bool)MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.Silk))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && (bool)MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.Silk))",
+      "method": "Activate"
      }
     },
     {
@@ -3012,7 +2963,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Marketplace.cs:62",
-      "snippet": "foreach (Building item in MonoSingleton<BuildingController>.Instance.Buildings.Where((Building b) => b.Categories.ContainsCategory(GamePieceCategory.Stall)))"
+      "snippet": "foreach (Building item in MonoSingleton<BuildingController>.Instance.Buildings.Where((Building b) => b.Categories.ContainsCategory(GamePieceCategory.Stall)))",
+      "method": "Activate"
      }
     }
    ],
@@ -3041,7 +2993,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Reliquary.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Tag == GameTag.Rocks) >= 1;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Tag == GameTag.Rocks) >= 1;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -3148,7 +3101,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Vineyard.cs:40",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -3188,7 +3142,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\VineyardEmpty.cs:42",
-      "snippet": "emptyField.TransformBuildingInto(GameTag.Vineyard, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
+      "snippet": "emptyField.TransformBuildingInto(GameTag.Vineyard, emptyField, emptyField.Values, emptyField.BuildingPaint, null, null, runTriggers: true, isGrowth: true);",
+      "method": "Activate"
      }
     },
     {
@@ -3202,7 +3157,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\VineyardEmpty.cs:48",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -3238,7 +3194,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CampfireDepleted.cs:37",
-      "snippet": "depleted.TransformBuildingInto(GameTag.Campfire, depleted, depleted.Values, depleted.BuildingPaint);"
+      "snippet": "depleted.TransformBuildingInto(GameTag.Campfire, depleted, depleted.Values, depleted.BuildingPaint);",
+      "method": "Activate"
      }
     }
    ],
@@ -3272,7 +3229,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:35",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Charcoal))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Charcoal))",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -3283,7 +3241,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:37",
-      "snippet": "ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.Charcoal);"
+      "snippet": "ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.Charcoal);",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -3294,7 +3253,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:39",
-      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Charcoal);"
+      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Charcoal);",
+      "method": "GetBehaviourCooldownParam"
      }
     },
     {
@@ -3307,7 +3267,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Campfire.cs:48",
-      "snippet": "building.TransformBuildingInto(GameTag.CampfireDepleted, building, building.Values, building.BuildingPaint);"
+      "snippet": "building.TransformBuildingInto(GameTag.CampfireDepleted, building, building.Values, building.BuildingPaint);",
+      "method": "Activate"
      }
     }
    ],
@@ -3343,7 +3304,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Excavation.cs:38",
-      "snippet": "excavation.TransformBuildingInto(GameTag.ExcavationUncovered, excavation, excavation.Values, excavation.BuildingPaint);"
+      "snippet": "excavation.TransformBuildingInto(GameTag.ExcavationUncovered, excavation, excavation.Values, excavation.BuildingPaint);",
+      "method": "Activate"
      }
     }
    ],
@@ -3393,7 +3355,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:45",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))",
+      "method": "Activate"
      }
     },
     {
@@ -3406,7 +3369,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:49",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(forester.GetTilesInRange(), hashSet, GameTag.Trees, forester) > 0f)"
+      "snippet": "if (InstantiateAndBuildNatureResourceAt(forester.GetTilesInRange(), hashSet, GameTag.Trees, forester) > 0f)",
+      "method": "Activate"
      }
     },
     {
@@ -3417,7 +3381,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:65",
-      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Axe);"
+      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Axe);",
+      "method": "GetActivationCount"
      }
     },
     {
@@ -3428,57 +3393,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Forester.cs:78",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Forester.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     }
    ],
@@ -3516,20 +3432,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Grove.cs:55",
-      "snippet": "return building.Tag == GameTag.Trees;"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Grove.cs:39 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "return building.Tag == GameTag.Trees;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -3597,7 +3501,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:42",
-      "snippet": "float num2 = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.RareHerb) && array.Length >= 2) ? M"
+      "snippet": "float num2 = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.RareHerb) && array.Length >= 2) ? M",
+      "method": "Activate"
      }
     },
     {
@@ -3608,7 +3513,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:42",
-      "snippet": "float num2 = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.RareHerb) && array.Length >= 2) ? M"
+      "snippet": "float num2 = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.RareHerb) && array.Length >= 2) ? M",
+      "method": "Activate"
      }
     },
     {
@@ -3619,7 +3525,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:51",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.RareHerb).GetMultParam * num2);"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.RareHerb).GetMultParam * num2);",
+      "method": "Activate"
      }
     },
     {
@@ -3630,20 +3537,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\HerbGarden.cs:51",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.RareHerb).GetMultParam * num2);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\HerbGarden.cs:55 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.RareHerb).GetMultParam * num2);",
+      "method": "Activate"
      }
     }
    ],
@@ -3785,7 +3680,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shaman.cs:61",
-      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsGreenPaint;"
+      "snippet": "return otherBuilding.BuildingPaint.PaintTag == GameTag.BsGreenPaint;",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -3838,7 +3734,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Shrine.cs:64",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Nature)) >= 3;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -3891,20 +3788,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lantern.cs:49",
-      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lantern.cs:41 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "return otherBuilding.Categories.Contains(GamePieceCategory.Nature);",
+      "method": "DoesOtherBuildingPositivelyAffectThis"
      }
     }
    ],
@@ -4039,7 +3924,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WatchTower.cs:34",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Fertilizer))",
+      "method": "Trigger"
      }
     },
     {
@@ -4052,7 +3938,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WatchTower.cs:40",
-      "snippet": "if ((adjacentTile.IsEmpty && hashSet.Contains(adjacentTile.Type)) || ((bool)adjacentTile.Building && adjacentTile.Building.Tag == GameTag.Plateau))"
+      "snippet": "if ((adjacentTile.IsEmpty && hashSet.Contains(adjacentTile.Type)) || ((bool)adjacentTile.Building && adjacentTile.Building.Tag == GameTag.Plateau))",
+      "method": "Trigger"
      }
     },
     {
@@ -4065,7 +3952,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\WatchTower.cs:42",
-      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.Trees, adjacentTile.X, adjacentTile.Y, playerInitiated: false, triggerOnBuild: true, building);"
+      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.Trees, adjacentTile.X, adjacentTile.Y, playerInitiated: false, triggerOnBuild: true, building);",
+      "method": "Trigger"
      }
     }
    ],
@@ -4185,7 +4073,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Woodcutter.cs:67",
-      "snippet": "return tileBuilding.Tag == GameTag.Trees;"
+      "snippet": "return tileBuilding.Tag == GameTag.Trees;",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     },
     {
@@ -4196,7 +4085,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Woodcutter.cs:76",
-      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Axe);"
+      "snippet": "int countOfItemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Axe);",
+      "method": "GetActivationCount"
      }
     }
    ],
@@ -4315,57 +4205,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22",
-      "snippet": "InstantiateAndBuildNatureResourceAt(mine.GetTilesInRange(), allowedTileTypes, GameTag.Rocks, mine);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\CorruptedMine.cs:22 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "InstantiateAndBuildNatureResourceAt(mine.GetTilesInRange(), allowedTileTypes, GameTag.Rocks, mine);",
+      "method": "Activate"
      }
     }
    ],
@@ -4566,7 +4407,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
+      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+      "method": "Trigger"
      }
     },
     {
@@ -4579,7 +4421,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:29",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
+      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+      "method": "Trigger"
      }
     },
     {
@@ -4590,7 +4433,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Blacksmith.cs:32",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModCooldown, -GetCooldownModificationParam(building));"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModCooldown, -GetCooldownModificationParam(building));",
+      "method": "Trigger"
      }
     }
    ],
@@ -4662,7 +4506,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Carpenter.cs:29",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
+      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);",
+      "method": "Trigger"
      }
     },
     {
@@ -4673,7 +4518,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Carpenter.cs:32",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModRange, GetRangeModificationParam(building));"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModRange, GetRangeModificationParam(building));",
+      "method": "Trigger"
      }
     }
    ],
@@ -4766,7 +4612,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Factory.cs:61",
-      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Industrial)) >= 5;"
+      "snippet": "return source.GetAdjacentTiles().Count((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Industrial)) >= 5;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -4795,7 +4642,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(sawmill.GetAdjacentTiles(), allowedTileTypes, GameTag.Lumber, sawmill) > 0f)"
+      "snippet": "if (InstantiateAndBuildNatureResourceAt(sawmill.GetAdjacentTiles(), allowedTileTypes, GameTag.Lumber, sawmill) > 0f)",
+      "method": "Activate"
      }
     },
     {
@@ -4808,57 +4656,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumberyard.cs:61",
-      "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Trees) > 0;"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Lumberyard.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Trees) > 0;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -4896,7 +4695,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Mine.cs:43",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(mine.GetAdjacentTiles(), allowedTileTypes, GameTag.Ore, mine) > 0f)"
+      "snippet": "if (InstantiateAndBuildNatureResourceAt(mine.GetAdjacentTiles(), allowedTileTypes, GameTag.Ore, mine) > 0f)",
+      "method": "Activate"
      }
     },
     {
@@ -4909,57 +4709,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Mine.cs:61",
-      "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Rocks) > 0;"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Mine.cs:43 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "return source.GetCountOfBuildingsOfTypeAdjacent(GameTag.Rocks) > 0;",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -5067,7 +4818,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
-      "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :"
+      "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :",
+      "method": "Activate"
      }
     },
     {
@@ -5080,7 +4832,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
-      "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :"
+      "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :",
+      "method": "Activate"
      }
     },
     {
@@ -5093,57 +4846,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quarry.cs:45",
-      "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Quarry.cs:46 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "GameTag toCreate = ((MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.DiamondPick)) ? GameTag.Ore :",
+      "method": "Activate"
      }
     }
    ],
@@ -5216,7 +4920,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Sawmill.cs:35",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);"
+      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Lumber);",
+      "method": "Trigger"
      }
     },
     {
@@ -5227,7 +4932,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Sawmill.cs:38",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModActivationCount, 1f);"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModActivationCount, 1f);",
+      "method": "Trigger"
      }
     }
    ],
@@ -5289,7 +4995,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
+      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+      "method": "Trigger"
      }
     },
     {
@@ -5302,7 +5009,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Smelter.cs:27",
-      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);"
+      "snippet": "int num2 = RemoveResourceIfPossible(building, GameTag.Ore, GameTag.GoldOre);",
+      "method": "Trigger"
      }
     },
     {
@@ -5313,7 +5021,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Smelter.cs:30",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(building));"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(building));",
+      "method": "Trigger"
      }
     }
    ],
@@ -5636,7 +5345,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:45",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))",
+      "method": "Activate"
      }
     },
     {
@@ -5649,7 +5359,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:49",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(fishFarm.GetTilesInRange(), hashSet, GameTag.Fish, fishFarm) > 0f)"
+      "snippet": "if (InstantiateAndBuildNatureResourceAt(fishFarm.GetTilesInRange(), hashSet, GameTag.Fish, fishFarm) > 0f)",
+      "method": "Activate"
      }
     },
     {
@@ -5660,57 +5371,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FishFarm.cs:65",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\FishFarm.cs:49 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     }
    ],
@@ -5833,21 +5495,7 @@
      "Nature"
     ]
    },
-   "interactions": [
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\KelpField.cs:33 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [
     {
      "event": "RerollGained",
@@ -5957,7 +5605,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:47",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))",
+      "method": "Activate"
      }
     },
     {
@@ -5970,7 +5619,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51",
-      "snippet": "if (InstantiateAndBuildNatureResourceAt(temple.GetTilesInRange(), hashSet, GameTag.KelpField, temple) > 0f)"
+      "snippet": "if (InstantiateAndBuildNatureResourceAt(temple.GetTilesInRange(), hashSet, GameTag.KelpField, temple) > 0f)",
+      "method": "Activate"
      }
     },
     {
@@ -5981,57 +5631,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\OceanTemple.cs:67",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:694",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): if (toCreate == GameTag.Ore && MonoSingleton<ItemHeirloomController>.HasInstance)"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldNugget",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:696",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): ItemHeirloom itemWithTagEquipped = MonoSingleton<ItemHeirloomController>.Instance.GetItemWithTagEquipped(GameTag.GoldNugget);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "GoldOre",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "Ore",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Resource"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\OceanTemple.cs:51 -> Entities/_GamePieceBehaviour.cs:699",
-      "snippet": "calls InstantiateAndBuildNatureResourceAt(...): toCreate = (itemWithTagEquipped.Behaviour.RandomChance(itemWithTagEquipped) ? GameTag.GoldOre : GameTag.Ore);"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Pontoon))",
+      "method": "TileOrBuildingPositiveHighlight"
      }
     }
    ],
@@ -6116,7 +5717,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Port.cs:35",
-      "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.Plateau, 2);"
+      "snippet": "MonoSingleton<ConsumablesPanel>.Instance.AddConsumable(GameTag.Plateau, 2);",
+      "method": "Trigger"
      }
     }
    ],
@@ -6159,7 +5761,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quay.cs:34",
-      "snippet": "return CurrentTagCount(GameTag.Port, GameTag.Quay, GameTag.Crane) > 0;"
+      "snippet": "return CurrentTagCount(GameTag.Port, GameTag.Quay, GameTag.Crane) > 0;",
+      "method": "CanAddToDraftingPool"
      }
     },
     {
@@ -6172,7 +5775,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quay.cs:34",
-      "snippet": "return CurrentTagCount(GameTag.Port, GameTag.Quay, GameTag.Crane) > 0;"
+      "snippet": "return CurrentTagCount(GameTag.Port, GameTag.Quay, GameTag.Crane) > 0;",
+      "method": "CanAddToDraftingPool"
      }
     },
     {
@@ -6185,7 +5789,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Quay.cs:49",
-      "snippet": "if ((uint)(tag - 156) <= 1u || tag == GameTag.Crane)"
+      "snippet": "if ((uint)(tag - 156) <= 1u || tag == GameTag.Crane)",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -6403,20 +6008,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Arsenal.cs:48",
-      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Fortification));"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\Arsenal.cs:39 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
+      "snippet": "return source.GetAdjacentTiles().Any((Tile neighbour) => !neighbour.IsEmpty && neighbour.Building.Categories.ContainsCategory(GamePieceCategory.Fortification));",
+      "method": "CanBeBuiltOn"
      }
     }
    ],
@@ -6452,7 +6045,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Ballista.cs:51",
-      "snippet": "num3 += MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Arbalest);"
+      "snippet": "num3 += MonoSingleton<ItemHeirloomController>.Instance.GetCountOfItemWithTagEquipped(GameTag.Arbalest);",
+      "method": "Activate"
      }
     }
    ],
@@ -6477,7 +6071,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Banner.cs:42",
-      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(banner));"
+      "snippet": "building.Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(banner));",
+      "method": "Activate"
      }
     }
    ],
@@ -6603,7 +6198,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\FieldHospital.cs:39",
-      "snippet": "buildingsOfCategoriesInRange[i].Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(hos));"
+      "snippet": "buildingsOfCategoriesInRange[i].Values.AddLocalStatChange(GameTag.BsStatModMult, GetMultParam(hos));",
+      "method": "Activate"
      }
     }
    ],
@@ -6734,21 +6330,7 @@
      "Training"
     ]
    },
-   "interactions": [
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\JoustingArena.cs:37 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
-     }
-    }
-   ],
+   "interactions": [],
    "emitsEvents": [
     {
      "event": "MoneyEarned",
@@ -6795,19 +6377,6 @@
      "anchor": {
       "line": "Entities.BuildingBehaviours\\SparringYard.cs:20",
       "snippet": "SetTargetCategories(GamePieceCategory.Training);"
-     }
-    },
-    {
-     "kind": "effectTag",
-     "value": "CorruptedGrove",
-     "source": "effect",
-     "action": null,
-     "resolvesToGuilds": [
-      "Hazard"
-     ],
-     "anchor": {
-      "line": "Entities.BuildingBehaviours\\SparringYard.cs:42 -> Entities/_GamePieceBehaviour.cs:631",
-      "snippet": "calls ScoreSpecialResource(...): if (source.Source is Building building && MonoSingleton<BuildingController>.HasInstance && MonoSingleton<BuildingController>.Instance.IsTileInRangeOfBuilding(building.Tile, GameTag"
      }
     }
    ],
@@ -7093,7 +6662,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Wall.cs:29",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.RedEarth))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.RedEarth))",
+      "method": "GetBehaviourMajorCategory"
      }
     },
     {
@@ -7106,7 +6676,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Wall.cs:31",
-      "snippet": "return GamePieceCategory.Martial;"
+      "snippet": "return GamePieceCategory.Martial;",
+      "method": "GetBehaviourMajorCategory"
      }
     },
     {
@@ -7117,7 +6688,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Wall.cs:38",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Standard))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.Standard))",
+      "method": "GetMultParam"
      }
     }
    ],
@@ -7185,7 +6757,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Well.cs:26 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     },
     {
@@ -7199,7 +6772,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Well.cs:38 -> Entities.BuildingBehaviours/_BuildingBehaviour.cs:864",
-      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);"
+      "snippet": "calls IrrigateAdjacent(...): }, GamePieceCategory.Crop);",
+      "method": null
      }
     }
    ],
@@ -7230,7 +6804,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BerryBush.cs:32",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -7260,7 +6835,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BerryBushEmpty.cs:37",
-      "snippet": "emptyBush.TransformBuildingInto(GameTag.BerryBush, emptyBush, emptyBush.Values, emptyBush.BuildingPaint, null, null, runTriggers: true, isGrowth: true);"
+      "snippet": "emptyBush.TransformBuildingInto(GameTag.BerryBush, emptyBush, emptyBush.Values, emptyBush.BuildingPaint, null, null, runTriggers: true, isGrowth: true);",
+      "method": "Activate"
      }
     },
     {
@@ -7274,7 +6850,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BerryBushEmpty.cs:43",
-      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))"
+      "snippet": "if (source is Building source2 && source2.HasAnyBuildingOfCategoryAdjacent(GamePieceCategory.Irrigator))",
+      "method": "GetBehaviourCooldownParam"
      }
     }
    ],
@@ -7341,7 +6918,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Trees.cs:26",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.PrayerFlags))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.PrayerFlags))",
+      "method": "GetBehaviourMajorCategory"
      }
     },
     {
@@ -7354,7 +6932,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Trees.cs:28",
-      "snippet": "return GamePieceCategory.Frontier;"
+      "snippet": "return GamePieceCategory.Frontier;",
+      "method": "GetBehaviourMajorCategory"
      }
     }
    ],
@@ -7432,7 +7011,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:27",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.MossyLog))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.MossyLog))",
+      "method": "GetBehaviourMajorCategory"
      }
     },
     {
@@ -7443,7 +7023,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:29",
-      "snippet": "return GamePieceCategory.Wild;"
+      "snippet": "return GamePieceCategory.Wild;",
+      "method": "GetBehaviourMajorCategory"
      }
     },
     {
@@ -7454,7 +7035,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:36",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.MossyLog))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.MossyLog))",
+      "method": "GetBehaviourMinorCategories"
      }
     },
     {
@@ -7465,7 +7047,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Lumber.cs:38",
-      "snippet": "return new HashSet<GamePieceCategory> { GamePieceCategory.Wild };"
+      "snippet": "return new HashSet<GamePieceCategory> { GamePieceCategory.Wild };",
+      "method": "GetBehaviourMinorCategories"
      }
     }
    ],
@@ -7521,7 +7104,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\BanditCamp.cs:79",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.FawkesMask))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.FawkesMask))",
+      "method": "GetBehaviourScoreParam"
      }
     }
    ],
@@ -7546,7 +7130,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\Hideout.cs:52",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.FawkesMask))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.FawkesMask))",
+      "method": "GetBehaviourScoreParam"
      }
     }
    ],
@@ -7593,7 +7178,8 @@
      ],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PirateShip.cs:48",
-      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.TreasureChest, randomTileInRangeWithCondition, playerInitiated: false, triggerOnBuild: true, pirate"
+      "snippet": "MonoSingleton<BuildingController>.Instance.InstantiateAndBuildBuildingAt(GameTag.TreasureChest, randomTileInRangeWithCondition, playerInitiated: false, triggerOnBuild: true, pirate",
+      "method": "Activate"
      }
     },
     {
@@ -7604,7 +7190,8 @@
      "resolvesToGuilds": [],
      "anchor": {
       "line": "Entities.BuildingBehaviours\\PirateShip.cs:61",
-      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.FawkesMask))"
+      "snippet": "if (MonoSingleton<ItemHeirloomController>.HasInstance && MonoSingleton<ItemHeirloomController>.Instance.IsItemWithTagEquipped(GameTag.FawkesMask))",
+      "method": "GetBehaviourScoreParam"
      }
     }
    ],

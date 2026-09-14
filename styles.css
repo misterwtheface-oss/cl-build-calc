@@ -168,6 +168,7 @@ h2, h3 { font-weight: 700; }
 }
 .reason.r-target { color: var(--gold); border-color: var(--border-hi); }
 .reason.r-cat { color: var(--pos); }
+.reason.r-provide { color: #d18ad1; }
 .reason.r-event { color: var(--accent); }
 .reason.r-nature { color: #7fbf6a; }
 .empty-note { font-size: .72rem; color: var(--text-dim); padding: .3rem 0; }
