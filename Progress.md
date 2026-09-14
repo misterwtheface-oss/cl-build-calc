@@ -1,20 +1,21 @@
 # Combolands Guild Overlap Explorer — Progress
 
 ## Current state
-**P0 + layout/banner polish + icon-system pass, deployed (2026-09-13).** Pick two of the **7 core
-guilds** via full-height flanking banners (grey Null placeholder → guild selector;
-Arcane/Rogues are not selectable). The **centre column groups overlapping
-buildings by shared trait** — one section per shared functional category, headed by
-its colour-coded trait banner, holding tiles (from both guilds) that own/target
-that trait — plus shared nature interactions, shared counselors ("votes to
-focus"), a bridge-heirlooms block, a "Shared tags" quick index, and each guild's
-remaining buildings/heirlooms in a collapsed per-guild section. Detail overlays for
-buildings, heirlooms, counselors, categories, events, nature. `build-data.mjs`
-compiles curated `_cl_extract` JSON → `data.js` (window.CL_DATA, ~188 KB) with
-hygiene guardrails. Building→sprite mapping is now **authoritative** (read from the
-game's own ScriptableObjects, not name-guessed) and tiles use a square icon with
-guild + rarity rails. Next: trait × building cross-reference matrix; bridge /
-universal-modifier section (P1).
+**P0 + layout/icons + Appendix + neutral buildings + interaction-depth pass, deployed (2026-09-14).**
+Pick two of the **7 core guilds** via full-height flanking banners (grey Null placeholder → guild
+selector; Arcane/Rogues are not selectable). The **centre column groups overlapping buildings by
+shared trait / shared event**, each section now split into two labelled role subgroups —
+what **acts on** the trait/event (scores off / targets / emits) vs what **provides/reacts to** it
+(carries the trait / listens) — plus **shared neutral buildings** (draftable Neutral cards both
+guilds interact with, nature-node style), shared nature interactions, shared counselors, a
+bridge-heirlooms block, a "Shared tags" quick index, each guild's remaining pieces collapsed, and a
+collapsed **"Other heirlooms"** section so every heirloom has a home for any pair. A header
+**🔍 Appendix** (replaced the old Swap button) is a global searchable index of every detail page.
+Detail overlays for buildings, heirlooms, counselors, categories, events, nature; the building
+detail now shows the **main action verb** (Removes/Buffs/Transforms X) and splits interactions into
+**"Acts on"** vs **"Responds to"**. `build-data.mjs` compiles curated `_cl_extract` JSON → `data.js`
+(window.CL_DATA) with hygiene guardrails. Building→sprite mapping is authoritative (game SOs).
+Next: trait × building cross-reference matrix; universal-modifier section (P1).
 
 ## Backlog
 ### In progress
@@ -23,11 +24,11 @@ universal-modifier section (P1).
 ### Next up (P1)
 - [ ] Trait × building cross-reference matrix per guild (glyph cells ● / ◆ / ○,
       sticky both-axis headers, Shared row) — the flagship synergy view
-- [ ] Dedicated **Bridges** section: neutral buildings, structural minor-guild
-      bridges (all bridge into Arcane), dynamic category-granters; plus the
-      **universal adjacency modifiers** (Campfire/Obelisk/Wall/Town Bell…)
-- [ ] Better heirloom↔pair resolution (count target *tags*, not only categories)
-      and show heirloom↔building synergy within a pair
+- [ ] Dedicated **Bridges** section: structural minor-guild bridges (all bridge
+      into Arcane), dynamic category-granters; plus the **universal adjacency
+      modifiers** (Campfire/Obelisk/Wall/Town Bell…). (Neutral buildings ✓ done.)
+- [ ] Show heirloom↔building synergy within a pair (which specific buildings a
+      pair-relevant heirloom boosts), building on the new item_affected attribution
 - [ ] Put heirloom sprites on the same authoritative SO map as buildings (see Known issues)
 - [ ] Re-datamine a current game build to capture the 4 art-less code-stub buildings
 
@@ -68,6 +69,21 @@ universal-modifier section (P1).
       counselors keep their true tall portrait aspect ratio (card + detail).
 - [x] **Mobile sidebar name centering fix** (2026-09-13). Restored `align-items:center`
       on the mobile `.banner-slot .banner-fig` (regressed in the nameplate rework).
+- [x] **Appendix global search** (2026-09-14). 🔍 Appendix button (replaced Swap); z150
+      overlay, lazy-built index of every detail page, opens the same detail a click would,
+      scoped to all guilds; fixed 88vh panel; search not auto-focused.
+- [x] **Neutral buildings as a shared edge** (2026-09-14). 14 guild-less cards wired into
+      detail/[Token] links/Appendix + a "Shared neutral buildings" centre block via
+      per-guild connection resolution (nature-node style).
+- [x] **Building main-action extraction** (2026-09-14). `build_building_interactions.py`
+      recovers the verb (remove/transform/buff/spawn) per interaction; detail shows
+      "Removes/Buffs/Transforms X in range" instead of a vague scan.
+- [x] **Heirloom guild attribution + always-shown** (2026-09-14). `build_item_affected.py`
+      mines affinity (tome notes / consumer dispatcher / per-building consumers / triggers);
+      45 heirlooms resolve to a guild; collapsed "Other heirlooms" shows the rest.
+- [x] **Interaction role split** (2026-09-14). `interactionRole()` → building detail
+      "Acts on" vs "Responds to"; shared trait/event sections split into interactor /
+      interface subgroups; directional a/an-correct phrasing.
 
 ## Known issues / warnings
 - **4 building sprites unresolved** → text-letter placeholder: Bakery, PaintersStall,
@@ -89,6 +105,38 @@ universal-modifier section (P1).
   value in a code override (null in `*_params`) — same open item as the base-tag limit.
 
 ## Session log
+- 2026-09-14 (4): Four UX fixes per user (`d3b5b78`). Appendix panel pinned to a fixed
+  88vh (was max-height) so it no longer resizes/jumps as the filtered list shrinks.
+  Dropped the "unowned map structures" / "· unowned" wording from neutral buildings —
+  they're draftable Neutral cards, not solely pre-gen structures. Interaction copy made
+  directional & specific (declared → "Scores off adjacent X"; conditions → "Activates
+  only when an X is adjacent" / "Scales with your equipped X heirloom", a/an-correct).
+  Added `interactionRole()` (out = acts on / in = responds to): building detail splits
+  "Interacts with" into **Acts on** vs **Responds to**; shared trait/event sections split
+  into labelled subgroups (Score off / Provide; Emit / React to) — interactors vs
+  interfaces are now unmistakable.
+- 2026-09-14 (3): Two extraction-depth fixes (`d543f97`). (a) **Main action** was lost —
+  building interactions listed scanned tags but not the verb. Enhanced
+  `build_building_interactions.py` to recover the action from the enclosing method (effect
+  tags fetched cross-line: Composter foreach Manure→RemoveBuilding; declared targets
+  iterated in range: Woodcutter harvests Trees, Composter buffs Farm, Granary transforms
+  Crop) with guards (Sewer removes NON-targets, Jeweller only scores). (b) **Heirlooms
+  showed nowhere** — reachesGuilds came only from SetTargetCategories (7/133). New
+  `build_item_affected.py` mines guild affinity from tome notes, the consumer dispatcher,
+  per-building consumers & trigger bodies → item_affected.json; 45 heirlooms now resolve
+  (broad cats excluded from reach). Added collapsed "Other heirlooms" section so all 133
+  appear. Regen tools/data in gitignored `_cl_extract`; data/src copies committed.
+- 2026-09-14 (2): **Neutral buildings** wired into all features (`2882903`). 14 guild-less
+  map structures (Wall/Well/Ruin/Plaza/Rail…) behave like nature nodes — a shared edge
+  owned by neither guild. `buildRecord()` refactor + `connectionsByGuild`/`reachesGuilds`;
+  merged into buildingByKey (detail + [Token] links) but kept out of guild columns; new
+  "Shared neutral buildings" centre block; Appendix indexes all 14. Data-accurate & sparse
+  (Well=Agri+Comm, Plateau/Scaffolding=Comm+Ind bridge core pairs).
+- 2026-09-14 (1): **Appendix search** (`87a9b4f`, fix over `a335f54`). Header 🔍 Appendix
+  button replaced Swap (swap removed); `#appendix-root` z150 overlay with a live search over
+  a lazy-built index of every navigable page — a result opens the same detail overlay a
+  click would, scoped GLOBALLY (all guilds) vs the pair-scoped main page. Search box not
+  auto-focused. (Live-fixed a TDZ blank-screen: index referenced `esc` before init.)
 - 2026-09-13 (4): Icon-system pass, deployed (`634bfbb`). Investigated missing building
   art → found the calc only ever pulled full-portrait atlas art. Rebuilt the mapping
   from the game's own SOs (`tools/gen_building_sprites.mjs` → `building_sprites.json`);
