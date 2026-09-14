@@ -1,0 +1,2433 @@
+{
+ "_meta": {
+  "guilds": [
+   "Agricultural",
+   "Commercial",
+   "Marine",
+   "Civic",
+   "Industrial",
+   "Martial",
+   "Frontier",
+   "Arcane",
+   "Rogues"
+  ],
+  "coreNamedGuilds": [
+   "Agricultural",
+   "Commercial",
+   "Marine",
+   "Civic",
+   "Industrial",
+   "Martial",
+   "Frontier"
+  ],
+  "note": "A run picks exactly 2 guilds. Wild category matches ALL guilds. Functional categories are the main connective tissue; direct guild-category targeting is rare. See code/GUILD_CROSSOVERS.md for the readable map."
+ },
+ "guildBuildingCounts": {
+  "Agricultural": 21,
+  "Commercial": 19,
+  "Marine": 16,
+  "Civic": 23,
+  "Industrial": 15,
+  "Martial": 15,
+  "Frontier": 18,
+  "Arcane": 5,
+  "Rogues": 4
+ },
+ "functionalCategoryToGuilds": {
+  "Crop": [
+   "Agricultural",
+   "Commercial"
+  ],
+  "Engineering": [
+   "Civic",
+   "Industrial",
+   "Marine",
+   "Martial"
+  ],
+  "Entertainment": [
+   "Agricultural",
+   "Civic",
+   "Commercial",
+   "Martial"
+  ],
+  "Farm": [
+   "Agricultural",
+   "Commercial",
+   "Frontier",
+   "Industrial",
+   "Marine"
+  ],
+  "Fishing": [
+   "Marine"
+  ],
+  "Fortification": [
+   "Frontier",
+   "Industrial",
+   "Martial"
+  ],
+  "Healing": [
+   "Civic",
+   "Commercial",
+   "Frontier",
+   "Martial"
+  ],
+  "House": [
+   "Civic"
+  ],
+  "Husbandry": [
+   "Agricultural",
+   "Frontier",
+   "Martial"
+  ],
+  "Irrigator": [
+   "Agricultural",
+   "Civic"
+  ],
+  "Luxury": [
+   "Commercial"
+  ],
+  "Manufacturer": [
+   "Agricultural",
+   "Commercial",
+   "Frontier",
+   "Industrial",
+   "Martial"
+  ],
+  "Monument": [
+   "Arcane",
+   "Civic",
+   "Commercial",
+   "Frontier",
+   "Marine",
+   "Martial"
+  ],
+  "Nature": [
+   "Agricultural",
+   "Arcane",
+   "Civic",
+   "Commercial",
+   "Frontier",
+   "Marine"
+  ],
+  "Provisioner": [
+   "Agricultural",
+   "Civic",
+   "Commercial",
+   "Industrial",
+   "Marine"
+  ],
+  "Residence": [
+   "Agricultural",
+   "Arcane",
+   "Civic",
+   "Commercial",
+   "Frontier",
+   "Industrial",
+   "Martial"
+  ],
+  "Ruins": [
+   "Civic",
+   "Commercial",
+   "Marine"
+  ],
+  "Sacred": [
+   "Civic",
+   "Frontier",
+   "Marine"
+  ],
+  "Ship": [
+   "Marine",
+   "Martial",
+   "Rogues"
+  ],
+  "Stall": [
+   "Civic",
+   "Commercial"
+  ],
+  "Trader": [
+   "Arcane",
+   "Commercial",
+   "Industrial",
+   "Marine"
+  ],
+  "Training": [
+   "Commercial",
+   "Frontier",
+   "Industrial",
+   "Martial"
+  ],
+  "Woodworking": [
+   "Agricultural",
+   "Frontier",
+   "Industrial",
+   "Martial"
+  ]
+ },
+ "neutralSharedBuildings": [
+  "Conduit",
+  "Lamppost",
+  "MagicRuin",
+  "Plateau",
+  "Plaza",
+  "PostOffice",
+  "Rail",
+  "Ruin",
+  "Scaffolding",
+  "Sewer",
+  "TownBell",
+  "Wall",
+  "WayStation",
+  "Well"
+ ],
+ "resourceSharedBuildings": [
+  "BerryBush",
+  "BerryBushEmpty",
+  "Fish",
+  "Flowers",
+  "GoldOre",
+  "Herbs",
+  "Lumber",
+  "Ore",
+  "Rocks",
+  "Trees"
+ ],
+ "structuralMinorGuildBridges": [
+  {
+   "building": "Conduit",
+   "name": "Conduit",
+   "major": "Neutral",
+   "minorGuilds": [
+    "Arcane"
+   ]
+  },
+  {
+   "building": "MagicRuin",
+   "name": "Magical Ruin",
+   "major": "Neutral",
+   "minorGuilds": [
+    "Arcane"
+   ]
+  },
+  {
+   "building": "Scarecrow",
+   "name": "Scarecrow",
+   "major": "Agricultural",
+   "minorGuilds": [
+    "Arcane"
+   ]
+  },
+  {
+   "building": "WitchHut",
+   "name": "Witch's Hut",
+   "major": "Frontier",
+   "minorGuilds": [
+    "Arcane"
+   ]
+  }
+ ],
+ "dynamicCategoryGranters": {
+  "Trapper": "copies its target category onto adjacent buildings",
+  "Quay": "copies its target category onto adjacent buildings",
+  "Irrigation": "copies its target category onto adjacent buildings",
+  "Balloon": "copies its target category onto in-range buildings",
+  "Park": "adds its 2nd target category to neighbours already matching its 1st",
+  "OceanTemple": "adds its 2nd target category to in-range buildings matching its 1st",
+  "Apothecary": "adds its 2nd target category to in-range buildings matching its 1st",
+  "Disguise(item)": "if a building matches target[0], grants it target[1]",
+  "Bedroll(item)": "grants Residence near Barn",
+  "DeliveryCart(item)": "grants Trader near Warehouse",
+  "HotelBell(item)": "grants Residence next to LodgingHouse",
+  "MysteryMeat(item)": "grants Fishing to Husbandry",
+  "WorkersRosary(item)": "grants Sacred to Engineering/Manufacturer"
+ },
+ "pairs": [
+  {
+   "guilds": [
+    "Agricultural",
+    "Arcane"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Nature",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "GardenersCottage",
+     "name": "Gardener's Cottage",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Windmill",
+     "name": "Windmill",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Residence"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Civic"
+   ],
+   "name": "Crofter's Collective",
+   "sharedFunctionalCategories": [
+    "Entertainment",
+    "Irrigator",
+    "Nature",
+    "Provisioner",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "GardenersCottage",
+     "name": "Gardener's Cottage",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Windmill",
+     "name": "Windmill",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "TownHall",
+     "name": "Town Hall",
+     "homeGuild": "Civic",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Residence"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Commercial"
+   ],
+   "name": "Cash Croppers",
+   "sharedFunctionalCategories": [
+    "Crop",
+    "Entertainment",
+    "Farm",
+    "Manufacturer",
+    "Nature",
+    "Provisioner",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Composter",
+     "name": "Composter",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "GardenersCottage",
+     "name": "Gardener's Cottage",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "GrainSilo",
+     "name": "Grain Silo",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Granary",
+     "name": "Granary",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Crop"
+     ]
+    },
+    {
+     "building": "Irrigation",
+     "name": "Irrigation",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Scarecrow",
+     "name": "Scarecrow",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "SunflowerFarm",
+     "name": "Sunflower Field",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Crop"
+     ]
+    },
+    {
+     "building": "SunflowerFarmEmpty",
+     "name": "SunflowerFarmEmpty",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Crop"
+     ]
+    },
+    {
+     "building": "Windmill",
+     "name": "Windmill",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Residence",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Apothecary",
+     "name": "Apothecary",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "BotanyStall",
+     "name": "BotanyStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Circus",
+     "name": "Circus",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "DeliStall",
+     "name": "DeliStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Crop",
+      "cat:Farm",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "LodgingHouse",
+     "name": "Lodging House",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "SuppliesStall",
+     "name": "SuppliesStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Frontier"
+   ],
+   "name": "Fieldwatchers",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Husbandry",
+    "Manufacturer",
+    "Nature",
+    "Residence",
+    "Woodworking"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Barn",
+     "name": "Ranch",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "Composter",
+     "name": "Composter",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "GardenersCottage",
+     "name": "Gardener's Cottage",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "GrainSilo",
+     "name": "Grain Silo",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Irrigation",
+     "name": "Irrigation",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Scarecrow",
+     "name": "Scarecrow",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Windmill",
+     "name": "Windmill",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Residence",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Lantern",
+     "name": "Stone Lantern",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Tannery",
+     "name": "Tannery",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "Trapper",
+     "name": "Trapper's Lodge",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "WatchTower",
+     "name": "Watch Tower",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Industrial"
+   ],
+   "name": "Produce Processors",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Manufacturer",
+    "Provisioner",
+    "Residence",
+    "Woodworking"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Composter",
+     "name": "Composter",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "GrainSilo",
+     "name": "Grain Silo",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Irrigation",
+     "name": "Irrigation",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Scarecrow",
+     "name": "Scarecrow",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Windmill",
+     "name": "Windmill",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Residence",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Blacksmith",
+     "name": "Blacksmith",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "Carpenter",
+     "name": "Carpenter",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Woodworking"
+     ]
+    },
+    {
+     "building": "Nitrary",
+     "name": "Nitrary",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Sawmill",
+     "name": "Sawmill",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "ToolShed",
+     "name": "Tool Shed",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Woodworking"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Marine"
+   ],
+   "name": "Coastal Cultivators",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Nature",
+    "Provisioner"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Composter",
+     "name": "Composter",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "GardenersCottage",
+     "name": "Gardener's Cottage",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "GrainSilo",
+     "name": "Grain Silo",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Irrigation",
+     "name": "Irrigation",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Scarecrow",
+     "name": "Scarecrow",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "Clipper",
+     "name": "Clipper",
+     "homeGuild": "Marine",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "FishingBoat",
+     "name": "Fishing Boat",
+     "homeGuild": "Marine",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "OceanTemple",
+     "name": "Ocean Shrine",
+     "homeGuild": "Marine",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Nature"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Martial"
+   ],
+   "name": "Quartermasters",
+   "sharedFunctionalCategories": [
+    "Entertainment",
+    "Husbandry",
+    "Manufacturer",
+    "Residence",
+    "Woodworking"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Barn",
+     "name": "Ranch",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "Windmill",
+     "name": "Windmill",
+     "homeGuild": "Agricultural",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Residence",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "ArcheryRange",
+     "name": "Archery Range",
+     "homeGuild": "Martial",
+     "targetsGuild": "Agricultural",
+     "via": [
+      "cat:Husbandry",
+      "cat:Woodworking"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Agricultural",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [],
+   "crossTargeting": []
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Civic"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Monument",
+    "Nature",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "TownHall",
+     "name": "Town Hall",
+     "homeGuild": "Civic",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Residence"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Commercial"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Monument",
+    "Nature",
+    "Residence",
+    "Trader"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Apothecary",
+     "name": "Apothecary",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "BotanyStall",
+     "name": "BotanyStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Circus",
+     "name": "Circus",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "LodgingHouse",
+     "name": "Lodging House",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Residence"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Frontier"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Monument",
+    "Nature",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Lantern",
+     "name": "Stone Lantern",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WatchTower",
+     "name": "Watch Tower",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Industrial"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Residence",
+    "Trader"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Nitrary",
+     "name": "Nitrary",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Marine"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Monument",
+    "Nature",
+    "Trader"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Clipper",
+     "name": "Clipper",
+     "homeGuild": "Marine",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Trader"
+     ]
+    },
+    {
+     "building": "FishingBoat",
+     "name": "Fishing Boat",
+     "homeGuild": "Marine",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "OceanTemple",
+     "name": "Ocean Shrine",
+     "homeGuild": "Marine",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Port",
+     "name": "Port",
+     "homeGuild": "Marine",
+     "targetsGuild": "Arcane",
+     "via": [
+      "cat:Trader"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Martial"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Monument",
+    "Residence"
+   ],
+   "crossTargeting": []
+  },
+  {
+   "guilds": [
+    "Arcane",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [],
+   "crossTargeting": []
+  },
+  {
+   "guilds": [
+    "Civic",
+    "Commercial"
+   ],
+   "name": "Merchants",
+   "sharedFunctionalCategories": [
+    "Entertainment",
+    "Healing",
+    "Monument",
+    "Nature",
+    "Provisioner",
+    "Residence",
+    "Ruins",
+    "Stall"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "TownHall",
+     "name": "Town Hall",
+     "homeGuild": "Civic",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "Apothecary",
+     "name": "Apothecary",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Healing",
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "BotanyStall",
+     "name": "BotanyStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Circus",
+     "name": "Circus",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "DeliStall",
+     "name": "DeliStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "LodgingHouse",
+     "name": "Lodging House",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "Marketplace",
+     "name": "Marketplace",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Stall"
+     ]
+    },
+    {
+     "building": "SuppliesStall",
+     "name": "SuppliesStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Civic",
+    "Frontier"
+   ],
+   "name": "Pioneers",
+   "sharedFunctionalCategories": [
+    "Healing",
+    "Monument",
+    "Nature",
+    "Residence",
+    "Sacred"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Church",
+     "name": "Church",
+     "homeGuild": "Civic",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Sacred"
+     ]
+    },
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Nature",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "TownHall",
+     "name": "Town Hall",
+     "homeGuild": "Civic",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "HerbGarden",
+     "name": "Herb Garden",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "Lantern",
+     "name": "Stone Lantern",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WatchTower",
+     "name": "Watch Tower",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WitchHut",
+     "name": "Witch's Hut",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Healing",
+      "cat:Sacred"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Civic",
+    "Industrial"
+   ],
+   "name": "Unionists",
+   "sharedFunctionalCategories": [
+    "Engineering",
+    "Provisioner",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "TownHall",
+     "name": "Town Hall",
+     "homeGuild": "Civic",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "Nitrary",
+     "name": "Nitrary",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Sawmill",
+     "name": "Sawmill",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Engineering"
+     ]
+    },
+    {
+     "building": "ToolShed",
+     "name": "Tool Shed",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Civic",
+    "Marine"
+   ],
+   "name": "Harbourmasters",
+   "sharedFunctionalCategories": [
+    "Engineering",
+    "Monument",
+    "Nature",
+    "Provisioner",
+    "Ruins",
+    "Sacred"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Church",
+     "name": "Church",
+     "homeGuild": "Civic",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Sacred"
+     ]
+    },
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "FishingBoat",
+     "name": "Fishing Boat",
+     "homeGuild": "Marine",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "OceanTemple",
+     "name": "Ocean Shrine",
+     "homeGuild": "Marine",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Nature",
+      "cat:Sacred"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Civic",
+    "Martial"
+   ],
+   "name": "Court Guards",
+   "sharedFunctionalCategories": [
+    "Engineering",
+    "Entertainment",
+    "Healing",
+    "Monument",
+    "Residence"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Park",
+     "name": "Park",
+     "homeGuild": "Civic",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "TownHall",
+     "name": "Town Hall",
+     "homeGuild": "Civic",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "FieldHospital",
+     "name": "Field Hospital",
+     "homeGuild": "Martial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "University",
+     "name": "Academy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Civic",
+     "via": [
+      "cat:Healing"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Civic",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [],
+   "crossTargeting": []
+  },
+  {
+   "guilds": [
+    "Commercial",
+    "Frontier"
+   ],
+   "name": "Prospectors",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Healing",
+    "Manufacturer",
+    "Monument",
+    "Nature",
+    "Residence",
+    "Training"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Apothecary",
+     "name": "Apothecary",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Healing",
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "BotanyStall",
+     "name": "BotanyStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Circus",
+     "name": "Circus",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "DeliStall",
+     "name": "DeliStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Healing",
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Farm",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "LodgingHouse",
+     "name": "Lodging House",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "SuppliesStall",
+     "name": "SuppliesStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Manufacturer",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "HerbGarden",
+     "name": "Herb Garden",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "Lantern",
+     "name": "Stone Lantern",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WatchTower",
+     "name": "Watch Tower",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WitchHut",
+     "name": "Witch's Hut",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Healing"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Commercial",
+    "Industrial"
+   ],
+   "name": "Merchandisers",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Manufacturer",
+    "Provisioner",
+    "Residence",
+    "Trader",
+    "Training"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Circus",
+     "name": "Circus",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Farm",
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "LodgingHouse",
+     "name": "Lodging House",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "SuppliesStall",
+     "name": "SuppliesStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Engineering",
+      "cat:Manufacturer",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Blacksmith",
+     "name": "Blacksmith",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Manufacturer",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Nitrary",
+     "name": "Nitrary",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Sawmill",
+     "name": "Sawmill",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Commercial",
+    "Marine"
+   ],
+   "name": "Merchant Marine",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Monument",
+    "Nature",
+    "Provisioner",
+    "Ruins",
+    "Trader"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Apothecary",
+     "name": "Apothecary",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "BotanyStall",
+     "name": "BotanyStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "DeliStall",
+     "name": "DeliStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Fishing"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Farm"
+     ]
+    },
+    {
+     "building": "SuppliesStall",
+     "name": "SuppliesStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Engineering"
+     ]
+    },
+    {
+     "building": "Clipper",
+     "name": "Clipper",
+     "homeGuild": "Marine",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Luxury",
+      "cat:Manufacturer",
+      "cat:Trader"
+     ]
+    },
+    {
+     "building": "FishingBoat",
+     "name": "Fishing Boat",
+     "homeGuild": "Marine",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "OceanTemple",
+     "name": "Ocean Shrine",
+     "homeGuild": "Marine",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Port",
+     "name": "Port",
+     "homeGuild": "Marine",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Luxury",
+      "cat:Trader"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Commercial",
+    "Martial"
+   ],
+   "name": "Mercenaries",
+   "sharedFunctionalCategories": [
+    "Entertainment",
+    "Healing",
+    "Manufacturer",
+    "Monument",
+    "Residence",
+    "Training"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Apothecary",
+     "name": "Apothecary",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "Circus",
+     "name": "Circus",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "DeliStall",
+     "name": "DeliStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Healing",
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "GrocerStall",
+     "name": "GrocerStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "LodgingHouse",
+     "name": "Lodging House",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Residence"
+     ]
+    },
+    {
+     "building": "SuppliesStall",
+     "name": "SuppliesStall",
+     "homeGuild": "Commercial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Engineering",
+      "cat:Manufacturer",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "FieldHospital",
+     "name": "Field Hospital",
+     "homeGuild": "Martial",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Healing",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "SparringYard",
+     "name": "Sparring Dummy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "University",
+     "name": "Academy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Commercial",
+     "via": [
+      "cat:Healing",
+      "cat:Training"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Commercial",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [],
+   "crossTargeting": []
+  },
+  {
+   "guilds": [
+    "Frontier",
+    "Industrial"
+   ],
+   "name": "Lumberjacks",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Fortification",
+    "Manufacturer",
+    "Residence",
+    "Training",
+    "Woodworking"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Blacksmith",
+     "name": "Blacksmith",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Manufacturer",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Carpenter",
+     "name": "Carpenter",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Woodworking"
+     ]
+    },
+    {
+     "building": "Nitrary",
+     "name": "Nitrary",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Sawmill",
+     "name": "Sawmill",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "ToolShed",
+     "name": "Tool Shed",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Woodworking"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Frontier",
+    "Marine"
+   ],
+   "name": "Shoreward Rangers",
+   "sharedFunctionalCategories": [
+    "Farm",
+    "Monument",
+    "Nature",
+    "Sacred"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Lantern",
+     "name": "Stone Lantern",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WatchTower",
+     "name": "Watch Tower",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "WitchHut",
+     "name": "Witch's Hut",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Sacred"
+     ]
+    },
+    {
+     "building": "Clipper",
+     "name": "Clipper",
+     "homeGuild": "Marine",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "FishingBoat",
+     "name": "Fishing Boat",
+     "homeGuild": "Marine",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "OceanTemple",
+     "name": "Ocean Shrine",
+     "homeGuild": "Marine",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Nature",
+      "cat:Sacred"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Frontier",
+    "Martial"
+   ],
+   "name": "3rd Legion Sentries",
+   "sharedFunctionalCategories": [
+    "Fortification",
+    "Healing",
+    "Husbandry",
+    "Manufacturer",
+    "Monument",
+    "Residence",
+    "Training",
+    "Woodworking"
+   ],
+   "crossTargeting": [
+    {
+     "building": "HerbGarden",
+     "name": "Herb Garden",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "Tannery",
+     "name": "Tannery",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "Trapper",
+     "name": "Trapper's Lodge",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Husbandry"
+     ]
+    },
+    {
+     "building": "WitchHut",
+     "name": "Witch's Hut",
+     "homeGuild": "Frontier",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Healing"
+     ]
+    },
+    {
+     "building": "ArcheryRange",
+     "name": "Archery Range",
+     "homeGuild": "Martial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Husbandry",
+      "cat:Woodworking"
+     ]
+    },
+    {
+     "building": "FieldHospital",
+     "name": "Field Hospital",
+     "homeGuild": "Martial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Healing",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Fortress",
+     "name": "Fortress",
+     "homeGuild": "Martial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Fortification"
+     ]
+    },
+    {
+     "building": "SparringYard",
+     "name": "Sparring Dummy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "University",
+     "name": "Academy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Frontier",
+     "via": [
+      "cat:Healing",
+      "cat:Training"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Frontier",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [],
+   "crossTargeting": []
+  },
+  {
+   "guilds": [
+    "Industrial",
+    "Marine"
+   ],
+   "name": "Riggers",
+   "sharedFunctionalCategories": [
+    "Engineering",
+    "Farm",
+    "Provisioner",
+    "Trader"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Carpenter",
+     "name": "Carpenter",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Nitrary",
+     "name": "Nitrary",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Nature"
+     ]
+    },
+    {
+     "building": "Sawmill",
+     "name": "Sawmill",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Engineering"
+     ]
+    },
+    {
+     "building": "ToolShed",
+     "name": "Tool Shed",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Engineering"
+     ]
+    },
+    {
+     "building": "Clipper",
+     "name": "Clipper",
+     "homeGuild": "Marine",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Manufacturer",
+      "cat:Trader"
+     ]
+    },
+    {
+     "building": "Port",
+     "name": "Port",
+     "homeGuild": "Marine",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Trader"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Industrial",
+    "Martial"
+   ],
+   "name": "Ironsmiths",
+   "sharedFunctionalCategories": [
+    "Engineering",
+    "Fortification",
+    "Manufacturer",
+    "Residence",
+    "Training",
+    "Woodworking"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Blacksmith",
+     "name": "Blacksmith",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Manufacturer",
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Carpenter",
+     "name": "Carpenter",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Ship",
+      "cat:Woodworking"
+     ]
+    },
+    {
+     "building": "Sawmill",
+     "name": "Sawmill",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Engineering",
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "ToolShed",
+     "name": "Tool Shed",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Engineering",
+      "cat:Woodworking"
+     ]
+    },
+    {
+     "building": "ArcheryRange",
+     "name": "Archery Range",
+     "homeGuild": "Martial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Woodworking"
+     ]
+    },
+    {
+     "building": "FieldHospital",
+     "name": "Field Hospital",
+     "homeGuild": "Martial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "Fortress",
+     "name": "Fortress",
+     "homeGuild": "Martial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Fortification"
+     ]
+    },
+    {
+     "building": "SparringYard",
+     "name": "Sparring Dummy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Training"
+     ]
+    },
+    {
+     "building": "University",
+     "name": "Academy",
+     "homeGuild": "Martial",
+     "targetsGuild": "Industrial",
+     "via": [
+      "cat:Training"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Industrial",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [],
+   "crossTargeting": [
+    {
+     "building": "Carpenter",
+     "name": "Carpenter",
+     "homeGuild": "Industrial",
+     "targetsGuild": "Rogues",
+     "via": [
+      "cat:Ship"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Marine",
+    "Martial"
+   ],
+   "name": "Naval Officers",
+   "sharedFunctionalCategories": [
+    "Engineering",
+    "Monument",
+    "Ship"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Clipper",
+     "name": "Clipper",
+     "homeGuild": "Marine",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Manufacturer"
+     ]
+    },
+    {
+     "building": "Crane",
+     "name": "Crane",
+     "homeGuild": "Marine",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Lighthouse",
+     "name": "Lighthouse",
+     "homeGuild": "Marine",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Port",
+     "name": "Port",
+     "homeGuild": "Marine",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Quay",
+     "name": "Quay",
+     "homeGuild": "Marine",
+     "targetsGuild": "Martial",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Fortress",
+     "name": "Fortress",
+     "homeGuild": "Martial",
+     "targetsGuild": "Marine",
+     "via": [
+      "cat:Ship"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Marine",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Ship"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Crane",
+     "name": "Crane",
+     "homeGuild": "Marine",
+     "targetsGuild": "Rogues",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Lighthouse",
+     "name": "Lighthouse",
+     "homeGuild": "Marine",
+     "targetsGuild": "Rogues",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Port",
+     "name": "Port",
+     "homeGuild": "Marine",
+     "targetsGuild": "Rogues",
+     "via": [
+      "cat:Ship"
+     ]
+    },
+    {
+     "building": "Quay",
+     "name": "Quay",
+     "homeGuild": "Marine",
+     "targetsGuild": "Rogues",
+     "via": [
+      "cat:Ship"
+     ]
+    }
+   ]
+  },
+  {
+   "guilds": [
+    "Martial",
+    "Rogues"
+   ],
+   "name": null,
+   "sharedFunctionalCategories": [
+    "Ship"
+   ],
+   "crossTargeting": [
+    {
+     "building": "Fortress",
+     "name": "Fortress",
+     "homeGuild": "Martial",
+     "targetsGuild": "Rogues",
+     "via": [
+      "cat:Ship"
+     ]
+    }
+   ]
+  }
+ ]
+}

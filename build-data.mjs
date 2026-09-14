@@ -1,0 +1,429 @@
+/*
+  build-data.mjs — compiles the Combolands datamine (data/src/*.json, copied from
+  the _cl_extract workspace) into data.js as `window.CL_DATA = {...}`, running
+  data-hygiene guardrails first.
+
+  Usage:  node build-data.mjs           (sprite/desc misses warn; refs are errors)
+          node build-data.mjs --strict  (warnings promoted to errors)
+
+  Guardrail philosophy (see the build-calc-planner skill): resolve every
+  cross-reference and every asset path BEFORE writing data.js. A dangling guild,
+  category, counselor, or a would-404 sprite caught here is a log line; the same
+  reference caught in production is a broken tile and a lost user. On any hard
+  error we refuse to write data.js, leaving the last good copy intact.
+
+  This tool is a two-guild OVERLAP explorer, so "traits" (per the house style)
+  are the game's functional CATEGORIES — the colour-coded surface guilds expose
+  to one another. Buildings/heirlooms carry category + interaction links as
+  STRUCTURED DATA (never prose) so the overlap can be computed, not narrated.
+*/
+import fs from "node:fs";
+import path from "node:path";
+
+// ── config ──────────────────────────────────────────────────────────────────
+const SRC = "data/src";
+const ASSETS = "assets";
+const OUT = "data.js";
+const STRICT = process.argv.includes("--strict");
+
+const errors = [];
+const warnings = [];
+const readJSON = (f) => JSON.parse(fs.readFileSync(path.join(SRC, f), "utf8"));
+const has = (rel) => fs.existsSync(path.join(ASSETS, rel));
+// Stored sprite paths are relative to the SITE ROOT (index.html), so they carry
+// the `assets/` prefix; `has()` checks the same file on disk under ASSETS.
+const url = (rel) => (rel ? `${ASSETS}/${rel}` : null);
+
+// The 9 draftable guilds (majorCategory values that are real guilds). Hazard,
+// Neutral, None, Resource are non-guild majors handled separately / excluded.
+const GUILD_IDS = ["Agricultural", "Commercial", "Marine", "Civic",
+  "Industrial", "Martial", "Frontier", "Arcane", "Rogues"];
+const CORE_GUILDS = new Set(["Agricultural", "Commercial", "Marine", "Civic",
+  "Industrial", "Martial", "Frontier"]);
+const NON_GUILD_MAJORS = new Set(["Hazard", "Neutral", "Resource", "None"]);
+
+// Per-guild accent colour, pulled from the game's actual banner art (green
+// Agricultural, amber Commercial, blue Marine, slate Civic, steel Industrial,
+// maroon Martial, rust Frontier; Arcane/Rogues have no banner so use their
+// thematic purple/charcoal). These theme every guild banner and column.
+const GUILD_COLOR = {
+  Agricultural: "#5a8c3a", Commercial: "#c8933f", Marine: "#4a86b8",
+  Civic: "#5f7c9c", Industrial: "#566573", Martial: "#9c3a34",
+  Frontier: "#b06a37", Arcane: "#7d5aa8", Rogues: "#3b3b44",
+};
+// Guild → sprite basenames. Filenames are inconsistent in the export, so map
+// them explicitly (Martial art ships as "military", etc.). badges/ has all 9.
+const GUILD_ICON = { // catalog/guilds/*.png
+  Agricultural: "agricultural", Commercial: "commercial", Marine: "marine",
+  Civic: "civic", Industrial: "industrial", Martial: "military",
+  Frontier: "frontier", Arcane: "arcane", Rogues: "rogues",
+};
+const GUILD_BANNER = { // tall banners exist only for the 7 core guilds
+  Agricultural: "AgriculturalBanner", Commercial: "CommercialBanner",
+  Marine: "MarineBanner", Civic: "CivicBanner", Industrial: "IndustrialBanner",
+  Martial: "MartialBanner", Frontier: "FrontierBanner",
+};
+
+// Counselor → portrait basename. All are Character<Name> except Sensei, whose
+// art ships as CharacterWarrior.
+const COUNSELOR_SPRITE_OVERRIDE = { Sensei: "CharacterWarrior" };
+
+// Nature resources (map-gen, no guild) → sprite. Some live in map/ as numbered
+// variants, some are building sprites; all copied into assets/nature/.
+const NATURE_SPRITE = {
+  BerryBush: "BerryBush1", BerryBushEmpty: "Bush1", Fish: "Fish1",
+  Flowers: "Flowers1", Trees: "Tree1", Rocks: "Rock1",
+  Ore: "BOre", GoldOre: "BGoldOre", Lumber: "BLumber", KelpField: "BKelpField",
+  Herbs: null, // no dedicated sprite in the export → text fallback
+};
+const NATURE_NAME = {
+  BerryBush: "Berry Bush", BerryBushEmpty: "Empty Bush", Fish: "Fish",
+  Flowers: "Flowers", Trees: "Forest", Rocks: "Rocks", Ore: "Ore",
+  GoldOre: "Gold Ore", Lumber: "Lumber", KelpField: "Kelp Field", Herbs: "Herbs",
+};
+
+const RARITY_RANK = { Common: 0, Uncommon: 1, Rare: 2, Masterwork: 3, Legendary: 4 };
+const rarityRank = (r) => (r in RARITY_RANK ? RARITY_RANK[r] : 99);
+
+// Event vocabulary — the trigger-driven links buildings share (emit/listen).
+const EVENT_META = {
+  RerollGained: "A reroll is granted",
+  RemoveGained: "A remove is granted",
+  BuildingRemovalOccurred: "A building is removed",
+  BuildingConstructionOccurred: "A building is built",
+  BuildingTransformationOccurred: "A building transforms into another",
+  MoneyEarned: "Gold is earned",
+  ScoringOccurred: "A building scores",
+  ConsumableUsed: "A consumable is used",
+  OnRemove: "This building is itself removed",
+};
+
+// ── load source ───────────────────────────────────────────────────────────
+const bParams = readJSON("buildings_params.json");
+const iParams = readJSON("items_params.json");
+const strings = readJSON("entity_strings.json");
+const council = readJSON("council_relationships.json");
+const crossovers = readJSON("guild_crossovers.json");
+const edges = readJSON("guild_edges.json");
+const interactions = readJSON("building_interactions.json");
+
+const bParamByKey = new Map(bParams.map((b) => [b.className, b]));
+const stringOf = (key) => strings[key] || {};
+
+// ── text helpers ──────────────────────────────────────────────────────────
+const prettify = (k) => String(k).replace(/([a-z])([A-Z])/g, "$1 $2").trim();
+// Light cleanup of the [Token] description DSL — enough for readable tiles;
+// full token expansion is a P1 backlog item.
+function cleanDesc(s) {
+  if (!s) return "";
+  return String(s)
+    .replace(/\[BREAK\]/g, " — ")
+    .replace(/[{}@]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// ── categories ("traits") ────────────────────────────────────────────────
+// functionalCategoryToGuilds is the authoritative "which guilds share this
+// functional category" map — the overlap glue. Each category is a trait record
+// with a data-driven colour (curated for the headline categories, deterministic
+// HSL for the rest so every trait themes via --aff-color).
+const funcCatToGuilds = crossovers.functionalCategoryToGuilds || {};
+const CURATED_CAT_COLOR = {
+  Nature: "#4f9d5b", Farm: "#8bbf3f", Crop: "#c9b141", Husbandry: "#b5793e",
+  Irrigator: "#3fa6c9", Woodworking: "#8a6a3a", Manufacturer: "#8a8f98",
+  Engineering: "#6d7f96", Trader: "#d1a24a", Luxury: "#d0708f", Stall: "#c98a5a",
+  Provisioner: "#a0a04a", Entertainment: "#d06a3a", Healing: "#5fbf8f",
+  Sacred: "#c0a6d8", Monument: "#b9a06a", Ruins: "#9a8a6a", Residence: "#7fa0c4",
+  Training: "#c05a5a", Fortification: "#6f7a86", Ship: "#4a86b8",
+  Fishing: "#3f9fb5", House: "#7fa0c4", Metalworking: "#8a8f98", Resource: "#9a9a5a",
+};
+function hslHex(str) {
+  let h = 0; for (const c of str) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const hue = h % 360, sat = 45, lig = 52;
+  const a = (sat / 100) * Math.min(lig / 100, 1 - lig / 100);
+  const f = (n) => {
+    const k = (n + hue / 30) % 12;
+    const col = lig / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+    return Math.round(255 * col).toString(16).padStart(2, "0");
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+const catColor = (id) => CURATED_CAT_COLOR[id] || hslHex(id);
+
+// Collect every category seen anywhere (owned minors + interaction targets +
+// the functional map) so nothing referenced is left without a trait record.
+const allCats = new Set(Object.keys(funcCatToGuilds));
+for (const b of interactions.buildings) {
+  for (const m of b.owned?.minors || []) allCats.add(m);
+  for (const it of b.interactions || []) if (it.kind === "targetCategory") allCats.add(it.value);
+}
+// Guild categories are their own "traits" too (major categories); mark them.
+const categories = [];
+for (const id of allCats) {
+  const isGuild = GUILD_IDS.includes(id);
+  const isResourceish = NON_GUILD_MAJORS.has(id);
+  categories.push({
+    id, name: prettify(id),
+    color: isGuild ? GUILD_COLOR[id] : catColor(id),
+    kind: isGuild ? "guild" : isResourceish ? "resource" : "functional",
+    guildsSharing: (funcCatToGuilds[id] || []).slice(),
+    // Guild-name categories exist to group; keep them out of shared-trait tallies.
+    showInTable: !isGuild && !isResourceish,
+  });
+}
+const catById = new Map(categories.map((c) => [c.id, c]));
+
+// ── nature resources ────────────────────────────────────────────────────
+// natureResourceGuildMap is keyed by DISPLAY name; each entry carries the
+// internal `.tag` (how buildings reference it) and the guilds that interact.
+const natureMap = edges.natureResourceGuildMap || {};
+const natureKeys = new Set(Object.values(natureMap).map((e) => e.tag)); // internal tags
+const natureResources = Object.entries(natureMap).map(([display, e]) => {
+  const tag = e.tag;
+  const spr = NATURE_SPRITE[tag];
+  const sprite = spr && has(`nature/${spr}.png`) ? url(`nature/${spr}.png`) : null;
+  if (spr && !sprite) warnings.push(`nature "${tag}" -> nature/${spr}.png (missing sprite)`);
+  else if (!spr) warnings.push(`nature "${tag}" has no sprite mapping (text fallback)`);
+  return { key: tag, name: display, guilds: (e.guilds || []).slice(), sprite };
+});
+
+// ── building sprite resolver (naming is genuinely inconsistent) ───────────
+// The export mixes conventions: B-prefixed (BApiary), no prefix (Grove),
+// numbered variants (BObelisk1), lowercase (bOceanTemple), and semantic
+// renames (BotanyStall art ships as BStallBotany). We try many mechanical
+// forms case-insensitively, then fall back to a curated override for renames.
+const buildingSpriteFiles = fs.readdirSync(path.join(ASSETS, "buildings")).filter((f) => f.endsWith(".png"));
+const bSpriteByLower = new Map(buildingSpriteFiles.map((f) => [f.toLowerCase(), f]));
+const BUILDING_SPRITE_OVERRIDE = {
+  WheatField: "BWheat", BotanyStall: "BStallBotany", GrocerStall: "BStallGrocer",
+  DeliStall: "BStallButcher", OceanTemple: "bOceanTemple",
+  HouseResidence: "BHouse1", HouseHomestead: "BHouse2", HouseHut: "BHouse3",
+  HouseTenement: "BHouse4", HouseTownhouse: "BHouse5",
+};
+function findSprite(base) {
+  for (const form of [`B${base}`, base, `B${base}1`]) {
+    const hit = bSpriteByLower.get(`${form.toLowerCase()}.png`);
+    if (hit) return url(`buildings/${hit}`);
+  }
+  return null;
+}
+function resolveBuildingSprite(key, gameTag, display) {
+  const ov = BUILDING_SPRITE_OVERRIDE[key];
+  if (ov) { const hit = bSpriteByLower.get(`${ov.toLowerCase()}.png`); if (hit) return url(`buildings/${hit}`); }
+  for (const c of [key, gameTag, String(display || "").replace(/[^A-Za-z0-9]/g, "")]) {
+    if (!c) continue;
+    const hit = findSprite(c);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+// ── buildings ─────────────────────────────────────────────────────────────
+const buildings = [];
+for (const b of interactions.buildings) {
+  const key = b.building;
+  if (NON_GUILD_MAJORS.has(b.guild)) continue;          // keep only the 9 guilds
+  if (/(?:Empty|Depleted)$/.test(key)) continue;        // transient placement states
+  const params = bParamByKey.get(key) || {};
+  const nm = stringOf(key).name;
+  const name = nm || b.display || prettify(key);
+  if (!nm) warnings.push(`building "${key}" has no localized name (using "${name}")`);
+
+  const ownedMinors = (b.owned?.minors || []).slice();
+  const ownedFunctional = ownedMinors.filter((m) => catById.get(m)?.kind === "functional");
+
+  // Keep meaningful interactions (those that resolve to a guild/resource); drop
+  // internal effect tags (BsStatMod*, paints) that resolve to nothing.
+  const inter = (b.interactions || [])
+    .filter((it) => (it.resolvesToGuilds || []).length)
+    .map((it) => ({
+      kind: it.kind, value: it.value, guilds: (it.resolvesToGuilds || []).slice(),
+      source: it.source, score: it.score ?? null,
+      snippet: it.anchor?.snippet || "", line: it.anchor?.line || "",
+    }));
+  const interactionGuilds = [...new Set(inter.flatMap((it) => it.guilds)
+    .filter((g) => GUILD_IDS.includes(g) && g !== b.guild))];
+  const natureNodes = [...new Set((b.interactions || [])
+    .map((it) => it.value).filter((v) => natureKeys.has(v)))];
+  const events = [...new Set([
+    ...(b.emitsEvents || []).map((e) => e.event),
+    ...(b.listensForEvents || []).map((e) => e.event),
+  ])];
+
+  buildings.push({
+    key, name, guild: b.guild,
+    rarity: params.rarity || null, rarityRank: rarityRank(params.rarity),
+    ownedMinors, ownedFunctional,
+    interactions: inter, interactionGuilds, natureNodes, events,
+    emits: (b.emitsEvents || []).map((e) => e.event),
+    listens: (b.listensForEvents || []).map((e) => e.event),
+    sprite: resolveBuildingSprite(key, b.owned?.gameTag, name),
+    desc: cleanDesc(stringOf(key).description),
+  });
+}
+buildings.forEach((b) => { if (!b.sprite) warnings.push(`building "${b.key}" -> no sprite (placeholder)`); });
+
+// ── heirlooms ──────────────────────────────────────────────────────────────
+const itemSpriteDir = new Set(
+  fs.readdirSync(path.join(ASSETS, "items")).filter((f) => f.endsWith(".png"))
+);
+function resolveItemSprite(key) {
+  for (const p of [`Item${key}`, `Gem${key}`, key]) {
+    if (itemSpriteDir.has(`${p}.png`)) return url(`items/${p}.png`);
+  }
+  return null;
+}
+// A heirloom "reaches" a guild if one of its target categories is carried by
+// that guild (functionalCategoryToGuilds), or it targets that guild directly.
+function guildsForCategories(cats) {
+  const out = new Set();
+  for (const c of cats) {
+    if (GUILD_IDS.includes(c)) out.add(c);
+    for (const g of funcCatToGuilds[c] || []) out.add(g);
+  }
+  return [...out];
+}
+const heirlooms = [];
+for (const it of iParams) {
+  if (it.majorCategory !== "Heirloom") continue;
+  const key = it.className;
+  const nm = stringOf(key).name;
+  if (!nm) { warnings.push(`heirloom "${key}" has no localized name — skipped (likely cut)`); continue; }
+  const targetCategories = (it.targetCategories || []).map((t) => (typeof t === "string" ? t : t.category || t.tag)).filter(Boolean);
+  const targetTags = (it.targetTags || []).map((t) => (typeof t === "string" ? t : t.tag)).filter(Boolean);
+  const reachesCategories = targetCategories.filter((c) => catById.has(c));
+  const reachesGuilds = guildsForCategories(targetCategories);
+  heirlooms.push({
+    key, name: nm,
+    rarity: it.rarity || null, rarityRank: rarityRank(it.rarity),
+    minors: (it.minorCategories || []).slice(),
+    targetCategories, targetTags,
+    validTriggers: (it.validTriggers || []).slice(),
+    reachesCategories, reachesGuilds,
+    passive: !!it.paramOnly || it.hasRealTrigger === false,
+    sprite: resolveItemSprite(key),
+    desc: cleanDesc(stringOf(key).description),
+  });
+}
+heirlooms.forEach((h) => { if (!h.sprite) warnings.push(`heirloom "${h.key}" -> no sprite (placeholder)`); });
+
+// ── counselors ──────────────────────────────────────────────────────────────
+const counselors = [];
+for (const [name, c] of Object.entries(council.counselors || {})) {
+  const base = COUNSELOR_SPRITE_OVERRIDE[name] || `Character${name}`;
+  const sprite = has(`council/${base}.png`) ? url(`council/${base}.png`) : null;
+  if (!sprite) warnings.push(`counselor "${name}" -> council/${base}.png (missing portrait)`);
+  counselors.push({
+    name, theme: cleanDesc(c.theme),
+    multStackCategories: (c.multStackCategories || []).slice(),
+    passiveCategories: (c.passiveCategories || []).slice(),
+    guildReach: (c.guildReach || []).slice(),
+    guildReachByCategory: c.guildReachByCategory || {},
+    passive: (c.passive || []).map((p) => ({ cond: cleanDesc(p.cond), effect: cleanDesc(p.effect) })),
+    milestones: (c.milestones || []).map((m) => ({ votes: m.votes, reward: cleanDesc(m.reward) })),
+    sprite,
+  });
+}
+
+// ── per-guild rollups (used by the client to compute overlap) ─────────────
+const guilds = GUILD_IDS.map((id) => {
+  const own = buildings.filter((b) => b.guild === id);
+  const funcs = new Set(); const evs = new Set(); const nats = new Set();
+  for (const b of own) {
+    b.ownedFunctional.forEach((f) => funcs.add(f));
+    b.events.forEach((e) => evs.add(e));
+    b.natureNodes.forEach((n) => nats.add(n));
+  }
+  return {
+    id, name: prettify(id), color: GUILD_COLOR[id],
+    icon: has(`guilds/${GUILD_ICON[id]}.png`) ? url(`guilds/${GUILD_ICON[id]}.png`) : null,
+    badge: has(`banners/badges/${id}.png`) ? url(`banners/badges/${id}.png`) : null,
+    banner: GUILD_BANNER[id] && has(`banners/${GUILD_BANNER[id]}.png`) ? url(`banners/${GUILD_BANNER[id]}.png`) : null,
+    isCore: CORE_GUILDS.has(id), isAdvanced: !CORE_GUILDS.has(id),
+    buildingCount: own.length,
+    functionalCategories: [...funcs], events: [...evs], natureNodes: [...nats],
+  };
+});
+// Guild asset guardrails are hard errors — a guild is the primary UI element.
+for (const g of guilds) {
+  if (!g.icon) errors.push(`guild "${g.id}" -> guilds/${GUILD_ICON[g.id]}.png (missing icon)`);
+  if (!g.badge) errors.push(`guild "${g.id}" -> banners/badges/${g.id}.png (missing badge)`);
+  if (g.isCore && !g.banner) errors.push(`core guild "${g.id}" -> missing tall banner`);
+}
+
+// ── combos (named pairs + precomputed shared surfaces) ────────────────────
+const pairKey = (a, b) => [a, b].sort().join("|");
+const combos = {};
+for (const p of crossovers.pairs || []) {
+  const [a, b] = p.guilds;
+  combos[pairKey(a, b)] = {
+    name: p.name || null,
+    sharedFunctionalCategories: (p.sharedFunctionalCategories || []).slice(),
+    sharedNature: [],
+  };
+}
+const uniq = (a) => [...new Set(a)];
+for (const p of edges.pairs || []) {
+  const k = pairKey(p.guilds[0], p.guilds[1]);
+  (combos[k] ||= { name: p.name || null, sharedFunctionalCategories: [], sharedNature: [] });
+  // Rich per-resource crossover: which buildings from each guild touch the node.
+  combos[k].sharedNature = (p.sharedNature || []).map((n) => ({
+    resource: n.resource, tag: n.resourceTag,
+    aGuild: n.guildA, aBuildings: uniq(n.aBuildings || []),
+    bGuild: n.guildB, bBuildings: uniq(n.bBuildings || []),
+  }));
+  combos[k].structuralEdges = p.structuralEdges ?? null;
+  combos[k].eventEdges = p.eventEdges ?? null;
+}
+
+// ── universal adjacency modifiers (guild-agnostic connectors) ─────────────
+const universalModifiers = (interactions.universalAdjacencyModifiers || []).map((m) => ({
+  name: m.display || m.name || m.building, guild: m.guild || "Neutral",
+  effect: m.effect, anchor: m.anchor?.line || m.anchor || "",
+}));
+
+// ── events ────────────────────────────────────────────────────────────────
+const usedEvents = new Set(buildings.flatMap((b) => b.events));
+const events = [...usedEvents].map((id) => ({ id, name: prettify(id), note: EVENT_META[id] || "" }));
+
+// ── reference guardrails ──────────────────────────────────────────────────
+for (const b of buildings) {
+  for (const m of b.ownedMinors) if (!catById.has(m)) errors.push(`building "${b.key}" owns unknown category "${m}"`);
+  for (const g of b.interactionGuilds) if (!GUILD_IDS.includes(g)) errors.push(`building "${b.key}" targets unknown guild "${g}"`);
+}
+for (const c of counselors) {
+  for (const cat of [...c.multStackCategories, ...c.passiveCategories])
+    if (!catById.has(cat)) warnings.push(`counselor "${c.name}" references unknown category "${cat}"`);
+  for (const g of c.guildReach) if (!GUILD_IDS.includes(g)) warnings.push(`counselor "${c.name}" reaches unknown guild "${g}"`);
+}
+
+// ── hygiene report ────────────────────────────────────────────────────────
+const spritesChecked = buildings.length + heirlooms.length + counselors.length +
+  guilds.length * 3 + natureResources.length;
+console.log("── Combolands data hygiene report ─────────────");
+console.log(`✓ ${guilds.length} guilds, ${buildings.length} buildings, ${heirlooms.length} heirlooms,`);
+console.log(`  ${counselors.length} counselors, ${categories.length} categories, ${natureResources.length} nature nodes,`);
+console.log(`  ${events.length} event types, ${Object.keys(combos).length} guild pairs, ~${spritesChecked} asset paths checked`);
+if (errors.length) { console.log(`✗ ${errors.length} error(s):`); errors.forEach((e) => console.log(`    ${e}`)); }
+if (warnings.length) {
+  console.log(`⚠ ${warnings.length} warning(s):`);
+  warnings.slice(0, 40).forEach((w) => console.log(`    ${w}`));
+  if (warnings.length > 40) console.log(`    …and ${warnings.length - 40} more`);
+}
+console.log("─".repeat(47));
+
+const hardErrors = errors.length + (STRICT ? warnings.length : 0);
+if (hardErrors) {
+  console.error(`BUILD FAILED: ${hardErrors} error(s). ${OUT} left untouched.`);
+  process.exit(1);
+}
+
+// ── write output ──────────────────────────────────────────────────────────
+const data = {
+  meta: { game: "Combolands", guildCount: guilds.length, generated: "build-data.mjs" },
+  guilds, categories, buildings, heirlooms, counselors, natureResources,
+  events, combos, universalModifiers,
+};
+fs.writeFileSync(OUT, `window.CL_DATA = ${JSON.stringify(data)};\n`);
+console.log(`Wrote ${OUT} (window.CL_DATA) — ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB.`);

@@ -1,0 +1,783 @@
+{
+ "_meta": {
+  "premise": "Counselor effects transcribed from game code (each anchored to file:line). multStackCategories = the SO's AffectedCategories, DECODED (Unity List<GamePieceCategory> serialized as LE-int32 hex bytes; see tools/decode_affected_categories.py) — these drive the +mult stack. passiveCategories = categories the consumer code conditions on for the specific passive effects. affectedCategories = union (used for guild reach/overlaps).",
+  "multStack": {
+   "formula": "+0.25 mult at >=1 vote, +0.5 at >=3, +0.25*(votes-2) at >=5, for a building matching the counselor's affected categories (Merchant excluded).",
+   "anchor": "GameState/CouncilFavour.cs:106-138",
+   "genericMoney": 5,
+   "genericMult": 0.25,
+   "maxCouncilMembers": 7
+  },
+  "guildGranters": {
+   "Wizard": "Arcane",
+   "Spymaster": "Rogues"
+  }
+ },
+ "counselors": {
+  "Admiral": {
+   "theme": "Ships & the sea",
+   "affectedCategories": [
+    "Fortification",
+    "Ship"
+   ],
+   "passive": [
+    {
+     "cond": "Ship building, >=4 votes",
+     "effect": "+2 range",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:428-430"
+    }
+   ],
+   "milestones": [
+    {
+     "votes": 2,
+     "reward": "gain Captain's Hat heirloom",
+     "anchor": "GameState/CouncilFavour.cs:157-159"
+    },
+    {
+     "votes": 4,
+     "reward": "range recalculation (caches reset)",
+     "anchor": "GameState/CouncilFavour.cs:160-162"
+    }
+   ],
+   "passiveCategories": [
+    "Ship"
+   ],
+   "multStackCategories": [
+    "Ship",
+    "Fortification"
+   ],
+   "guildReach": [
+    "Frontier",
+    "Industrial",
+    "Marine",
+    "Martial",
+    "Rogues"
+   ],
+   "guildReachByCategory": {
+    "Fortification": [
+     "Frontier",
+     "Industrial",
+     "Martial"
+    ],
+    "Ship": [
+     "Marine",
+     "Martial",
+     "Rogues"
+    ]
+   }
+  },
+  "Druid": {
+   "theme": "Nature & the sacred",
+   "affectedCategories": [
+    "Nature",
+    "Sacred"
+   ],
+   "passive": [
+    {
+     "cond": "Nature building, >=4 votes",
+     "effect": "gains the Sacred category",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:598-600"
+    }
+   ],
+   "milestones": [
+    {
+     "votes": 2,
+     "reward": "Druid blueprint pack",
+     "anchor": "GameState/CouncilFavour.cs:166-172"
+    }
+   ],
+   "passiveCategories": [
+    "Nature"
+   ],
+   "multStackCategories": [
+    "Nature",
+    "Sacred"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Arcane",
+    "Civic",
+    "Commercial",
+    "Frontier",
+    "Marine"
+   ],
+   "guildReachByCategory": {
+    "Nature": [
+     "Agricultural",
+     "Arcane",
+     "Civic",
+     "Commercial",
+     "Frontier",
+     "Marine"
+    ],
+    "Sacred": [
+     "Civic",
+     "Frontier",
+     "Marine"
+    ]
+   }
+  },
+  "Farmer": {
+   "theme": "Crops & irrigation",
+   "affectedCategories": [
+    "Farm",
+    "Irrigator"
+   ],
+   "passive": [],
+   "milestones": [
+    {
+     "votes": 2,
+     "reward": "gain Reservoir consumable",
+     "anchor": "GameState/CouncilFavour.cs:181-187"
+    },
+    {
+     "votes": 4,
+     "reward": "gain Scythe heirloom",
+     "anchor": "GameState/CouncilFavour.cs:188-191"
+    },
+    {
+     "votes": 5,
+     "reward": "transform all Crop buildings to their AlternatePlacedType",
+     "anchor": "GameState/CouncilFavour.cs:194-210"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [
+    "Farm",
+    "Irrigator"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Civic",
+    "Commercial",
+    "Frontier",
+    "Industrial",
+    "Marine"
+   ],
+   "guildReachByCategory": {
+    "Farm": [
+     "Agricultural",
+     "Commercial",
+     "Frontier",
+     "Industrial",
+     "Marine"
+    ],
+    "Irrigator": [
+     "Agricultural",
+     "Civic"
+    ]
+   }
+  },
+  "Merchant": {
+   "theme": "Trade & gold",
+   "affectedCategories": [
+    "Trader"
+   ],
+   "passive": [
+    {
+     "cond": "Trader building, >=2 votes",
+     "effect": "25% chance to gain +1 gold on activation (EXCLUDED from the mult stack)",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:100-102 ; GameState/CouncilFavour.cs:121"
+    }
+   ],
+   "milestones": [
+    {
+     "votes": "1,3,5+",
+     "reward": "gain 5 gold",
+     "anchor": "GameState/CouncilFavour.cs:174-178"
+    }
+   ],
+   "passiveCategories": [
+    "Trader"
+   ],
+   "multStackCategories": [
+    "Trader"
+   ],
+   "guildReach": [
+    "Arcane",
+    "Commercial",
+    "Industrial",
+    "Marine"
+   ],
+   "guildReachByCategory": {
+    "Trader": [
+     "Arcane",
+     "Commercial",
+     "Industrial",
+     "Marine"
+    ]
+   }
+  },
+  "Ranger": {
+   "theme": "Husbandry & fishing",
+   "affectedCategories": [
+    "Fishing",
+    "Husbandry"
+   ],
+   "passive": [
+    {
+     "cond": "Husbandry adjacent to Fishing (or vice-versa), >=4 votes",
+     "effect": "+1.5 mult",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:330-341"
+    },
+    {
+     "cond": "Trees building, >=2 votes",
+     "effect": "gains the Husbandry category",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:606-608"
+    }
+   ],
+   "milestones": [],
+   "passiveCategories": [
+    "Husbandry",
+    "Fishing"
+   ],
+   "multStackCategories": [
+    "Husbandry",
+    "Fishing"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Frontier",
+    "Marine",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Fishing": [
+     "Marine"
+    ],
+    "Husbandry": [
+     "Agricultural",
+     "Frontier",
+     "Martial"
+    ]
+   }
+  },
+  "Wizard": {
+   "theme": "Arcane guild unlocker",
+   "affectedCategories": [],
+   "grantsGuild": "Arcane",
+   "passive": [
+    {
+     "cond": ">=4 votes",
+     "effect": "Purple Paint enters the consumable pool",
+     "anchor": "GameState/ConsumablesPool.cs:50"
+    },
+    {
+     "cond": ">=3 votes",
+     "effect": "Purple building-supply available",
+     "anchor": "GameState/ConsumablesPool.cs:98"
+    }
+   ],
+   "unlocksBuildings": [
+    "Enclave",
+    "FaerieRing",
+    "MagicPortal",
+    "NomadWagon",
+    "WizardsTower"
+   ],
+   "milestones": [
+    {
+     "votes": 1,
+     "reward": "add the Arcane guild to your run (+unlock Wizard/Arcane)",
+     "anchor": "GameState/CouncilFavour.cs:277-289"
+    },
+    {
+     "votes": 4,
+     "reward": "refresh consumable pool",
+     "anchor": "GameState/CouncilFavour.cs:291-292"
+    },
+    {
+     "votes": "other",
+     "reward": "gain a Spell consumable",
+     "anchor": "GameState/CouncilFavour.cs:294-301"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [],
+   "guildReach": [
+    "Arcane"
+   ],
+   "guildReachByCategory": {}
+  },
+  "Tycoon": {
+   "theme": "Nature-as-resource & housing",
+   "affectedCategories": [
+    "Manufacturer",
+    "Nature",
+    "Residence"
+   ],
+   "passive": [
+    {
+     "cond": "Nature building, >=2 votes",
+     "effect": "gains the Resource category",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:602-604"
+    }
+   ],
+   "milestones": [
+    {
+     "votes": 4,
+     "reward": "transform all Residence (non-Fortification) to HousePlot + gold",
+     "anchor": "GameState/CouncilFavour.cs:259-275"
+    }
+   ],
+   "passiveCategories": [
+    "Nature"
+   ],
+   "multStackCategories": [
+    "Manufacturer",
+    "Residence"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Arcane",
+    "Civic",
+    "Commercial",
+    "Frontier",
+    "Industrial",
+    "Marine",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Manufacturer": [
+     "Agricultural",
+     "Commercial",
+     "Frontier",
+     "Industrial",
+     "Martial"
+    ],
+    "Nature": [
+     "Agricultural",
+     "Arcane",
+     "Civic",
+     "Commercial",
+     "Frontier",
+     "Marine"
+    ],
+    "Residence": [
+     "Agricultural",
+     "Arcane",
+     "Civic",
+     "Commercial",
+     "Frontier",
+     "Industrial",
+     "Martial"
+    ]
+   }
+  },
+  "Artist": {
+   "theme": "Paints",
+   "affectedCategories": [],
+   "passive": [],
+   "milestones": [
+    {
+     "votes": "1,3,5+",
+     "reward": "gain a Paint consumable",
+     "anchor": "GameState/CouncilFavour.cs:212-220"
+    },
+    {
+     "votes": "2,4",
+     "reward": "create a consumable slot",
+     "anchor": "GameState/CouncilFavour.cs:221-223"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [],
+   "guildReach": [],
+   "guildReachByCategory": {}
+  },
+  "Politician": {
+   "theme": "Guild re-picking",
+   "affectedCategories": [
+    "Luxury",
+    "Monument"
+   ],
+   "passive": [],
+   "milestones": [
+    {
+     "votes": 2,
+     "reward": "gain a Politician favour consumable",
+     "anchor": "GameState/CouncilFavour.cs:245-252"
+    },
+    {
+     "votes": 4,
+     "reward": "re-pick your guilds (clears guild categories)",
+     "anchor": "GameState/CouncilFavour.cs:254-256, 396-410"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [
+    "Monument",
+    "Luxury"
+   ],
+   "guildReach": [
+    "Arcane",
+    "Civic",
+    "Commercial",
+    "Frontier",
+    "Marine",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Luxury": [
+     "Commercial"
+    ],
+    "Monument": [
+     "Arcane",
+     "Civic",
+     "Commercial",
+     "Frontier",
+     "Marine",
+     "Martial"
+    ]
+   }
+  },
+  "Witch": {
+   "theme": "Healing & hazards",
+   "affectedCategories": [
+    "Arcane",
+    "Healing"
+   ],
+   "passive": [
+    {
+     "cond": "Healing building, >=2 votes",
+     "effect": "+1 range; OR +3 base score if in range of a Hazard",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:438-443"
+    },
+    {
+     "cond": ">=4 votes",
+     "effect": "activating a building whose range overlaps a Hazard triggers an extra activation",
+     "anchor": "GameState/TriggerController.cs:47"
+    }
+   ],
+   "milestones": [],
+   "passiveCategories": [
+    "Healing"
+   ],
+   "multStackCategories": [
+    "Arcane",
+    "Healing"
+   ],
+   "guildReach": [
+    "Arcane",
+    "Civic",
+    "Commercial",
+    "Frontier",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Arcane": [
+     "Arcane"
+    ],
+    "Healing": [
+     "Civic",
+     "Commercial",
+     "Frontier",
+     "Martial"
+    ]
+   }
+  },
+  "Fool": {
+   "theme": "Chaos packs",
+   "affectedCategories": [
+    "Entertainment",
+    "Stall"
+   ],
+   "passive": [],
+   "milestones": [
+    {
+     "votes": 2,
+     "reward": "Fool blueprint pack",
+     "anchor": "GameState/CouncilFavour.cs:229-235"
+    },
+    {
+     "votes": 4,
+     "reward": "gain Jester's Hat heirloom",
+     "anchor": "GameState/CouncilFavour.cs:237-239"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [
+    "Entertainment",
+    "Stall"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Civic",
+    "Commercial",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Entertainment": [
+     "Agricultural",
+     "Civic",
+     "Commercial",
+     "Martial"
+    ],
+    "Stall": [
+     "Civic",
+     "Commercial"
+    ]
+   }
+  },
+  "Sensei": {
+   "theme": "Training & nature",
+   "affectedCategories": [
+    "Training",
+    "Woodworking"
+   ],
+   "passive": [
+    {
+     "cond": "Training building, >=2 votes",
+     "effect": "+range = floor(adjacent Nature / 3) x 1",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:432-436"
+    },
+    {
+     "cond": "Woodworking building on build, >=4 votes",
+     "effect": "grants +1 remove",
+     "anchor": "Entities/BuildingController.cs:150-152"
+    }
+   ],
+   "milestones": [],
+   "passiveCategories": [
+    "Training"
+   ],
+   "multStackCategories": [
+    "Training",
+    "Woodworking"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Commercial",
+    "Frontier",
+    "Industrial",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Training": [
+     "Commercial",
+     "Frontier",
+     "Industrial",
+     "Martial"
+    ],
+    "Woodworking": [
+     "Agricultural",
+     "Frontier",
+     "Industrial",
+     "Martial"
+    ]
+   }
+  },
+  "Antiquarian": {
+   "theme": "Heirlooms (Gems & Tomes)",
+   "affectedCategories": [],
+   "passive": [],
+   "milestones": [
+    {
+     "votes": 2,
+     "reward": "gain Jewellery Box or Bookshelf",
+     "anchor": "GameState/CouncilFavour.cs:340-359"
+    },
+    {
+     "votes": 4,
+     "reward": "Antiquarian heirloom pack",
+     "anchor": "GameState/CouncilFavour.cs:361-367"
+    },
+    {
+     "votes": "other",
+     "reward": "gain a Gem/Tome heirloom",
+     "anchor": "GameState/CouncilFavour.cs:369-376"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [],
+   "guildReach": [],
+   "guildReachByCategory": {}
+  },
+  "Inventor": {
+   "theme": "Engineering & provisioning",
+   "affectedCategories": [
+    "Engineering",
+    "Provisioner"
+   ],
+   "passive": [
+    {
+     "cond": "building in range of a Provisioner, >=2 votes",
+     "effect": "5% chance to gain +1 reroll on activation",
+     "anchor": "Entities.BuildingBehaviours/_BuildingBehaviour.cs:105-109"
+    },
+    {
+     "cond": "Engineering building on build, >=4 votes",
+     "effect": "grants +0.1 mult to adjacent buildings",
+     "anchor": "Entities/BuildingController.cs:140-146"
+    }
+   ],
+   "milestones": [],
+   "passiveCategories": [
+    "Engineering",
+    "Provisioner"
+   ],
+   "multStackCategories": [
+    "Engineering",
+    "Provisioner"
+   ],
+   "guildReach": [
+    "Agricultural",
+    "Civic",
+    "Commercial",
+    "Industrial",
+    "Marine",
+    "Martial"
+   ],
+   "guildReachByCategory": {
+    "Engineering": [
+     "Civic",
+     "Industrial",
+     "Marine",
+     "Martial"
+    ],
+    "Provisioner": [
+     "Agricultural",
+     "Civic",
+     "Commercial",
+     "Industrial",
+     "Marine"
+    ]
+   }
+  },
+  "Spymaster": {
+   "theme": "Rogues guild unlocker",
+   "affectedCategories": [],
+   "grantsGuild": "Rogues",
+   "passive": [
+    {
+     "cond": ">=4 votes",
+     "effect": "can place a building anywhere (ignores placement rules)",
+     "anchor": "Interaction.InteractionStates/SelectingBuilding.cs:79"
+    }
+   ],
+   "unlocksBuildings": [
+    "BanditCamp",
+    "Hideout",
+    "PirateShip",
+    "TreasureChest"
+   ],
+   "milestones": [
+    {
+     "votes": 1,
+     "reward": "add the Rogues guild to your run (+unlock Spymaster/Rogues)",
+     "anchor": "GameState/CouncilFavour.cs:305-317"
+    },
+    {
+     "votes": "other",
+     "reward": "gain a random other councillor's favour consumable",
+     "anchor": "GameState/CouncilFavour.cs:319-331"
+    }
+   ],
+   "passiveCategories": [],
+   "multStackCategories": [],
+   "guildReach": [
+    "Rogues"
+   ],
+   "guildReachByCategory": {}
+  }
+ },
+ "counselorOverlaps": [
+  {
+   "a": "Druid",
+   "b": "Tycoon",
+   "sharedCategories": [
+    "Nature"
+   ],
+   "note": "both buff Nature buildings — mult stacks / effects compound"
+  }
+ ],
+ "granterBufferSynergies": [
+  {
+   "granter": "Wizard",
+   "grantsGuild": "Arcane",
+   "buffer": "Witch",
+   "note": "Wizard unlocks the Arcane guild; Witch buffs Arcane buildings"
+  }
+ ],
+ "guildToCounselors": {
+  "Agricultural": [
+   "Druid",
+   "Farmer",
+   "Fool",
+   "Inventor",
+   "Ranger",
+   "Sensei",
+   "Tycoon"
+  ],
+  "Arcane": [
+   "Druid",
+   "Merchant",
+   "Politician",
+   "Tycoon",
+   "Witch",
+   "Wizard"
+  ],
+  "Civic": [
+   "Druid",
+   "Farmer",
+   "Fool",
+   "Inventor",
+   "Politician",
+   "Tycoon",
+   "Witch"
+  ],
+  "Commercial": [
+   "Druid",
+   "Farmer",
+   "Fool",
+   "Inventor",
+   "Merchant",
+   "Politician",
+   "Sensei",
+   "Tycoon",
+   "Witch"
+  ],
+  "Frontier": [
+   "Admiral",
+   "Druid",
+   "Farmer",
+   "Politician",
+   "Ranger",
+   "Sensei",
+   "Tycoon",
+   "Witch"
+  ],
+  "Industrial": [
+   "Admiral",
+   "Farmer",
+   "Inventor",
+   "Merchant",
+   "Sensei",
+   "Tycoon"
+  ],
+  "Marine": [
+   "Admiral",
+   "Druid",
+   "Farmer",
+   "Inventor",
+   "Merchant",
+   "Politician",
+   "Ranger",
+   "Tycoon"
+  ],
+  "Martial": [
+   "Admiral",
+   "Fool",
+   "Inventor",
+   "Politician",
+   "Ranger",
+   "Sensei",
+   "Tycoon",
+   "Witch"
+  ],
+  "Rogues": [
+   "Admiral",
+   "Spymaster"
+  ]
+ }
+}

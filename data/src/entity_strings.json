@@ -1,0 +1,1755 @@
+{
+ "Abacus": {
+  "description": "Every time a building or heirloom earns [Gold] gain [CategoryScoreLuxury] for each [Luxury] on the map",
+  "name": "Sky Blue Diamond"
+ },
+ "AddRandomBuildingSupplies": {
+  "description": "Gain up to 2 random [BuildingUpgrade] (must have space)",
+  "name": "Mason's Brew"
+ },
+ "AddRandomHeirloom": {
+  "description": "Gain a random [Heirloom] (must have space)",
+  "name": "Elixir of Wealth"
+ },
+ "AddRandomVotes": {
+  "description": "Gain up to 2 random [CouncilVote] (must have space)",
+  "name": "Bribe in a Bottle"
+ },
+ "Alembic": {
+  "description": "Whenever you would gain [Gold] from a [Heirloom] or building - instead give a random [TargetCategory1] half as much [Mult]",
+  "name": "Alembic"
+ },
+ "Altar": {
+  "description": "When a [Common] is created [InRange] of a [Sacred] building, it has a [PercentageChance] chance to gain [MoneyCount] ",
+  "name": "Altar"
+ },
+ "AnimalFeedBag": {
+  "description": "Whenever a [Crop] transforms, give [Husbandry] [Adjacent] to it [MultParam]",
+  "name": "Grain Cereal"
+ },
+ "Apiary": {
+  "description": "{Triggers every [Cooldown] weeks:} @[TagScoreFlowers] for each [Flowers] [InRange]",
+  "name": "Apiary"
+ },
+ "Apothecary": {
+  "description": "{Triggers every [Cooldown] weeks:} @Create [ActivationCount] [Herbs] on a random [Adjacent] tile [BREAK]{Passively:} [Nature] [InRange] is considered [Healing] and give [MoneyCount] when removed",
+  "name": "Apothecary"
+ },
+ "AppleOrchard": {
+  "description": "{Grows} (transforms) in [Cooldown] weeks and then {triggers:} [BaseScore] [BREAK]{Passively:} has [MultParam] if [Adjacent] to [Apiary]",
+  "name": "Fruit Orchard"
+ },
+ "Arbalest": {
+  "description": "[Ballista] rotate and point to an additional target whenever they trigger",
+  "name": "Arbalest"
+ },
+ "ArcheryRange": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreHusbandry] for each [Husbandry] or [Woodworking] [InRange]",
+  "name": "Archery Range"
+ },
+ "ArchitecturalCodes": {
+  "description": "The next [Cooldown] [Civic] buildings have no [Range] placement restrictions",
+  "name": "Building Codes"
+ },
+ "ArchmageStaff": {
+  "description": "{Every [Cooldown] weeks:} {Trigger} all buildings on the map corresponding to all your held [Blueprint]",
+  "name": "Archmage's Staff"
+ },
+ "Arsenal": {
+  "description": "{Triggers every [Cooldown] weeks:} [RemoveCount] [BREAK]Can only be created [Adjacent] to [Fortification]",
+  "name": "Arsenal"
+ },
+ "Axe": {
+  "description": "[Woodcutter] and [Forester] affect an additional target",
+  "name": "Lumber Axe"
+ },
+ "BaitHook": {
+  "description": "Whenever [Nature] is created [InRange] of a [Fisher], give the [Fisher] [MultParam]",
+  "name": "Baited Hook"
+ },
+ "Ballista": {
+  "description": "{Triggers every [Cooldown] weeks:} @Rotates to face a random direction and {triggers} the tile it is facing",
+  "name": "Ballista"
+ },
+ "Balloon": {
+  "description": "{Passively:} other buildings [InRange] are considered [Luxury]",
+  "name": "Balloon Trader"
+ },
+ "BanditCamp": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Trigger} [ActivationCount] random [Adjacent] tile [BREAK][BaseScore] if a building is triggered in this way",
+  "name": "Bandit Camp"
+ },
+ "Bank": {
+  "description": "{Triggers when a building [InRange] gains [Reroll] or [Remove] :} @Gain [MoneyCount]",
+  "name": "Bank"
+ },
+ "Banner": {
+  "description": "{Triggers when removed:} @Give each [Adjacent] building [MultParam]",
+  "name": "Banner"
+ },
+ "Barn": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreHusbandry] for each [Husbandry] [InRange]",
+  "name": "Ranch"
+ },
+ "Barracks": {
+  "description": "{Triggers every [Cooldown] weeks:} @[TagScoreRocks] for each [Rocks] [InRange]",
+  "name": "Barracks"
+ },
+ "Bedroll": {
+  "description": "Any building [InRange] of a [Barn] is considered [Residence]",
+  "name": "Bedrolls"
+ },
+ "BerryBush": {
+  "description": "When triggered by [BerryPicker] {transforms} into [BerryBushEmpty]",
+  "name": "Berry Bush"
+ },
+ "BerryBushEmpty": {
+  "description": "{Grows} (transforms) after [Cooldown] weeks",
+  "name": "Empty Bush"
+ },
+ "BerryPicker": {
+  "description": "{Triggers when any [BerryBush] is [InRange] :} @[TagScoreBerryBush] for each [BerryBush] [InRange] and {transform} each into [BerryBushEmpty]",
+  "name": "Picker's Hut"
+ },
+ "Blacksmith": {
+  "description": "{Triggers every [Cooldown] weeks: @[CategoryScoreManufacturer] for each [Manufacturer] or [Training] [InRange] [BREAK]{Passively:} removes [Adjacent] [Ore] to reduce max cooldown by [CooldownModificationParam]",
+  "name": "Blacksmith"
+ },
+ "BluePaint": {
+  "description": "For the next [Cooldown] weeks, target building gains: {Whenever triggered, gain [DismissCount]} [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Blue Paint"
+ },
+ "Bonsai": {
+  "description": "Buildings passively have [MultParam] for each [Adjacent] [Rocks]",
+  "name": "Bonsai"
+ },
+ "BookAgri": {
+  "description": "[Agricultural] buildings passively have [MultParam]",
+  "name": "Agricultural Tome"
+ },
+ "BookCivic": {
+  "description": "[Civic] buildings passively have [MultParam]",
+  "name": "Civic Tome"
+ },
+ "BookCommercial": {
+  "description": "[Commercial] buildings passively have [MultParam]",
+  "name": "Commercial Tome"
+ },
+ "BookFrontier": {
+  "description": "[Frontier] buildings passively have [MultParam]",
+  "name": "Frontier Tome"
+ },
+ "BookIndustrial": {
+  "description": "[Industrial] buildings passively have [MultParam]",
+  "name": "Industrial Tome"
+ },
+ "BookMarine": {
+  "description": "[Marine] buildings passively have [MultParam]",
+  "name": "Maritime Tome"
+ },
+ "BookMartial": {
+  "description": "[Martial] buildings passively have [MultParam]",
+  "name": "Martial Tome"
+ },
+ "BookOfTheSevenGuilds": {
+  "description": "{Every [Cooldown] weeks:} gain [BsRainbowPaint] @Passively: [Wild] have [MultParam]",
+  "name": "Book of the 7 Guilds"
+ },
+ "BookUncommon": {
+  "description": "[Uncommon] buildings passively have [MultParam]",
+  "name": "Peculiar Tome"
+ },
+ "Bookshelf": {
+  "description": "Can hold up to 8 [Tome] @[Tome] within [Bookshelf] give an additional [MultParam] @If sold when full, gain a special [Legendary] [Heirloom] [BREAK]Cannot be duplicated",
+  "name": "Bookshelf"
+ },
+ "Bouquet": {
+  "description": "[SunflowerFarm] and [Apiary] have no [Range] placement restriction",
+  "name": "Bouquet"
+ },
+ "Brewery": {
+  "description": "{Triggers when a building [InRange] transforms:} @[PercentageChance] chance to {trigger} [ActivationCount] random [Adjacent] building",
+  "name": "Brewery"
+ },
+ "BrokenClock": {
+  "description": "Whenever you skip buildings, give buildings on the map corresponding to the skipped buildings [MultParam]",
+  "name": "Broken Watch"
+ },
+ "BuildersLadder": {
+  "description": "Whenever you use a [BuildingUpgrade] also give the target building [MultParam]",
+  "name": "Builder's Ladder"
+ },
+ "BuildingSupplies": {
+  "description": "When sold, gain [BsStatModMult] [BsStatModCooldown] and [BsStatModRange] (must have space) [BREAK]Sells for 0 [Gold]",
+  "name": "Building Supplies"
+ },
+ "Calipers": {
+  "description": "Buildings created without being [Adjacent] to any other building gain [MultParam]",
+  "name": "Calipers"
+ },
+ "Campfire": {
+  "description": "{Passively:} provides [MultParam] to all [Adjacent] buildings [BREAK]{In [Cooldown] weeks:} transforms into [CampfireDepleted]",
+  "name": "Campfire"
+ },
+ "CampfireDepleted": {
+  "description": "Does nothing @{When triggered:} transforms into [Campfire]",
+  "name": "Ash"
+ },
+ "CanChooseToCompleteEarlyUnlockData": {
+  "description": "You may now choose whether or not to complete a milestone as soon as you hit the target"
+ },
+ "CanPlaceNextBuildingAnywhere": {
+  "description": "The next building you place can be placed {ANYWHERE} @If placed over another building, will not trigger removal effects",
+  "name": "Dimensional Dose"
+ },
+ "Canal": {
+  "description": "{Passively:} Counts as [Ocean] @Can be built over",
+  "name": "Canal"
+ },
+ "CaptainsHat": {
+  "description": "[Ship] passively have [MultParam]",
+  "name": "Captain's Hat"
+ },
+ "Carpenter": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreWoodworking] for each [Woodworking] or [Ship] [InRange] [BREAK]{Passively:} removes [Adjacent] [Lumber] to gain [RangeModificationParam] [Range]",
+  "name": "Carpenter"
+ },
+ "Category.Agricultural": {
+  "name": "Agricultural"
+ },
+ "Category.Arcane": {
+  "name": "Arcane"
+ },
+ "Category.Civic": {
+  "name": "Civic"
+ },
+ "Category.Commercial": {
+  "name": "Commercial"
+ },
+ "Category.Consumable": {
+  "name": "Consumable"
+ },
+ "Category.Crop": {
+  "name": "Crop"
+ },
+ "Category.Engineering": {
+  "name": "Engineering"
+ },
+ "Category.Entertainment": {
+  "name": "Entertainment"
+ },
+ "Category.Farm": {
+  "name": "Farm"
+ },
+ "Category.Fishing": {
+  "name": "Fishing"
+ },
+ "Category.Fortification": {
+  "name": "Fortification"
+ },
+ "Category.Frontier": {
+  "name": "Frontier"
+ },
+ "Category.Gem": {
+  "name": "Gem"
+ },
+ "Category.Hazard": {
+  "name": "Hazard"
+ },
+ "Category.Healing": {
+  "name": "Healing"
+ },
+ "Category.Heirloom": {
+  "name": "Heirloom"
+ },
+ "Category.House": {
+  "name": "House"
+ },
+ "Category.Husbandry": {
+  "name": "Husbandry"
+ },
+ "Category.Industrial": {
+  "name": "Industrial"
+ },
+ "Category.Infrastructure": {
+  "name": "Infrastructure"
+ },
+ "Category.Irrigator": {
+  "name": "Irrigator"
+ },
+ "Category.Luxury": {
+  "name": "Luxury"
+ },
+ "Category.Manufacturer": {
+  "name": "Manufacturer"
+ },
+ "Category.Marine": {
+  "name": "Maritime"
+ },
+ "Category.Martial": {
+  "name": "Martial"
+ },
+ "Category.Monument": {
+  "name": "Monument"
+ },
+ "Category.Nature": {
+  "name": "Nature"
+ },
+ "Category.Neutral": {
+  "name": "Neutral"
+ },
+ "Category.None": {
+  "name": "None"
+ },
+ "Category.Provisioner": {
+  "name": "Provisioner"
+ },
+ "Category.Random": {
+  "name": "Random Category"
+ },
+ "Category.Residence": {
+  "name": "Residence"
+ },
+ "Category.Resource": {
+  "name": "Resource"
+ },
+ "Category.Rogues": {
+  "name": "Rogues"
+ },
+ "Category.Ruins": {
+  "name": "Ruins"
+ },
+ "Category.Sacred": {
+  "name": "Sacred"
+ },
+ "Category.Ship": {
+  "name": "Ship"
+ },
+ "Category.Stall": {
+  "name": "Stall"
+ },
+ "Category.Tome": {
+  "name": "Tome"
+ },
+ "Category.Trader": {
+  "name": "Trader"
+ },
+ "Category.Training": {
+  "name": "Training"
+ },
+ "Category.Wild": {
+  "name": "Wild"
+ },
+ "Category.Woodworking": {
+  "name": "Woodworking"
+ },
+ "Cauldron": {
+  "description": "Whenever you [Dismiss] a building, gain a random [Potion]",
+  "name": "Cauldron"
+ },
+ "ChangeActivationCount": {
+  "description": "If a building affects limited number of targets, increase that number by [TriggerCountModificationParam] [BREAK]e.g. create 1 [Trees] -> create 2 [Trees]",
+  "name": "Plumbing"
+ },
+ "ChangeCount": {
+  "description": "Reduces the max cooldown of a building by [CooldownModificationParam]",
+  "name": "Timber Framing"
+ },
+ "ChangeMult": {
+  "description": "Give a building [MultParam]",
+  "name": "Masonry"
+ },
+ "ChangeRange": {
+  "description": "Give a building [RangeModificationParam] [Range]",
+  "name": "Winch"
+ },
+ "CharacterAdmiralData": {
+  "description": "The proud [Admiral] joins the council. His bold strategies favour [Ship] and [Fortification]",
+  "name": "Admiral"
+ },
+ "CharacterAntiquarianData": {
+  "description": "The discerning [Antiquarian] joins the council. She sources [Heirlooms]  [Gem] and [Tome]",
+  "name": "Antiquarian"
+ },
+ "CharacterArtistData": {
+  "description": "The inspired [Artist] joins the council. She provides paints and benefits [Consumable]",
+  "name": "Artist"
+ },
+ "CharacterData.Druid": {
+  "name": "Druid"
+ },
+ "CharacterData.Farmer": {
+  "name": "Cultivator"
+ },
+ "CharacterData.Merchant": {
+  "name": "Merchant"
+ },
+ "CharacterData.Ranger": {
+  "name": "Ranger"
+ },
+ "CharacterDruidData": {
+  "description": "The hermetic [Druid] joins the council. Drawing from mysterious powers, he improves [Nature] and [Sacred]"
+ },
+ "CharacterFarmerData": {
+  "description": "The green-thumbed [Farmer] joins the council. Her intricate knowledge benefits [Farm] and [Irrigator]"
+ },
+ "CharacterFoolData": {
+  "description": "The droll [Fool] joins the council. Despite his antics, he benefits [Entertainment] and [Stall]",
+  "name": "Fool"
+ },
+ "CharacterInventorData": {
+  "description": "The chaotic [Inventor] joins the council. His experiments benefit [Engineering] and [Provisioner]",
+  "name": "Inventor"
+ },
+ "CharacterMerchantData": {
+  "description": "The shrewd [Merchant] joins the council. His avaricious schemes focus on [Trader] and generating [Gold]"
+ },
+ "CharacterPoliticianData": {
+  "description": "The astute [Politician] joins the council. His ploys benefit [Monument] and [Luxury] and even allow you to change guilds mid-run",
+  "name": "Politician"
+ },
+ "CharacterRangerData": {
+  "description": "The solitary [Ranger] joins the council. She has returned from the wilds to oversee [Husbandry] and [Fishing]"
+ },
+ "CharacterSenseiData": {
+  "description": "The wise [Sensei] joins the council. His discipline supports both [Training] and [Woodworking]",
+  "name": "Warrior"
+ },
+ "CharacterSpymasterData": {
+  "description": "The cunning [Spymaster] joins the council. She enables bribery and provides access to the [Rogues] guild ",
+  "name": "Spymaster"
+ },
+ "CharacterTycoonData": {
+  "description": "The ruthless [Tycoon] joins the council. He has a stranglehold on [Manufacturer] and [Residence]",
+  "name": "Tycoon"
+ },
+ "CharacterWitchData": {
+  "description": "The occult [Witch] joins the council. Her ministrations benefit [Arcane] and [Healing] and she is not afraid of [Hazard]",
+  "name": "Witch"
+ },
+ "CharacterWizardData": {
+  "description": "The mystical [Wizard] joins the council. He creates [Potion] and gives you access to the [Arcane] guild",
+  "name": "Wizard"
+ },
+ "Charcoal": {
+  "description": "[Campfire] burn for [ActivationCount] times as long",
+  "name": "Charcoal"
+ },
+ "CheckeredFlag": {
+  "description": "The first building created each milestone gains [MultParam]",
+  "name": "Start Flag"
+ },
+ "Church": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreSacred] for each [Sacred] [InRange]",
+  "name": "Church"
+ },
+ "Circus": {
+  "description": "{Triggers when a building [InRange] earns [Gold] :} @[CategoryScoreResidence] for each [Residence] [InRange]",
+  "name": "Circus"
+ },
+ "ClearanceShovel": {
+  "description": "Whenever a building is created from a [Blueprint] - harvest all [Crop] [Adjacent] to it, transforming them back into empty fields",
+  "name": "Clearance Shovel"
+ },
+ "Clipper": {
+  "description": "{Triggers every [Cooldown] weeks:} @[MoneyCount] for every [ActivationCount] [Trader]  [Manufacturer] or [Luxury] [InRange] (rounded down)",
+  "name": "Clipper"
+ },
+ "Clover": {
+  "description": "[Monument] are 3x more likely to be rolled",
+  "name": "Lucky Clover"
+ },
+ "CoinBag": {
+  "description": "Gain extra [MoneyCount] per week early every milestone",
+  "name": "Coin Bag"
+ },
+ "CoinStack": {
+  "description": "Every time you earn [Gold] from a building or [Heirloom] gain an additional [MoneyCount] @While this is equipped, you cannot enter the shop",
+  "name": "Coin Stack"
+ },
+ "Composter": {
+  "description": "{Triggers when a building [InRange] is removed:} @Give each [Farm] [InRange] [MultParam] [BREAK]{Passively:} automatically {removes} any [Adjacent] [Manure] at the end of the week",
+  "name": "Composter"
+ },
+ "Conduit": {
+  "description": "{When triggered:} {Trigger} up to [ActivationCount] other buildings [InRange]",
+  "name": "Conduit"
+ },
+ "CorruptedFort": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Remove} [ActivationCount] random buildings [InRange] @Then, increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Fort"
+ },
+ "CorruptedGrove": {
+  "description": "{Passively:} buildings [InRange] cannot gain [Reroll]  [Remove]  [Dismiss] or [Gold]\\n@{Triggers every [Cooldown] weeks:} increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Grove"
+ },
+ "CorruptedLantern": {
+  "description": "{Passively:} increases the cooldown of buildings [InRange] by [CooldownModificationParam]\\n@{Triggers every [Cooldown] weeks:} increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Lantern"
+ },
+ "CorruptedMine": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Create} [ActivationCount] [Rocks] on random tiles [InRange] @Then, increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Mine"
+ },
+ "CorruptedObelisk": {
+  "description": "{Passively:} buildings cannot be placed within [Range] of [CorruptedObelisk]\\n@{Triggers every [Cooldown] weeks:} increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Obelisk"
+ },
+ "CorruptedShrine": {
+  "description": "{Passively:} buildings [InRange] have [BaseScore] [Range]\\n@{Triggers every [Cooldown] weeks:} increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Shrine"
+ },
+ "CorruptedTemple": {
+  "name": "Corrupted Temple"
+ },
+ "CorruptedTower": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Transform} a building [InRange] into a random building of the same rarity@Then, increase [Range] by [RangeModificationParam]",
+  "name": "Corrupted Tower"
+ },
+ "CottonField": {
+  "description": "Grows (transforms) in [Cooldown] weeks and then {triggers:} @Give each [Adjacent] building [MultParam]",
+  "name": "Cotton Field"
+ },
+ "CouncilUnlockData": {
+  "description": "Unlock the city council @Vote for councillors using [CouncilVote] - each councillor has unique passive abilities.\\n@[CouncilVote] can now appear in the shop or in packs"
+ },
+ "Crane": {
+  "description": "If a [Ship] [Range] overlaps [Crane] add the [Crane] [Range] to the [Ship]",
+  "name": "Crane"
+ },
+ "CrystalBall": {
+  "description": "[BaseScore] building choice every week @[CategoryScorePrimary] weeks each milestone",
+  "name": "Crystal Ball"
+ },
+ "Darkstone": {
+  "description": "Every time a [Hazard] triggers, gain [MoneyCount] [RerollCount] and [RemoveCount]",
+  "name": "Darkstone"
+ },
+ "DeckOfCards": {
+  "description": "Every time you earn [Gold] from a building or [Heirloom] [PercentageChance] chance to gain [RerollCount]",
+  "name": "Deck of Cards"
+ },
+ "DeliveryCart": {
+  "description": "Any building [InRange] of a [Warehouse] is considered [Trader]",
+  "name": "Delivery Cart"
+ },
+ "Depot": {
+  "description": "{Triggers when [Resource] is created [InRange] :} @Remove it and create a copy [Adjacent] to [Depot]",
+  "name": "Depot"
+ },
+ "Detonator": {
+  "description": "You can now build on [Rocks]",
+  "name": "Detonator"
+ },
+ "DiamondPick": {
+  "description": "[Quarry] create [Ore] instead of [Rocks]",
+  "name": "Diamond Pick"
+ },
+ "DiamondRing": {
+  "description": "Always has a base sell price of [MoneyCount]",
+  "name": "Jewelled Ring"
+ },
+ "DiceCup": {
+  "description": "You may spend [RerollCount] to [Reroll] packs once [BREAK]Does not stack",
+  "name": "Rolling Cup"
+ },
+ "Disguise": {
+  "description": "[TargetCategory1] is also considered to be [TargetCategory2]",
+  "name": "Chameleon Statue"
+ },
+ "DismissUnlockData": {
+  "description": "You may now purchase [Dismiss] in the shop @[Dismiss] is used to remove a building from the pool of available buildings for the duration of a run"
+ },
+ "DivingHelmet": {
+  "description": "Whenever you create a [FishingBoat] gain a [GemPearl]",
+  "name": "Diving Helmet"
+ },
+ "DraftingRuler": {
+  "description": "Whenever a building is created from a [Blueprint] {trigger} it immediately",
+  "name": "Drafting Ruler"
+ },
+ "DuplicateBuilding": {
+  "description": "Select two buildings, transform the second into an exact copy of the first",
+  "name": "Duplication Tonic"
+ },
+ "Dynamite": {
+  "description": "When a building is removed, it triggers {on remove} effects twice",
+  "name": "Dynamite"
+ },
+ "EffigyPyre": {
+  "description": "{Triggers after [Cooldown] weeks:} @Removes itself and {triggers} each [Adjacent] building ",
+  "name": "Effigy Pyre"
+ },
+ "EmptyCage": {
+  "description": "Whenever any building scores, [BaseScore] for each empty [Heirloom] slot",
+  "name": "Empty Cage"
+ },
+ "Enclave": {
+  "description": "{Triggers when created:} [EnchantmentParam] [BREAK]Can only {ever} be placed on [Grass] [Adjacent] to a cliff",
+  "name": "Enclave"
+ },
+ "EndlessUnlockData": {
+  "description": "You may now play endless mode after reaching Metropolis. Endless mode does not contribute towards unlocks"
+ },
+ "Factory": {
+  "description": "{Triggers every [Cooldown] weeks:} @Open a free random pack [BREAK]Can only be created [Adjacent] to at least 5 [Industrial]",
+  "name": "Factory"
+ },
+ "FaerieRing": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Trigger} [ActivationCount] random [Adjacent] building",
+  "name": "Faerie Ring"
+ },
+ "FavourAdmiral": {
+  "description": "Add a [CouncilVote] for the [Admiral]",
+  "name": "Admiral Vote"
+ },
+ "FavourAntiquarian": {
+  "description": "Add a [CouncilVote] for the [Antiquarian]",
+  "name": "Antiquarian Vote"
+ },
+ "FavourArtist": {
+  "description": "Add a [CouncilVote] for the [Artist]",
+  "name": "Artist Vote"
+ },
+ "FavourDruid": {
+  "description": "Add a [CouncilVote] for the [Druid]",
+  "name": "Druid Vote"
+ },
+ "FavourFarmer": {
+  "description": "Add a [CouncilVote] for the [Farmer]",
+  "name": "Cultivator Vote"
+ },
+ "FavourFool": {
+  "description": "Add a [CouncilVote] for the [Fool]",
+  "name": "Fool Vote"
+ },
+ "FavourInventor": {
+  "description": "Add a [CouncilVote] for the [Inventor]",
+  "name": "Inventor Vote"
+ },
+ "FavourMerchant": {
+  "description": "Add a [CouncilVote] for the [Merchant]",
+  "name": "Merchant Vote"
+ },
+ "FavourPolitician": {
+  "description": "Add a [CouncilVote] for the [Politician]",
+  "name": "Politician Vote"
+ },
+ "FavourRanger": {
+  "description": "Add a [CouncilVote] for the [Ranger]",
+  "name": "Ranger Vote"
+ },
+ "FavourSensei": {
+  "description": "Add a [CouncilVote] for the [Sensei]",
+  "name": "Warrior Vote"
+ },
+ "FavourSpymaster": {
+  "description": "Add a [CouncilVote] for the [Spymaster]",
+  "name": "Spymaster Vote"
+ },
+ "FavourTycoon": {
+  "description": "Add a [CouncilVote] for the [Tycoon]",
+  "name": "Tycoon Vote"
+ },
+ "FavourWitch": {
+  "description": "Add a [CouncilVote] for the [Witch]",
+  "name": "Witch Vote"
+ },
+ "FavourWizard": {
+  "description": "Add a [CouncilVote] for the [Wizard]",
+  "name": "Wizard Vote"
+ },
+ "FawkesMask": {
+  "description": "All [Rogues] buildings add score instead of subtracting",
+  "name": "Fawkes Mask"
+ },
+ "Fertilizer": {
+  "description": "Any building that can be created on [Grass] can also be created on [Sand], and vice versa",
+  "name": "Fertilizer"
+ },
+ "FieldHospital": {
+  "description": "{When triggered:} @Give each [Healing] or [Training] [InRange] [MultParam] ",
+  "name": "Field Hospital"
+ },
+ "Fish": {
+  "name": "Fish"
+ },
+ "FishFarm": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Create} [ActivationCount] [Fish] on an empty [Ocean] tile [InRange]",
+  "name": "Fish Farm"
+ },
+ "FishTrap": {
+  "description": "{Triggers when created:} {Trigger} all [Fishing] [InRange] excluding other [FishTrap] [BREAK]Counts as [Fish]",
+  "name": "Fish Trap"
+ },
+ "Fisher": {
+  "description": "{Passively:} [Fishing] [InRange] have additional [Mult] equal to the [Mult] of [Fisher] @Does not affect other [Fisher]",
+  "name": "Fishing Hut"
+ },
+ "FishingBoat": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreNature] for each [Nature] [InRange]",
+  "name": "Fishing Boat"
+ },
+ "FishingNet": {
+  "description": "The next [Cooldown] [Marine] buildings have no [Range] placement restrictions",
+  "name": "Fishing Net"
+ },
+ "FishingRod": {
+  "description": "{Every [Cooldown] weeks:} Gain a random [Fishing] [Blueprint] (must have space)",
+  "name": "Old Rod"
+ },
+ "Flowers": {
+  "name": "Flowers"
+ },
+ "ForemansHammer": {
+  "description": "Whenever [CooldownParam]  [Common] buildings are built in a row, gain a random [BuildingUpgrade]",
+  "name": "Foreman's Hammer"
+ },
+ "Forester": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Create} [ActivationCount] [Trees] on a random tile [InRange]",
+  "name": "Forester"
+ },
+ "Fortress": {
+  "description": "{Triggers when a building [InRange] is removed:} @[CategoryScoreFortification] for each [Fortification] or [Ship] [InRange]",
+  "name": "Fortress"
+ },
+ "Fountain": {
+  "description": "{Triggers whenever an [Adjacent] building transforms:} @[PercentageChance] chance for [MoneyCount] [BREAK][Crop] [Adjacent] to [Fountain] grow in 1 week\\n",
+  "name": "Fountain"
+ },
+ "Furniture": {
+  "description": "Every [Cooldown] weeks, each [HouseResidence] on the map gives [MoneyCount] @This cooldown resets whenever a [TaxCollector] triggers",
+  "name": "Furniture"
+ },
+ "GainBlueprint": {
+  "description": "Gain a [Blueprint] of target building",
+  "name": "Imprint Charm"
+ },
+ "GainGoldSellValue": {
+  "description": "Gain gold equal to the sell value of all equipped [Heirloom] [TotalHeirloomSellValueSum] @Max +50 [Gold]",
+  "name": "Lustrous Solution"
+ },
+ "GainHeirloomSlot": {
+  "description": "+1 [Heirloom] slot (up to a max of 10 total)",
+  "name": "Negative Space"
+ },
+ "Galleon": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreMartial] for each [Martial] [InRange]",
+  "name": "Galleon"
+ },
+ "GameItemType.Blueprint": {
+  "name": "Blueprint"
+ },
+ "GameItemType.BlueprintPack.Common": {
+  "name": "Common Blueprint Satchel"
+ },
+ "GameItemType.BlueprintPack.Masterwork": {
+  "name": "Masterwork Blueprint Satchel"
+ },
+ "GameItemType.BlueprintPack.Rare": {
+  "name": "Rare Blueprint Satchel"
+ },
+ "GameItemType.BlueprintPack.Uncommon": {
+  "name": "Uncommon Blueprint Satchel"
+ },
+ "GameItemType.Booster": {
+  "name": "Pack"
+ },
+ "GameItemType.BuildingUpgrade": {
+  "name": "Building Upgrade"
+ },
+ "GameItemType.Consumable": {
+  "name": "Consumable"
+ },
+ "GameItemType.CouncilMember": {
+  "name": "Council Member"
+ },
+ "GameItemType.CouncilVote": {
+  "name": "Council Vote"
+ },
+ "GameItemType.Dismiss": {
+  "name": "Dismiss"
+ },
+ "GameItemType.Enchantment": {
+  "name": "Enchantment"
+ },
+ "GameItemType.Heirloom": {
+  "name": "Heirloom"
+ },
+ "GameItemType.LargeBlueprintPack": {
+  "name": "Large Blueprint Satchel"
+ },
+ "GameItemType.LargeBuildingSuppliesPack": {
+  "name": "Large Pile of Materials"
+ },
+ "GameItemType.LargeFavourPack": {
+  "name": "Large Voting Ballot"
+ },
+ "GameItemType.LargeHeirloomPack": {
+  "name": "Large Heirloom Chest"
+ },
+ "GameItemType.LargeSpellPack": {
+  "name": "Large Potion Bag"
+ },
+ "GameItemType.Mult": {
+  "name": "Mult"
+ },
+ "GameItemType.Potion": {
+  "name": "Potion"
+ },
+ "GameItemType.Remove": {
+  "name": "Remove"
+ },
+ "GameItemType.Reroll": {
+  "name": "Reroll"
+ },
+ "GameItemType.SmallBlueprintPack": {
+  "name": "Small Blueprint Satchel"
+ },
+ "GameItemType.SmallBuildingSuppliesPack": {
+  "name": "Small Pile of Materials"
+ },
+ "GameItemType.SmallFavourPack": {
+  "name": "Small Voting Ballot"
+ },
+ "GameItemType.SmallHeirloomPack": {
+  "name": "Small Heirloom Chest"
+ },
+ "GameItemType.SmallSpellPack": {
+  "name": "Small Potion Bag"
+ },
+ "GardenersCottage": {
+  "description": "{Triggers every [Cooldown] weeks:} @Create a copy of [ActivationCount] [Adjacent] [Nature] on a random tile [InRange]",
+  "name": "Gardener's Cottage"
+ },
+ "Gearwheel": {
+  "description": "The next [Cooldown] [Industrial] buildings have no [Range] placement restrictions",
+  "name": "Gearwheel"
+ },
+ "GemAmethyst": {
+  "description": "[BaseScore] whenever a building is triggered",
+  "name": "Amethyst"
+ },
+ "GemAquamarine": {
+  "description": "[BaseScore] whenever you start a milestone",
+  "name": "Aquamarine"
+ },
+ "GemEmerald": {
+  "description": "[BaseScore] whenever you gain a [Reroll]",
+  "name": "Emerald"
+ },
+ "GemGarnet": {
+  "description": "[BaseScore] whenever a building is removed",
+  "name": "Garnet"
+ },
+ "GemJasper": {
+  "description": "[BaseScore] whenever a building is created",
+  "name": "Jasper"
+ },
+ "GemOnyx": {
+  "description": "[BaseScore] whenever you use a [Consumable]",
+  "name": "Onyx"
+ },
+ "GemPearl": {
+  "description": "[BaseScore] whenever a building is transformed",
+  "name": "Pearl"
+ },
+ "GemSapphire": {
+  "description": "[BaseScore] whenever you [Dismiss] a building",
+  "name": "Sapphire"
+ },
+ "GemTopaz": {
+  "description": "[BaseScore] whenever you earn [Gold]",
+  "name": "Topaz"
+ },
+ "Goblet": {
+  "description": "When a building transforms, instead of a transformation trigger, it counts as both a removal and a creation trigger",
+  "name": "Chalice of Revision"
+ },
+ "GoldNugget": {
+  "description": "Whenever [Ore] is created, it has [PercentageChance] chance to be [GoldOre] instead",
+  "name": "Gold Nugget"
+ },
+ "GoldOre": {
+  "description": "{Triggers when removed:} [MoneyCount]",
+  "name": "Gold Ore"
+ },
+ "GoldPaint": {
+  "description": "For the next [Cooldown] weeks, target building gains: {Whenever triggered, gain [MoneyCount]} [BREAK]Buildings can only have 1 paint at a time)",
+  "name": "Gold Paint"
+ },
+ "GoldPan": {
+  "description": "{Triggers when created:} [MoneyCount] [BREAK]Can only be created [Adjacent] to [Trees]",
+  "name": "Gold Pan"
+ },
+ "GoldenEgg": {
+  "description": "Whenever a [Neutral] building is created, [BaseScore] to this heirloom's sell value",
+  "name": "Golden Egg"
+ },
+ "GoldenHorseshoe": {
+  "description": "Whenever a milestone is completed, gain [MoneyCount] extra",
+  "name": "Golden Horseshoe"
+ },
+ "GrainSilo": {
+  "description": "{Triggers every [Cooldown] weeks:} @Gain a [Blueprint] of a random [Adjacent] [Farm][BREAK][Blueprint] gained by [GrainSilo] only have 1 charge",
+  "name": "Grain Silo"
+ },
+ "Granary": {
+  "description": "{Triggers when created:} @Harvest all [Crop] [InRange] transforming them back into empty fields",
+  "name": "Granary"
+ },
+ "Graveyard": {
+  "description": "{Triggers whenever an [Adjacent] building is removed:} @Gain a random [Blueprint] of the same rarity",
+  "name": "Graveyard"
+ },
+ "GreenPaint": {
+  "description": "For the next [Cooldown] weeks, target building gains: {Whenever triggered, gain [RerollCount]} [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Green Paint"
+ },
+ "Grove": {
+  "description": "{Triggers every [Cooldown] weeks:} [RerollCount] [BREAK]Can only be created [Adjacent] to [Trees]",
+  "name": "Grove"
+ },
+ "GuaranteeNextRollIsRare": {
+  "description": "The next {building roll}, [Blueprint] satchel or [Heirloom] chest is guaranteed to only contain [Rare] or better. This effect persists through [Reroll] [BREAK]May only be used from {Quaint Village} onwards",
+  "name": "Clover Extract"
+ },
+ "GuardTower": {
+  "description": "{Triggers when a building [InRange] is removed:} @{Trigger} [ActivationCount] random [Adjacent] building",
+  "name": "Guard Tower"
+ },
+ "GuildSeal": {
+  "description": "The next [Cooldown] [Commercial] buildings have no [Range] placement restrictions",
+  "name": "Guild Seal"
+ },
+ "Harpoon": {
+  "description": "[Martial] buildings [Adjacent] to [Ocean] passively have [MultParam]",
+  "name": "Harpoon"
+ },
+ "Harvester": {
+  "description": "{Triggers when another building is created [InRange] :} @{Trigger} [ActivationCount] random [Adjacent] building",
+  "name": "Harvester"
+ },
+ "Heraldry": {
+  "description": "Whenever a building is removed, give other buildings [Adjacent] to it [MultParam]",
+  "name": "Heraldry"
+ },
+ "HerbGarden": {
+  "description": "{Triggers when created:} @[RerollCount] and {trigger} all [Adjacent] [Healing] excluding other [HerbGarden] [BREAK]{Passively:} counts as [Herbs]",
+  "name": "Herb Garden"
+ },
+ "Herbalist": {
+  "description": "{Triggers when created:} @[TagScoreHerbs] for each [Herbs] [InRange]",
+  "name": "Herbalist"
+ },
+ "Herbs": {
+  "name": "Herbs"
+ },
+ "Hideout": {
+  "description": "{Triggers whenever an [Adjacent] building scores:} [BaseScore] and [MoneyCount]",
+  "name": "Hideout"
+ },
+ "HotelBell": {
+  "description": "Buildings [Adjacent] to [LodgingHouse] are considered [Residence]",
+  "name": "Front Desk Bell"
+ },
+ "Hourglass": {
+  "description": "[BaseScore] week per milestone",
+  "name": "Hourglass"
+ },
+ "HouseHomestead": {
+  "description": "{Triggers when [InRange] of or [Adjacent] to [Healing] or [Trader] :} @[BaseScore] and {transform} into [HouseTenement]",
+  "name": "Homestead"
+ },
+ "HouseHut": {
+  "description": "{Triggers when [InRange] of or [Adjacent] to [Provisioner] :} @[BaseScore] and {transform} into [HouseHomestead]",
+  "name": "Hut"
+ },
+ "HousePlot": {
+  "description": "{Triggers when [InRange] of or [Adjacent] to [Irrigator] :} @[BaseScore] and {transform} into [HouseHut]",
+  "name": "Plot"
+ },
+ "HouseResidence": {
+  "description": "Highest level of [House] @{When triggered:} [BaseScore]",
+  "name": "Estate"
+ },
+ "HouseTenement": {
+  "description": "{Triggers when [InRange] of or [Adjacent] to [Entertainment] or [Training] :} @[BaseScore] and {transform} into [HouseTownhouse]",
+  "name": "Tenement"
+ },
+ "HouseTownhouse": {
+  "description": "{Triggers when [InRange] of or [Adjacent] to [Luxury] or [Sacred] :} @[BaseScore] and {transform} into [HouseResidence]",
+  "name": "Townhouse"
+ },
+ "HousingMandate": {
+  "description": "When placing [HousePlot], place 1 extra",
+  "name": "Housing Laws"
+ },
+ "HuntingBow": {
+  "description": "When a building is created, it triggers {on create} effects twice @Does not apply if a building is triggered after creation",
+  "name": "Hunting Bow"
+ },
+ "HuntingLodge": {
+  "description": "{Triggers every [Cooldown] weeks:} @[TagScoreTrees] for each [Trees] [InRange]",
+  "name": "Hunting Lodge"
+ },
+ "Ingots": {
+  "description": "[Gold] gain is affected by [Mult] (max of x10) @All painted buildings passively have [MultParam]",
+  "name": "Ingots"
+ },
+ "Inn": {
+  "description": "{Triggers when created:} @Your next roll is guaranteed to contain [Rare] or better buildings @Can only be created [Adjacent] to [Residence] or [Training]",
+  "name": "Inn"
+ },
+ "Irrigation": {
+  "description": "Other [Adjacent] buildings are considered [Farm] @Must be created [Connected] to [Reservoir] or [Irrigation] @Does not connect diagonally [BREAK][Crop] [Adjacent] to [Irrigation] grow in 1 week",
+  "name": "Irrigation"
+ },
+ "JarOfHoney": {
+  "description": "[Apiary] passively have [RangeModificationParam] [Range] @[Apiary] also passively have  [MultParam] for each [Flowers] [InRange]",
+  "name": "Honeypot"
+ },
+ "JesterHat": {
+  "description": "When this is sold, gain a copy of another random equipped [Heirloom]",
+  "name": "Jester's Hat"
+ },
+ "Jeweller": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Remove} [ActivationCount] random [Adjacent] building to give all equipped [Heirloom] [BaseScore] sell value. If the building is [Luxury] give them [CategoryScoreMetalworking] instead",
+  "name": "Jeweller"
+ },
+ "JewelleryBox": {
+  "description": "Can hold up to 8 [Gem] @[Gem] within [JewelleryBox] have [MultParam] @If sold when full, gain a special [Legendary] [Heirloom] [BREAK]Cannot be duplicated",
+  "name": "Jewellery Box"
+ },
+ "JoustingArena": {
+  "description": "{Triggers when an [Adjacent] building is removed:} [MoneyCount]",
+  "name": "Jousting Arena"
+ },
+ "KelpField": {
+  "description": "{Triggers when removed:} [RerollCount]",
+  "name": "Kelp Field"
+ },
+ "Kitchen": {
+  "description": "{Triggers every [Cooldown] weeks:} @[RarityScoreCommon] for each [Common] [InRange]",
+  "name": "Kitchen"
+ },
+ "Lamppost": {
+  "description": "{Passively:} reduces the cooldown of [Adjacent] buildings by [CooldownModificationParam]",
+  "name": "Lamppost"
+ },
+ "Lantern": {
+  "description": "{Triggers whenever [Nature] is created [Adjacent] :} [RerollCount]",
+  "name": "Stone Lantern"
+ },
+ "LegionStandard": {
+  "description": "The next [Cooldown] [Martial] buildings have no [Range] placement restrictions",
+  "name": "Legion Flag"
+ },
+ "Lighthouse": {
+  "description": "{Passively:} reduces the cooldown of [Ship] [InRange] by [CooldownModificationParam]",
+  "name": "Lighthouse"
+ },
+ "LoadedDice": {
+  "description": "When sold, gain [RerollCount] [BREAK]Sells for 0 [Gold]",
+  "name": "Loaded Dice"
+ },
+ "LodgingHouse": {
+  "description": "{Triggers when created:} @Gain [ActivationCount] random [Residence]  [Blueprint] from any unlocked guild",
+  "name": "Lodging House"
+ },
+ "LookingGlass": {
+  "description": "All buildings passively have [RangeModificationParam] [Range]",
+  "name": "Spyglass"
+ },
+ "LostCrown": {
+  "description": "Has a base sell price of [MoneyCount]\\n@When sold, gain a [FavourWizard]",
+  "name": "Lost Crown"
+ },
+ "LotteryTicket": {
+  "description": "There is always [BaseScore] pack in the shop [BREAK]Does not stack",
+  "name": "Coupon"
+ },
+ "Lumber": {
+  "name": "Lumber"
+ },
+ "Lumberyard": {
+  "description": "{Triggers every [Cooldown] weeks:} @Create [ActivationCount] [Lumber] on a random [Adjacent] tile [BREAK]Can only be created [Adjacent] to [Trees]",
+  "name": "Lumberyard"
+ },
+ "Mace": {
+  "description": "Whenever a [TargetCategory1] is removed, {trigger} up to [ActivationCount] random [TargetCategory1]",
+  "name": "Flanged Mace"
+ },
+ "MagicPortal": {
+  "description": "Any tile [Adjacent] to any [MagicPortal] is considered [Adjacent] to all [MagicPortal]",
+  "name": "Portal"
+ },
+ "MagicRuin": {
+  "description": "{When removed:} Gain a random [Potion]",
+  "name": "Magical Ruin"
+ },
+ "Manure": {
+  "description": "{Triggers when removed:} [MoneyCount]",
+  "name": "Manure"
+ },
+ "MarblePillar": {
+  "description": "[Statue] will now always give [CouncilVote] of the councillor with the most votes",
+  "name": "Marble Pillar"
+ },
+ "MarketProduce": {
+  "description": "[Stall] passively have [MultParam] for each other [Adjacent] [Stall]",
+  "name": "Harvest Basket"
+ },
+ "Marketplace": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Trigger} all [Adjacent] [Stall] [BREAK]{When created:} gain a random [Stall] [Blueprint]",
+  "name": "Marketplace"
+ },
+ "Mason": {
+  "description": "{Triggers when created:} @Gain [ActivationCount] random [BuildingUpgrade] [BREAK]Can only be created [Adjacent] to another non [Nature] building",
+  "name": "Mason"
+ },
+ "Millstone": {
+  "description": "[Common] buildings passively have [MultParam]",
+  "name": "Millstone"
+ },
+ "Mine": {
+  "description": "{Triggers every [Cooldown] weeks:} @Create [ActivationCount] [Ore] on a random [Adjacent] tile [BREAK]Can only be created [Adjacent] to [Rocks]",
+  "name": "Mine"
+ },
+ "Mirror": {
+  "description": "Whenever a building is created, there is a [PercentageChance] chance to create a duplicate of it on an [Adjacent] tile",
+  "name": "Magic Mirror"
+ },
+ "Missive": {
+  "description": "When sold, gain [ActivationCount] random [CouncilVote] (must have space) [BREAK]Sells for 0 [Gold]",
+  "name": "Missive"
+ },
+ "ModelBridge": {
+  "description": "Whenever a [Resource] is created, create a [Plateau] on a random empty [Ocean] or [Shore] tile [Adjacent] to it",
+  "name": "Model Bridge"
+ },
+ "ModifiedSapling": {
+  "description": "Whenever [Engineering] is created, create random empty [Farm] fields on up to [ActivationCount] empty [Adjacent] [Grass] and [Sand] tiles",
+  "name": "Modified Seedling"
+ },
+ "MortarAndPestle": {
+  "description": "The next [Cooldown] [Frontier] buildings have no [Range] placement restrictions",
+  "name": "Mortar and Pestle"
+ },
+ "MossyLog": {
+  "description": "[Lumber] is [Wild]",
+  "name": "Mossy Log"
+ },
+ "MoveBuilding": {
+  "description": "Select a building, then move it to a valid empty tile",
+  "name": "Mobility Draught"
+ },
+ "MysteryMeat": {
+  "description": "[Husbandry] is considered [Fishing]",
+  "name": "Mystery Meat"
+ },
+ "NegBlackPaint": {
+  "description": "When created, after [Cooldown] weeks, {remove} this building [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Dark Paint"
+ },
+ "NegChangeCount": {
+  "description": "Increases a building's max cooldown by [CooldownModificationParam] when created",
+  "name": "Increased Cooldown"
+ },
+ "NegChangeMult": {
+  "description": "Give a building [MultParam] when created",
+  "name": "Reduced Mult"
+ },
+ "NegChangeRange": {
+  "description": "Gives a building [RangeModificationParam] [Range] when created",
+  "name": "Reduced Range"
+ },
+ "NestingDoll": {
+  "description": "Buildings may be placed on other buildings of the same type. When doing so, instead of replacing the existing building, it gains [MultParam]",
+  "name": "Nesting Dolls"
+ },
+ "Nitrary": {
+  "description": "{Triggers every [Cooldown] weeks:} @Remove [ActivationCount] random [Nature] or [Resource] [InRange] @[BaseScore] for each removed",
+  "name": "Nitrary"
+ },
+ "NomadWagon": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Removes} itself and {creates} a [NomadWagon] on an [Adjacent] tile",
+  "name": "Nomad's Wagon"
+ },
+ "Obelisk": {
+  "description": "{Passively:} any buildings [Adjacent] to [Obelisk] have [MultParam] [BREAK]Can be created on top of another [Obelisk] to give [Adjacent] buildings additional [MultParam]",
+  "name": "Obelisk"
+ },
+ "OceanTemple": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Create} [ActivationCount] [KelpField] on random tiles [InRange] [BREAK]{Passively:} [Nature] [InRange] is considered [Sacred]",
+  "name": "Ocean Shrine"
+ },
+ "OldBlueprint": {
+  "description": "You have a [PercentageChance] increased chance to roll buildings whose [Blueprint] you are holding",
+  "name": "Old Blueprint"
+ },
+ "Ore": {
+  "name": "Ore"
+ },
+ "Outpost": {
+  "description": "{Triggers every [Cooldown] weeks:} @Trigger a random [Adjacent] building if [Outpost] is the only other building [Adjacent] to it",
+  "name": "Outpost"
+ },
+ "Paintbrush": {
+  "description": "[BuildingUpgrade] paint durations are doubled",
+  "name": "Paintbrush"
+ },
+ "Palette": {
+  "description": "When sold, gain [BsRainbowPaint] and [BsSpectralPaint] (must have space) [BREAK]Sells for 0 [Gold]",
+  "name": "Palette"
+ },
+ "Palisade": {
+  "description": "{Passively:} any tile inside an enclosed area of [Palisade] is considered to be [Frontier] instead of its original guild @Does not connect diagonally",
+  "name": "Palisade"
+ },
+ "Park": {
+  "description": "{Passively:} [Nature] [Adjacent] to [Park] is considered [Residence] and [Common]",
+  "name": "Park"
+ },
+ "PhilosophersStone": {
+  "description": "For every [MoneyCount] earned from buildings or heirlooms, gain [EnchantmentParam]",
+  "name": "Philosopher's Stone"
+ },
+ "PiggyBank": {
+  "description": "For every [MoneyCount] earned from buildings or heirlooms, give up to [ActivationCount] random [TargetCategory1] [MultParam]",
+  "name": "Piggybank"
+ },
+ "PirateShip": {
+  "description": "{Triggers every [Cooldown] weeks:} @[BaseScore] and {create} [ActivationCount] [TreasureChest] on a random tile [InRange]",
+  "name": "Pirate Ship"
+ },
+ "Pitchfork": {
+  "description": "Whenever a [Crop] transforms, it has [PercentageChance] chance to {trigger} a random building [Adjacent] to it",
+  "name": "Pitchfork"
+ },
+ "Plateau": {
+  "description": "{Passively:} Counts as [Grass] @Can be built over",
+  "name": "Plateau"
+ },
+ "Plaza": {
+  "description": "{Passively:} buildings [Adjacent] to a [Plaza] ignore [Range] placement restrictions",
+  "name": "Plaza"
+ },
+ "Plow": {
+  "description": "The next [Cooldown] [Agricultural] buildings have no [Range] placement restrictions",
+  "name": "Plow"
+ },
+ "PocketWatch": {
+  "description": "All building cooldowns are reduced by [CooldownModificationParam]",
+  "name": "Timepiece"
+ },
+ "PokerChip": {
+  "description": "Whenever a [Reroll] is used, [BaseScore] to this heirloom's sell value",
+  "name": "Poker Chip"
+ },
+ "Pontoon": {
+  "description": "Any building that can be created on [Shore] can also be created on [Ocean], and vice versa",
+  "name": "Pontoon"
+ },
+ "Port": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreShip] for each [Ship]  [Trader] or [Luxury] [InRange] [BREAK]{When created:} gain a [Plateau] [Blueprint] with 2 charges",
+  "name": "Port"
+ },
+ "PostOffice": {
+  "description": "{Whenever the tile directly below a [PostOffice] triggers:} @{Trigger} the tile directly above the [PostOffice]",
+  "name": "Post Office"
+ },
+ "PotionRack": {
+  "description": "When sold, gain [ActivationCount] random [Potion] (must have space) [BREAK]Sells for 0 [Gold]",
+  "name": "Potion Rack"
+ },
+ "Pottery": {
+  "description": "When a building is created on [Sand] give it [MultParam]",
+  "name": "Pottery"
+ },
+ "PrayerFlags": {
+  "description": "[Trees] counts as [Frontier]",
+  "name": "Prayer Flags"
+ },
+ "Printer": {
+  "description": "Every [Cooldown] weeks, gain a copy of a random held [Consumable] (must have space)",
+  "name": "Printing Press"
+ },
+ "PurplePaint": {
+  "description": "For the next [Cooldown] weeks, target building gains: {Whenever triggered, gain [EnchantmentParam]} [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Purple Paint"
+ },
+ "Quarry": {
+  "description": "{Triggers every [Cooldown] weeks:} @Create [ActivationCount] [Rocks] on a random tile [InRange]",
+  "name": "Quarry"
+ },
+ "Quay": {
+  "description": "Other [Adjacent] buildings are considered [Ship] @Must be created [Connected] to [Port] or [Crane] or another [Quay] @Does not connect diagonally",
+  "name": "Quay"
+ },
+ "Quest.BuildBlueprints": {
+  "description": "Create [QuestAmount] more unique [Blueprint] this milestone"
+ },
+ "Quest.CreateBuildings": {
+  "description": "Create [QuestAmount] more buildings this milestone"
+ },
+ "Quest.DismissBuildings": {
+  "description": "[Dismiss] [DismissCount] more buildings this milestone"
+ },
+ "Quest.EarnGold": {
+  "description": "Earn [MoneyCount] more this milestone"
+ },
+ "Quest.EarnPointsOfCategory": {
+  "description": "Score [QuestAmountPoints] more with [QuestTargetCategory] this milestone"
+ },
+ "Quest.IncreaseMult": {
+  "description": "Increase the {base} [Mult] of [QuestAmount] different buildings this milestone"
+ },
+ "Quest.RemoveBuildings": {
+  "description": "[Remove] [RemoveCount] more buildings this milestone"
+ },
+ "Quest.RerollTimes": {
+  "description": "Gain [RerollCount] more [Reroll] this milestone"
+ },
+ "Quest.TransformBuildings": {
+  "description": "Transform [QuestAmount] more buildings this milestone"
+ },
+ "Quest.UseBuildingSupplies": {
+  "description": "Use [QuestAmount] more [BuildingUpgrade] this milestone"
+ },
+ "Quest.UseSpells": {
+  "description": "Use [QuestAmount] more [Potion] this milestone"
+ },
+ "RabbitsFoot": {
+  "description": "When a [TargetCategory1] building triggers, it has a [PercentageChance] chance to gain [MultParam] and a [Percentage2Chance] chance to gain [MoneyCount]",
+  "name": "Rabbit's Foot"
+ },
+ "Rail": {
+  "description": "{Passively:} Any tile [Adjacent] to a [Rail] is considered [Adjacent] to all [Connected] [Rail] @Does not connect diagonally",
+  "name": "Railway"
+ },
+ "RainbowFlag": {
+  "description": "Your building rolls can contain buildings from any unlocked guilds ",
+  "name": "Rainbow Flag"
+ },
+ "RainbowPaint": {
+  "description": "Target building permanently gains [Wild] making it count as every category and guild at once [BREAK][Wild] buildings do not gain [Mult] from [CouncilVote] [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Rainbow Paint"
+ },
+ "Rank0ExplorerData": {
+  "description": "Base Difficulty",
+  "name": "Explorer"
+ },
+ "Rank10RegentData": {
+  "description": "A [Hazard] spawns every 2nd milestone after Village",
+  "name": "Regent"
+ },
+ "Rank1VillagerData": {
+  "description": "Less [Gold] for finishing milestones",
+  "name": "Villager"
+ },
+ "Rank2YeomanData": {
+  "description": "Required score scales faster",
+  "name": "Yeoman"
+ },
+ "Rank3CitizenData": {
+  "description": "A [Hazard] will spawn in Quaint Village",
+  "name": "Citizen"
+ },
+ "Rank4EnvoyData": {
+  "description": "Buildings can roll with [BsNegCooldown]",
+  "name": "Envoy"
+ },
+ "Rank5ConsulData": {
+  "description": "Buildings can roll with [BsNegRange]",
+  "name": "Consul"
+ },
+ "Rank6AmbassadorData": {
+  "description": "[Reroll]  [Remove] and [Dismiss] start more expensive",
+  "name": "Ambassador"
+ },
+ "Rank7GovenorData": {
+  "description": "Required score scales even faster",
+  "name": "Governor"
+ },
+ "Rank8ChancellorData": {
+  "description": "Buildings can roll with [BsNegBlackPaint]",
+  "name": "Chancellor"
+ },
+ "Rank9ViceroyData": {
+  "description": "Buildings can roll with -0.5 [mult]",
+  "name": "Viceroy"
+ },
+ "RanksUnlockData": {
+  "description": "{Ranks} have been unlocked. Ranks allow you to opt in to higher difficulties @ @Your {rank} increases every time you win a run at your highest unlocked rank"
+ },
+ "RareHerb": {
+  "description": "Whenever a [HerbGarden] triggers [ActivationCount] or more other buildings, give the triggered buildings [MultParam]",
+  "name": "Life Herb"
+ },
+ "Rarity.Common": {
+  "name": "Common"
+ },
+ "Rarity.Legendary": {
+  "name": "Legendary"
+ },
+ "Rarity.Masterwork": {
+  "name": "Masterwork"
+ },
+ "Rarity.Rare": {
+  "name": "Rare"
+ },
+ "Rarity.Uncommon": {
+  "name": "Uncommon"
+ },
+ "RedEarth": {
+  "description": "[Wall] are considered [Martial] and can be placed on [Sand]",
+  "name": "Red Clay"
+ },
+ "RedPaint": {
+  "description": "For the next [Cooldown] weeks, target building gains: {Whenever triggered, gain [RemoveCount]} [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Red Paint"
+ },
+ "Reliquary": {
+  "description": "{Triggers every [Cooldown] weeks:} @[BaseScore] (30 x total equipped [Heirloom] sell value)[BREAK]Can only be created [Adjacent] to [Rocks]",
+  "name": "Reliquary"
+ },
+ "RemoveToGainRarity": {
+  "description": "Remove target building and gain a random [Blueprint] of a higher rarity",
+  "name": "Recycling Potion"
+ },
+ "Reservoir": {
+  "description": "{Triggers when created:} Gain [Irrigation] [Blueprint] [BREAK][Crop] [Adjacent] to [Reservoir] grow in 1 week",
+  "name": "Reservoir"
+ },
+ "Rocks": {
+  "name": "Rocks"
+ },
+ "Ruin": {
+  "description": "{When removed:} Gain a random [BuildingUpgrade]",
+  "name": "Ruin"
+ },
+ "RustedBlade": {
+  "description": "[Cooldown] times per milestone, whenever you {remove} a building, gain a [Blueprint] of it (must have space)",
+  "name": "Rusted Blade"
+ },
+ "Saddle": {
+  "description": "Any tile [InRange] of a [Stable] is consider to be [InRange] of all [Stable]",
+  "name": "Courier's Saddle"
+ },
+ "Saw": {
+  "description": "Gain a [Palisade] [Blueprint] whenever [Trees] is removed (must have space) [BREAK][Blueprint] gained by [Saw] only have 1 charge",
+  "name": "Woodsaw"
+ },
+ "Sawmill": {
+  "description": "{Triggers every [Cooldown] weeks: @{Trigger} up to [ActivationCount] [Engineering] or [Manufacturer] [InRange] [BREAK]{Passively:} removes [Adjacent] [Lumber] to affect [BaseScore] more targets",
+  "name": "Sawmill"
+ },
+ "Scaffolding": {
+  "description": "{Passively:} Any building created on [Scaffolding] gains [MultParam] @Can be built over",
+  "name": "Scaffolding"
+ },
+ "Scarecrow": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreFarm] for each [Farm] [InRange]",
+  "name": "Scarecrow"
+ },
+ "Scythe": {
+  "description": "When placing [Farm], place 1 extra",
+  "name": "Scythe"
+ },
+ "SeaweedFarm": {
+  "description": "{Triggers every [Cooldown] weeks:} @[TileTypeScoreOcean] for each empty [Ocean] [InRange]",
+  "name": "Seaweed Farm"
+ },
+ "Sewer": {
+  "description": "{Triggers when created:} @{Remove} all [Adjacent] non [Infrastructure]",
+  "name": "Sewer"
+ },
+ "Shaman": {
+  "description": "{Triggers when another building [InRange] gains [Reroll] :}@[CategoryScoreFrontier] for each [Frontier] [InRange]",
+  "name": "Shaman"
+ },
+ "ShantyTown": {
+  "description": "{Passively:} every week, each [Connected] [ShantyTown] has a [PercentageChance] chance to create another [ShantyTown] on a random tile [Connected] to the group",
+  "name": "Slums"
+ },
+ "Shears": {
+  "description": "Whenever a building is removed, [PercentageChance] chance to gain [MoneyCount]",
+  "name": "Shears"
+ },
+ "SheepFarm": {
+  "description": "{Triggers when created:} @[TileTypeScoreGrass] for each [Adjacent] empty [Grass] @{Create} [Manure] on a random empty [Adjacent] [Grass]",
+  "name": "Farmyard"
+ },
+ "ShopUnlockData": {
+  "description": "The {Shop} has been repaired, and will now always be available between milestones"
+ },
+ "Shrine": {
+  "description": "{Triggers every [Cooldown] weeks:}@[BaseScore] (50 x number of [Reroll] )[BREAK]Can only be created [Adjacent] to at least 3 [Nature]",
+  "name": "Shrine"
+ },
+ "Silk": {
+  "description": "When a [Marketplace] triggers, it targets all [Stall] on the map which are [Adjacent] to any [Marketplace]",
+  "name": "Bolt of Silk"
+ },
+ "SkipUnlockData": {
+  "description": "You may now skip buildings for [Gold] from {Tiny Hamlet} onwards"
+ },
+ "Sledgehammer": {
+  "description": "Whenever a building with increased [Mult] is removed, create a [Scaffolding] in its place",
+  "name": "Sledgehammer"
+ },
+ "SlotMachine": {
+  "description": "At the start of each milestone, gain [RerollCount] and [RemoveCount]",
+  "name": "Slot Machine"
+ },
+ "Smelter": {
+  "description": "{Triggers every [Cooldown] weeks: [BaseScore] [BREAK]{Passively:} removes [Adjacent] [Ore] to gain [MultParam]",
+  "name": "Smelter"
+ },
+ "SparringYard": {
+  "description": "{Triggers when created:} @[RemoveCount] and {trigger} all [Training] [InRange]",
+  "name": "Sparring Dummy"
+ },
+ "SpecialConsumable.Dismiss": {
+  "description": "Remove a building from the pool of available buildings. It will no longer be offered for the rest of the run"
+ },
+ "SpecialConsumable.Remove": {
+  "description": "Remove a building from the map, triggering on removal effects"
+ },
+ "SpecialConsumable.Reroll": {
+  "description": "Refresh the current selection of building options"
+ },
+ "SpectralPaint": {
+  "description": "Permanently modify target building's affected category to one of your choice [BREAK]You may only select a new category that already exists on the map [BREAK]Buildings can only have 1 paint at a time",
+  "name": "Ghost Paint"
+ },
+ "SpellsUnlockData": {
+  "description": "[Potion] can now appear in the shop or in packs @These [Consumable] are used as once-off utilities with a variety of effects"
+ },
+ "Stable": {
+  "description": "{Passively:} buildings [Adjacent] to a [Stable] gain the [Stable] [Range] @Does not apply to other [Adjacent] [Stable]",
+  "name": "Stable"
+ },
+ "StallBotany": {
+  "description": "{Triggers when created:} @[CategoryScoreNature] for each [Nature] or [Resource] [InRange]",
+  "name": "Botanist's Stall"
+ },
+ "StallDeli": {
+  "description": "{Triggers when created:} @[CategoryScoreHusbandry] for each [Husbandry]  [Fishing] or [Healing] [InRange]",
+  "name": "Deli Stall"
+ },
+ "StallGrocer": {
+  "description": "{Triggers when created:} @[CategoryScoreFarm] for each [Farm]  [Crop] or [Residence] [InRange]",
+  "name": "Grocer's Stall"
+ },
+ "StallSupplies": {
+  "description": "{Triggers when created:} @[CategoryScoreManufacturer] for each [Manufacturer]  [Training] or [Engineering] [InRange]",
+  "name": "Supplies Stall"
+ },
+ "Standard": {
+  "description": "Instead of their usual [Mult] [Wall] give [MultParam] for every [ActivationCount] tiles enclosed within [Wall] ",
+  "name": "Pennant"
+ },
+ "Statue": {
+  "description": "{Triggers when created:} @Gain [CouncilVote] for [ActivationCount] random councillor already on your council [BREAK]Can only be created [Adjacent] to [Nature]",
+  "name": "Statue"
+ },
+ "Statuette": {
+  "description": "When a building is {created}, if you have a councillor that provides [Mult] to any of its categories, [PercentageChance] chance to gain a [CouncilVote] for them",
+  "name": "Statuette"
+ },
+ "Stockpile": {
+  "description": "{Triggers when created:} @[TileTypeScoreSand] for each empty [Sand] or [Grass] [InRange] ",
+  "name": "Stockpile"
+ },
+ "Sundial": {
+  "description": "On the last week of a milestone, all buildings passively have [MultParam]",
+  "name": "Sundial"
+ },
+ "SunflowerFarm": {
+  "description": "{Grows} (transforms) in [Cooldown] weeks then: @{Triggers every [Cooldown] weeks:} @[CategoryScoreCrop] for each other [Crop] [InRange] [BREAK]{Passively:} counts as [Flowers]",
+  "name": "Sunflower Field"
+ },
+ "Talisman": {
+  "description": "Whenever a building is created [Adjacent] to another building of a different, non- [Neutral] guild, gain [MoneyCount]",
+  "name": "Talisman"
+ },
+ "Tannery": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreHusbandry] for each [Husbandry] [InRange]",
+  "name": "Tannery"
+ },
+ "TaxCollector": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Transform} [ActivationCount] random [House] [InRange] into [HousePlot]",
+  "name": "Tax Collector"
+ },
+ "Temple": {
+  "description": "When all 4 wings of the temple are created [Adjacent] in the correct positions, gain a special [Legendary] [Heirloom] [BREAK]Cannot be removed"
+ },
+ "TempleEastWing": {
+  "name": "Temple North-East Wing"
+ },
+ "TempleNorthWing": {
+  "name": "Temple North-West Wing"
+ },
+ "TempleSouthWing": {
+  "name": "Temple South-East Wing"
+ },
+ "TempleWestWing": {
+  "name": "Temple South-West Wing"
+ },
+ "TileType.Grass": {
+  "name": "Ground"
+ },
+ "TileType.Ocean": {
+  "name": "Ocean"
+ },
+ "TileType.Sand": {
+  "name": "Sand"
+ },
+ "TileType.Shore": {
+  "name": "Shoreline"
+ },
+ "ToolShed": {
+  "description": "{Triggers when [Resource] created [InRange] :} @[CategoryScoreEngineering] for each [Engineering]  [Woodworking] or [Resource] [InRange]",
+  "name": "Tool Shed"
+ },
+ "TopHat": {
+  "description": "You can find duplicate [Heirloom] in the shop and in packs",
+  "name": "Top Hat"
+ },
+ "Torch": {
+  "description": "Whenever [EffigyPyre] is removed, create another [EffigyPyre] on a random tile [Adjacent] to it",
+  "name": "Flaming Brand"
+ },
+ "TownBell": {
+  "description": "{Passively:} buildings [Adjacent] to [TownBell] have [RangeModificationParam] [Range]",
+  "name": "Town Bell"
+ },
+ "TownHall": {
+  "description": "{Triggers when created:} @[CategoryScoreResidence] for each [Residence] [Connected] to the [TownHall]",
+  "name": "Town Hall"
+ },
+ "ToyBoat": {
+  "description": "Whenever a [Ship] triggers, it removes itself and creates a copy on a random [Adjacent] tile",
+  "name": "Toy Sailboat"
+ },
+ "TradingPost": {
+  "description": "{Triggers every [Cooldown] weeks:} @[BaseScore] for each unique building [InRange]",
+  "name": "Trading Post"
+ },
+ "TrainingRing": {
+  "description": "{Triggers when created:} @[TileTypeScoreSand] for each empty [Sand] [InRange]",
+  "name": "Training Ring"
+ },
+ "Transmutor": {
+  "description": "If you would already be placing more than [ActivationCount] building, place [ActivationCount] extra",
+  "name": "Transmutor"
+ },
+ "Trapper": {
+  "description": "{Passively:} other [Adjacent] buildings are considered [Husbandry]",
+  "name": "Trapper's Lodge"
+ },
+ "Trawler": {
+  "description": "{Every [Cooldown] weeks:} @{Trigger} [ActivationCount] random [Fishing] [InRange] @Must be created at least 2 tiles away from [Grass] or [Sand]",
+  "name": "Trawler"
+ },
+ "TreasureChest": {
+  "description": "{Triggers when removed:} [MoneyCount]",
+  "name": "Treasure Chest"
+ },
+ "TreasureMap": {
+  "description": "When sold, {create} [ActivationCount] [TreasureChest] on random [Sand] tiles [BREAK]Sells for 0 [Gold]",
+  "name": "Treasure Map"
+ },
+ "Treasury": {
+  "description": "{Triggers when another building [InRange] earns [Gold] :} @{Trigger} [ActivationCount] random [Adjacent] building",
+  "name": "Treasury"
+ },
+ "Trees": {
+  "name": "Forest"
+ },
+ "Trigger": {
+  "description": "{Trigger} target building without ending the week [BREAK]Does not count towards a building's weekly trigger limit",
+  "name": "Activation Philtre"
+ },
+ "Triquetra": {
+  "description": "Whenever a [Nature] is created, trigger a random building [Adjacent] to it",
+  "name": "Triquetra"
+ },
+ "Ui.CantBeActivated": {
+  "description": "Cannot be triggered by something else"
+ },
+ "University": {
+  "description": "{Triggers every [Cooldown] weeks:} @[CategoryScoreTraining] for each [Training] or [Healing] [InRange]",
+  "name": "Academy"
+ },
+ "Vault": {
+  "description": "{Triggers every [Cooldown] weeks:} @[BaseScore] (10 x [Gold] count )[BREAK]Cannot be placed adjacent to anything else",
+  "name": "Vault"
+ },
+ "Vineyard": {
+  "description": "{Grows} (transforms) in [Cooldown] weeks and then {triggers:} [MoneyCount]",
+  "name": "Vineyard"
+ },
+ "VoodooDoll": {
+  "description": "Whenever a building triggers, give it [MultParam] if it is [InRange] of [Hazard]",
+  "name": "Voodoo Doll"
+ },
+ "Wall": {
+  "description": "{Passively:} Any tile inside an enclosed area of [Wall] gains [MultParam] @Does not connect diagonally",
+  "name": "Wall"
+ },
+ "Warehouse": {
+  "description": "{Passively:} whenever another building [InRange] scores, add that score to [Warehouse] (excluding other [Warehouse] ) @{When triggered:} score equal to the stored score",
+  "name": "Warehouse"
+ },
+ "WatchTower": {
+  "description": "{Triggers when created:} @[CategoryScoreNature] for each [Nature] [InRange] [BREAK]{When removed:} create [Trees] on each [Adjacent] tile",
+  "name": "Watch Tower"
+ },
+ "WayStation": {
+  "description": "{Triggers every [Cooldown] weeks:} @{Trigger} [ActivationCount] random [Adjacent] building [BREAK]{Passively:} counts as [Rail] @Every time [Neutral] is created [Adjacent] reduce current cooldown by 1",
+  "name": "Way Station"
+ },
+ "WeightedScale": {
+  "description": "All percentage chances are doubled. @Does not stack",
+  "name": "Weighted Scale"
+ },
+ "Well": {
+  "description": "{Passively:} [Crop] [Adjacent] to a [Well] grow faster, taking 1 week instead of the usual duration",
+  "name": "Well"
+ },
+ "WheatField": {
+  "description": "{Grows} (transforms) in [Cooldown] weeks and then {triggers:} [RerollCount] and [RemoveCount]",
+  "name": "Wheat Field"
+ },
+ "WhitePaint": {
+  "description": "For the next [Cooldown] weeks, target building gains: {Whenever triggered, [BaseScore]} [BREAK]Buildings can only have 1 paint at a time",
+  "name": "White Paint"
+ },
+ "Windmill": {
+  "description": "{Triggers whenever an [Adjacent] [Crop] transforms:} @[CategoryScoreResidence] for each [Residence] or [Training] [InRange]",
+  "name": "Windmill"
+ },
+ "WitchHut": {
+  "description": "{Triggers whenever another building is created [InRange] :} @[CategoryScoreHealing] for each [Healing] or [Sacred] [InRange]",
+  "name": "Witch's Hut"
+ },
+ "WizardsTower": {
+  "description": "{Triggers when created:} @Gain [ActivationCount] random [Potion] [BREAK]Cannot be placed [Adjacent] to anything else",
+  "name": "Wizard's Tower"
+ },
+ "Woodcutter": {
+  "description": "{Triggers every [Cooldown] weeks:} @[TagScoreTrees] and {remove} [ActivationCount] [Trees] [InRange]",
+  "name": "Woodcutter"
+ },
+ "WorkersRosary": {
+  "description": "[Engineering] and [Manufacturer] is considered [Sacred]",
+  "name": "Worker's Rosary"
+ },
+ "Workshop": {
+  "description": "{Triggers when [Resource] removed [InRange]:} [MoneyCount]",
+  "name": "Workshop"
+ }
+}

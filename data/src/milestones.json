@@ -1,0 +1,82 @@
+[
+ {
+  "index": 1,
+  "citySize": "Start",
+  "scoreRequired": 500,
+  "rankA": 500,
+  "rankB": 500,
+  "isQuestMilestone": false
+ },
+ {
+  "index": 2,
+  "citySize": "Dwelling",
+  "scoreRequired": 900,
+  "rankA": 1100,
+  "rankB": 1200,
+  "isQuestMilestone": false
+ },
+ {
+  "index": 3,
+  "citySize": "Hamlet",
+  "scoreRequired": 1400,
+  "rankA": 1600,
+  "rankB": 1800,
+  "isQuestMilestone": true
+ },
+ {
+  "index": 4,
+  "citySize": "Village",
+  "scoreRequired": 2000,
+  "rankA": 2400,
+  "rankB": 3000,
+  "isQuestMilestone": false
+ },
+ {
+  "index": 5,
+  "citySize": "SmallTown",
+  "scoreRequired": 3000,
+  "rankA": 3800,
+  "rankB": 4500,
+  "isQuestMilestone": true
+ },
+ {
+  "index": 6,
+  "citySize": "LargeTown",
+  "scoreRequired": 4500,
+  "rankA": 5500,
+  "rankB": 6500,
+  "isQuestMilestone": false
+ },
+ {
+  "index": 7,
+  "citySize": "SmallCity",
+  "scoreRequired": 6500,
+  "rankA": 9000,
+  "rankB": 12000,
+  "isQuestMilestone": true
+ },
+ {
+  "index": 8,
+  "citySize": "BigCity",
+  "scoreRequired": 10000,
+  "rankA": 15000,
+  "rankB": 25000,
+  "isQuestMilestone": true
+ },
+ {
+  "index": 9,
+  "citySize": "CapitalCity",
+  "scoreRequired": 13000,
+  "rankA": 25000,
+  "rankB": 40000,
+  "isQuestMilestone": false
+ },
+ {
+  "index": 10,
+  "citySize": "Metropolis",
+  "scoreRequired": 18000,
+  "rankA": 35000,
+  "rankB": 60000,
+  "isQuestMilestone": false
+ }
+]

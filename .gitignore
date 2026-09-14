@@ -1,0 +1,16 @@
+# --- Combolands Guild Overlap Explorer ---
+# Rule of thumb: if the SPA doesn't load it at runtime, it doesn't belong here.
+
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# The datamine workspace lives as a SIBLING (_cl_extract) and is never committed
+# here. data/src/*.json are the specific curated inputs COPIED from it (tracked,
+# so the build is reproducible without the sibling). Everything else in the
+# datamine (decompiled source, full asset export, raw params CSVs) stays out.
+_cl_extract/
+
+# NOTE: data.js IS committed on purpose — GitHub Pages serves it directly with
+# no build step. Regenerate it with `node build-data.mjs` after editing data/src.
