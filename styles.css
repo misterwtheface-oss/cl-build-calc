@@ -61,49 +61,48 @@ h2, h3 { font-weight: 700; }
 /* main scroll region — scrollTop is preserved on every re-render */
 .compare-main { height: calc(100dvh - 3rem); overflow-y: auto; }
 
-/* ═══ COMPARE LAYOUT: banner | column | SHARED | column | banner ═══ */
+/* ═══ COMPARE LAYOUT: banner | CENTRE | banner ═══ */
 .compare {
-  display: flex; gap: 0.75rem; align-items: stretch;
-  padding: 1rem; max-width: 1600px; margin: 0 auto;
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1rem; max-width: 1500px; margin: 0 auto;
 }
-.guild-unit { display: flex; gap: 0.6rem; flex: 1 1 0; min-width: 0; }
-.guild-unit.right { flex-direction: row-reverse; }
-.shared-col { flex: 1.15 1 0; min-width: 240px; }
-.guild-col { flex: 1 1 0; min-width: 0; }
+.center-col { flex: 1 1 auto; min-width: 0; }
 
-/* ── banner slot (tall flag; grey Null placeholder when empty) ── */
+/* ── banner slot: a full-height guild flag with the name read INSIDE it;
+      grey Null banner when empty. No surrounding container chrome. ── */
 .banner-slot {
-  flex: 0 0 var(--banner-w); align-self: flex-start;
-  position: sticky; top: 0.5rem;
-  display: flex; flex-direction: column; align-items: center; gap: .4rem;
-  cursor: pointer;
+  flex: 0 0 clamp(118px, 13vw, 188px); align-self: stretch;
+  position: sticky; top: .75rem; height: calc(100dvh - 4.5rem);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.banner-img {
-  width: 100%; aspect-ratio: 92 / 260; object-fit: contain;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,.5));
+.banner-fig { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+.banner-img { height: 100%; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,.55)); }
+.banner-slot:hover .banner-img { filter: drop-shadow(0 0 10px var(--g-color, var(--border-hi))); }
+.banner-name {
+  position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%);
+  width: 80%; text-align: center; pointer-events: none;
+  font-weight: 800; font-size: clamp(.72rem, .95vw, .95rem); line-height: 1.12; letter-spacing: .02em;
+  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.95), 0 0 7px rgba(0,0,0,.85);
 }
-.banner-slot.null .banner-frame {
-  width: 100%; aspect-ratio: 92 / 260; border: 2px dashed var(--border);
-  border-radius: 8px 8px 3px 3px; background: repeating-linear-gradient(
-    45deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 8px, transparent 8px, transparent 16px);
-  display: flex; align-items: center; justify-content: center; padding: .5rem; text-align: center;
-}
-.banner-slot.null .banner-frame span { font-size: .72rem; color: var(--text-dim); }
-.banner-slot:hover .banner-frame { border-color: var(--border-hi); color: var(--text); }
-.banner-caption {
-  font-size: .74rem; font-weight: 700; text-align: center; color: var(--g-color, var(--text-muted));
-  display: flex; align-items: center; gap: .3rem;
-}
-.banner-caption img { width: 18px; height: 18px; object-fit: contain; }
-.banner-slot .change { font-size: .62rem; color: var(--text-dim); }
+.banner-slot.null .banner-img { opacity: .5; filter: grayscale(1) brightness(.8); }
+.banner-slot.null .banner-name { top: 50%; color: var(--text-muted); text-shadow: none; }
 
-/* ── guild column ── */
-.guild-col-head {
-  display: flex; align-items: center; gap: .5rem; padding: .3rem .1rem .5rem;
-  border-bottom: 2px solid var(--g-color, var(--border)); margin-bottom: .6rem;
+/* ── shared-trait overlap sections (centre) ── */
+.centre-h { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--gold); margin: .2rem 0 .55rem; }
+.overlap-wrap { margin-bottom: .7rem; }
+.trait-section { margin-bottom: .55rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.trait-section-head {
+  display: flex; align-items: center; gap: .5rem; cursor: pointer;
+  padding: .4rem .7rem; font-weight: 800;
+  background: var(--aff-color, var(--surface3)); color: var(--aff-text, #fff);
 }
-.guild-col-head .gname { font-size: 1rem; font-weight: 700; color: var(--g-color, var(--text)); }
-.guild-col-head .gcount { font-size: .7rem; color: var(--text-dim); margin-left: auto; }
+.trait-section-head:hover { filter: brightness(1.08); }
+.trait-section-head .ts-count { margin-left: auto; font-size: .72rem; opacity: .9; background: rgba(0,0,0,.2); border-radius: 10px; padding: 0 .5rem; }
+.trait-section .tile-grid { padding: .55rem; }
+.rest-wrap { margin-top: .5rem; }
+/* overlap tile carries its guild identity: coloured left border + badge corner */
+.tile.ov { border-left: 3px solid var(--g-color); }
+.tile-guild { position: absolute; top: 3px; left: 3px; width: 15px; height: 15px; object-fit: contain; }
 
 .section { margin-bottom: .9rem; }
 .section-head {
@@ -147,7 +146,7 @@ h2, h3 { font-weight: 700; }
 .empty-note { font-size: .72rem; color: var(--text-dim); padding: .3rem 0; }
 
 /* ═══ SHARED CENTRE STRIP ═══ */
-.shared-col .combo-title {
+.center-col .combo-title {
   text-align: center; padding: .5rem; margin-bottom: .6rem;
   background: var(--surface2); border: 1px solid var(--border-hi); border-radius: 8px;
 }
@@ -289,17 +288,12 @@ h2, h3 { font-weight: 700; }
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 900px) {
-  /* stack the five regions into one column; banners become wide top headers */
+  /* stack into one column; banners become short full-width headers, name inside */
   .compare { flex-direction: column; }
-  .guild-unit, .guild-unit.right { flex-direction: column; }
-  .banner-slot {
-    flex: none; width: 100%; position: static;
-    flex-direction: row; justify-content: center; gap: .6rem;
-    border: 1px solid var(--border); border-radius: 8px; padding: .4rem; background: var(--surface2);
-  }
-  .banner-img { width: auto; height: 70px; aspect-ratio: 92/260; }
-  .banner-slot.null .banner-frame { width: auto; height: 60px; aspect-ratio: 3/1; }
-  .shared-col { min-width: 0; }
+  .banner-slot { flex: none; width: 100%; height: auto; position: static; }
+  .banner-fig { height: auto; width: 100%; }
+  .banner-img { height: 90px; width: auto; }
+  .banner-name { top: 50%; }
 }
 @media (max-width: 600px) {
   #overlay-root, #detail-overlay-root { padding: 0; }

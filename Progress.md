@@ -1,15 +1,17 @@
 # Combolands Guild Overlap Explorer — Progress
 
 ## Current state
-**P0 scaffold complete and runnable (2026-09-13).** Pick two of nine guilds via
-flanking banner slots (grey Null placeholders → guild selector overlay); the app
-shows, per guild, building tiles split **Primary overlap / Other** (sorted rarity
-→ alpha) and a Heirlooms section with the same split, plus a shared centre strip
-(shared traits, shared nature, shared counselors, shared events) and the named
-combo title. Detail overlays exist for buildings, heirlooms, counselors,
-categories, events and nature nodes. `build-data.mjs` compiles the curated
-`_cl_extract` JSON into `data.js` (window.CL_DATA, ~186 KB) with hygiene
-guardrails. Next: the trait × building cross-reference matrix and the bridge /
+**P0 complete + first layout revision (2026-09-13).** Pick two of the **7 core
+guilds** via full-height flanking banners (grey Null placeholder → guild selector;
+Arcane/Rogues are not selectable). The **centre column groups overlapping
+buildings by shared trait** — one section per shared functional category, headed by
+its colour-coded trait banner, holding tiles (from both guilds) that own/target
+that trait — plus shared nature interactions, shared counselors ("votes to
+focus"), a bridge-heirlooms block, a "Shared tags" quick index, and each guild's
+remaining buildings/heirlooms in a collapsed per-guild section. Detail overlays for
+buildings, heirlooms, counselors, categories, events, nature. `build-data.mjs`
+compiles curated `_cl_extract` JSON → `data.js` (window.CL_DATA, ~188 KB) with
+hygiene guardrails. Next: trait × building cross-reference matrix; bridge /
 universal-modifier section (P1).
 
 ## Backlog
@@ -55,6 +57,16 @@ universal-modifier section (P1).
 - Full description `[Token]` DSL is only lightly cleaned (P1).
 
 ## Session log
+- 2026-09-13 (2): Layout revision per user. **Only the 7 core guilds are
+  selectable** (Arcane/Rogues dropped from the picker + coerced out of a persisted
+  pair). Banners now **fill the full flank height** with the guild name read
+  *inside* the banner; removed the caption/frame/"change"/"n buildings" chrome.
+  Overlapping buildings moved to the **centre, grouped by shared trait** — each
+  shared functional category is a section headed by its colour-coded trait banner,
+  containing tiles (from both guilds) that own (▤) or target (⇄) that trait, with a
+  guild badge + coloured border per tile. Kept shared nature / counselors / a
+  bridge-heirlooms block + a "Shared tags" quick index; each guild's non-overlap
+  buildings & heirlooms live in a collapsed per-guild section at the bottom.
 - 2026-09-13: Initial scaffold. Read `_cl_extract` (guild crossovers, building
   interactions, council relationships) + skill conventions; confirmed palette,
   overlap rule, and scope with the user. Copied curated JSON + sprites; wrote

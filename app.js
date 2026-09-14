@@ -53,7 +53,8 @@
   function load() {
     let p = [null, null];
     try { const s = JSON.parse(localStorage.getItem(STORAGE_KEY)); if (Array.isArray(s)) p = [s[0] ?? null, s[1] ?? null]; } catch {}
-    return p.map((id) => (id && guildById.has(id) ? id : null));
+    // Only the 7 core guilds are selectable (Arcane/Rogues are advanced, not full guilds).
+    return p.map((id) => (id && guildById.get(id)?.isCore ? id : null));
   }
   const persist = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(state.pair));
 
@@ -123,15 +124,9 @@
       </header>
       <main class="compare-main">
         <div class="compare">
-          <div class="guild-unit left">
-            ${bannerSlotHTML(0, a)}
-            <div class="guild-col">${guildColumnHTML(a, b)}</div>
-          </div>
-          <div class="shared-col">${sharedColumnHTML(a, b)}</div>
-          <div class="guild-unit right">
-            ${bannerSlotHTML(1, b)}
-            <div class="guild-col">${guildColumnHTML(b, a)}</div>
-          </div>
+          ${bannerSlotHTML(0, a)}
+          <div class="center-col">${centerHTML(a, b)}</div>
+          ${bannerSlotHTML(1, b)}
         </div>
       </main>`;
 
@@ -139,72 +134,143 @@
     if (main) main.scrollTop = scroll;
   }
 
+  // A full-height guild flag; the name reads inside the banner. Empty = grey Null banner.
   function bannerSlotHTML(side, g) {
     if (!g) {
       return `<div class="banner-slot null" data-action="open-guild" data-side="${side}">
-        <div class="banner-frame"><span>Choose<br>a guild</span></div>
-        <span class="change">tap to select</span>
-      </div>`;
+        <div class="banner-fig">
+          <img class="banner-img" src="assets/banners/BannerHidden.png" alt="" onerror="this.style.visibility='hidden'">
+          <span class="banner-name">Choose a guild</span>
+        </div></div>`;
     }
-    const img = g.banner ? iconImg(g.banner, "banner-img")
-      : `<div class="banner-frame" style="border-color:${esc(g.color)}">${iconImg(g.badge, "gp-badge")}</div>`;
     return `<div class="banner-slot" data-action="open-guild" data-side="${side}" style="--g-color:${esc(g.color)}">
-      ${img}
-      <span class="banner-caption" style="--g-color:${esc(g.color)}">${iconImg(g.badge)}${esc(g.name)}</span>
-      <span class="change">change</span>
-    </div>`;
+      <div class="banner-fig">
+        ${g.banner ? `<img class="banner-img" src="${esc(g.banner)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
+        <span class="banner-name">${esc(g.name)}</span>
+      </div></div>`;
   }
 
-  // One guild's column: its buildings (Primary overlap / Other) then heirlooms.
-  function guildColumnHTML(g, other) {
-    if (!g) return "";
-    const paired = !!other;
-    const blds = buildingsByGuild.get(g.id) || [];
-    const heirs = heirloomsByGuild.get(g.id) || [];
+  // Shared functional categories for the pair (functional traits only).
+  function sharedFunctionalCats(a, b) {
+    const combo = comboFor(a.id, b.id) || {};
+    const list = combo.sharedFunctionalCategories && combo.sharedFunctionalCategories.length
+      ? combo.sharedFunctionalCategories
+      : a.functionalCategories.filter((c) => b.functionalCategories.includes(c));
+    return [...new Set(list)].filter((c) => (catById.get(c) || {}).kind === "functional").sort();
+  }
+  const ownsCat = (b, cat) => b.ownedMinors.includes(cat);
+  const targetsCat = (b, cat) => (b.interactions || []).some((it) => it.value === cat);
+  const isOverlap = (b, other) => buildingReasons(b, other).length > 0;
 
-    let html = `<div class="guild-col-head" style="--g-color:${esc(g.color)}">
-      <span class="gname">${esc(g.name)}</span>
-      <span class="gcount">${blds.length} buildings</span></div>`;
-
-    if (!paired) {
-      html += sectionHTML(`${g.id}-blds`, "Buildings", blds.map((x) => buildingTile(x, null)).join(""), blds.length, false, false);
-      html += sectionHTML(`${g.id}-heirs`, "Heirlooms", heirs.map((x) => heirloomTile(x, false)).join(""), heirs.length, false, true);
-      return html;
+  // Buildings from BOTH guilds that OWN or TARGET a shared category — the members
+  // of that trait's overlap section (e.g. crop buildings + buildings that score off crops).
+  function overlapBuildingsForCat(cat, a, b) {
+    const out = [];
+    for (const g of [a, b]) for (const bld of buildingsByGuild.get(g.id) || []) {
+      const owns = ownsCat(bld, cat), targets = targetsCat(bld, cat);
+      if (owns || targets) out.push({ bld, owns, targets });
     }
-
-    // paired → split by overlap
-    const prim = [], oth = [];
-    for (const bld of blds) (buildingReasons(bld, other).length ? prim : oth).push(bld);
-    html += sectionHTML(`${g.id}-blds-p`, "Primary overlap", prim.map((x) => buildingTile(x, other)).join(""), prim.length, true, false);
-    html += sectionHTML(`${g.id}-blds-o`, "Other buildings", oth.map((x) => buildingTile(x, other)).join(""), oth.length, false, true);
-
-    const hp = [], ho = [];
-    for (const h of heirs) (h.reachesGuilds.includes(other.id) ? hp : ho).push(h);
-    html += sectionHTML(`${g.id}-heirs-p`, "Heirlooms — overlap", hp.map((x) => heirloomTile(x, true)).join(""), hp.length, true, false);
-    html += sectionHTML(`${g.id}-heirs-o`, "Heirlooms — other", ho.map((x) => heirloomTile(x, false)).join(""), ho.length, false, true);
-    return html;
+    return out.sort((x, y) => (x.bld.rarityRank - y.bld.rarityRank) || x.bld.name.localeCompare(y.bld.name));
   }
 
-  function sectionHTML(id, title, bodyGridHTML, count, isPrimary, collapsedDefault) {
-    const collapsed = state.collapsed.has(id) ? true : (state.collapsed.has("!" + id) ? false : collapsedDefault);
-    const body = count ? `<div class="tile-grid">${bodyGridHTML}</div>` : `<p class="empty-note">None.</p>`;
-    return `<section class="section ${isPrimary ? "primary" : ""} ${collapsed ? "collapsed" : ""}">
-      <div class="section-head" data-action="toggle-section" data-sid="${esc(id)}">
-        <span class="caret">▼</span><span>${esc(title)}</span><span class="badge-count">${count}</span>
-      </div>
-      <div class="section-body">${body}</div>
-    </section>`;
+  // ═══ CENTRE COLUMN — how the two guilds interlock ═══
+  function centerHTML(a, b) {
+    if (!a && !b) return `<div class="hero"><h2>Pick two guilds</h2>
+      <p>Tap a banner on either side to choose a guild, then see how the two interlock —
+      buildings grouped by the traits they share, plus shared nature, counselors and events.</p></div>`;
+    if (!a || !b) return `<div class="hero"><h2>Select a second guild</h2>
+      <p>Choose the other banner to reveal the overlap between the two guilds.</p></div>`;
+
+    const combo = comboFor(a.id, b.id) || {};
+    const cats = sharedFunctionalCats(a, b);
+    const sharedEvents = a.events.filter((e) => b.events.includes(e));
+    const sharedNature = combo.sharedNature || [];
+    const sharedCouncil = (DATA.counselors || []).filter((c) => c.guildReach.includes(a.id) && c.guildReach.includes(b.id));
+
+    const title = `<div class="combo-title">
+      <div class="combo-name">${combo.name ? esc(combo.name) : `${esc(a.name)} + ${esc(b.name)}`}</div>
+      <div class="combo-sub">${esc(a.name)} + ${esc(b.name)}${combo.structuralEdges != null ? ` · ${combo.structuralEdges} structural · ${combo.eventEdges} event links` : ""}</div></div>`;
+
+    // quick index of the shared tags (traits + event types)
+    const tagIndex = block("Shared tags", `<div class="trait-list">${cats.map((c) => traitBanner(c)).join("")}${sharedEvents.map((e) => eventChipHTML(e)).join("")}</div>`);
+
+    // overlap buildings grouped by shared trait — the core view, each headed by the trait banner
+    let overlap = "";
+    for (const cat of cats) {
+      const members = overlapBuildingsForCat(cat, a, b);
+      if (members.length) overlap += traitSectionHTML(cat, members);
+    }
+    const overlapBlock = overlap
+      ? `<div class="overlap-wrap"><h3 class="centre-h">Overlapping buildings — by shared trait</h3>${overlap}</div>`
+      : block("Overlapping buildings", `<p class="empty-note">No shared functional categories.</p>`);
+
+    const natureBlock = block("Shared nature interactions", sharedNature.length
+      ? sharedNature.map((n) => natureRowHTML(n, a, b)).join("")
+      : `<p class="empty-note">No shared nature-resource interactions.</p>`);
+    const councilBlock = block("Shared counselors — votes to focus", sharedCouncil.length
+      ? sharedCouncil.map((c) => counselorCardHTML(c)).join("")
+      : `<p class="empty-note">No counselor reaches both guilds.</p>`);
+
+    const heirsBoth = (DATA.heirlooms || []).filter((h) => h.reachesGuilds.includes(a.id) && h.reachesGuilds.includes(b.id)).sort(byRarityThenName);
+    const heirBlock = block("Heirlooms that bridge both guilds", heirsBoth.length
+      ? `<div class="tile-grid">${heirsBoth.map((h) => heirloomTile(h, true)).join("")}</div>`
+      : `<p class="empty-note">No heirloom reaches both guilds.</p>`);
+
+    // each guild's remaining (non-overlap) buildings + heirlooms, collapsed by default
+    const remaining = [a, b].map((g) => {
+      const other = g === a ? b : a;
+      const others = (buildingsByGuild.get(g.id) || []).filter((x) => !isOverlap(x, other));
+      const heirs = (heirloomsByGuild.get(g.id) || []).filter((h) => !h.reachesGuilds.includes(other.id));
+      return sectionHTML(`${g.id}-rest`, `${g.name} — other buildings & heirlooms`,
+        `<div class="tile-grid">${others.map((x) => buildingTile(x)).join("")}${heirs.map((x) => heirloomTile(x, false)).join("")}</div>`,
+        others.length + heirs.length, false, true);
+    }).join("");
+
+    return title + tagIndex + overlapBlock + natureBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}</div>`;
   }
 
-  function buildingTile(b, other) {
-    const reasons = other ? buildingReasons(b, other) : [];
-    const primary = reasons.length > 0;
-    return `<div class="tile ${primary ? "primary" : ""}" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)}">
+  // A shared-trait section: the trait banner is the header; tiles are the member
+  // buildings (from either guild) that own or target the trait.
+  function traitSectionHTML(cat, members) {
+    const c = catById.get(cat); if (!c) return "";
+    const tiles = members.map((m) => overlapTile(m.bld, m.owns, m.targets)).join("");
+    return `<section class="trait-section">
+      <div class="trait-section-head" data-action="nav-cat" data-cat="${esc(cat)}"
+        style="--aff-color:${esc(c.color)};--aff-text:${textColorFor(c.color)}">
+        <span class="ts-name">${esc(c.name)}</span><span class="ts-count">${members.length}</span></div>
+      <div class="tile-grid">${tiles}</div></section>`;
+  }
+
+  // Overlap tile — shows which guild it belongs to (badge + coloured border) and
+  // whether it owns (▤) or targets (⇄) the trait.
+  function overlapTile(b, owns, targets) {
+    const g = guildById.get(b.guild) || {};
+    const rs = [];
+    if (owns) rs.push({ k: "cat", g: "▤", t: `${b.guild} building carrying this trait` });
+    if (targets) rs.push({ k: "target", g: "⇄", t: "Scores off / targets this trait" });
+    return `<div class="tile ov" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)} (${esc(b.guild)})" style="--g-color:${esc(g.color)}">
+      ${g.badge ? `<img class="tile-guild" src="${esc(g.badge)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
       <span class="rar-dot" style="background:var(--rar-${rarLower(b.rarity)})" title="${esc(b.rarity || "—")}"></span>
       <span class="tile-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
       <span class="tile-name">${esc(b.name)}</span>
-      ${reasons.length ? `<span class="reasons">${reasons.map((r) => `<span class="reason r-${r.k}" title="${esc(r.t)}">${r.g}</span>`).join("")}</span>` : ""}
+      <span class="reasons">${rs.map((r) => `<span class="reason r-${r.k}" title="${esc(r.t)}">${r.g}</span>`).join("")}</span>
     </div>`;
+  }
+
+  function sectionHTML(id, title, bodyHTML, count, isPrimary, collapsedDefault) {
+    const collapsed = state.collapsed.has(id) ? true : (state.collapsed.has("!" + id) ? false : collapsedDefault);
+    const body = count ? bodyHTML : `<p class="empty-note">None.</p>`;
+    return `<section class="section ${isPrimary ? "primary" : ""} ${collapsed ? "collapsed" : ""}">
+      <div class="section-head" data-action="toggle-section" data-sid="${esc(id)}">
+        <span class="caret">▼</span><span>${esc(title)}</span><span class="badge-count">${count}</span></div>
+      <div class="section-body">${body}</div></section>`;
+  }
+
+  function buildingTile(b) {
+    return `<div class="tile" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)}">
+      <span class="rar-dot" style="background:var(--rar-${rarLower(b.rarity)})" title="${esc(b.rarity || "—")}"></span>
+      <span class="tile-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
+      <span class="tile-name">${esc(b.name)}</span></div>`;
   }
 
   function heirloomTile(h, primary) {
@@ -214,52 +280,6 @@
       <span class="tile-name">${esc(h.name)}</span>
       ${primary ? `<span class="reasons"><span class="reason r-target" title="Bridges both guilds">⇄</span></span>` : ""}
     </div>`;
-  }
-
-  // ── shared centre strip ──
-  function sharedColumnHTML(a, b) {
-    if (!a && !b) {
-      return `<div class="hero">
-        <h2>Pick two guilds</h2>
-        <p>Tap a banner on either side to choose a guild, then see how the two interlock —
-        overlapping buildings, shared heirlooms, nature nodes, counselors, traits and events.</p>
-      </div>`;
-    }
-    if (!a || !b) {
-      return `<div class="hero"><h2>Select a second guild</h2>
-        <p>Choose the other banner to reveal the overlap between the two guilds.</p></div>`;
-    }
-
-    const combo = comboFor(a.id, b.id) || {};
-    const sharedCats = (combo.sharedFunctionalCategories && combo.sharedFunctionalCategories.length
-      ? combo.sharedFunctionalCategories
-      : a.functionalCategories.filter((c) => b.functionalCategories.includes(c))).slice().sort();
-    const sharedEvents = a.events.filter((e) => b.events.includes(e));
-    const sharedNature = combo.sharedNature || [];
-    const sharedCouncil = (DATA.counselors || []).filter((c) => c.guildReach.includes(a.id) && c.guildReach.includes(b.id));
-
-    const title = `<div class="combo-title">
-      <div class="combo-name">${combo.name ? esc(combo.name) : `${esc(a.name)} + ${esc(b.name)}`}</div>
-      <div class="combo-sub">${esc(a.name)} + ${esc(b.name)}${combo.structuralEdges != null ? ` · ${combo.structuralEdges} structural · ${combo.eventEdges} event links` : ""}</div>
-    </div>`;
-
-    const traitsBlock = block("Shared Traits", sharedCats.length
-      ? `<div class="trait-list">${sharedCats.map((c) => traitBanner(c)).join("")}</div>`
-      : `<p class="empty-note">No shared functional categories.</p>`);
-
-    const natureBlock = block("Shared Nature", sharedNature.length
-      ? sharedNature.map((n) => natureRowHTML(n, a, b)).join("")
-      : `<p class="empty-note">No shared nature-resource interactions.</p>`);
-
-    const councilBlock = block("Shared Counselors — votes to focus", sharedCouncil.length
-      ? sharedCouncil.map((c) => counselorCardHTML(c)).join("")
-      : `<p class="empty-note">No counselor reaches both guilds.</p>`);
-
-    const eventsBlock = block("Shared Event Types", sharedEvents.length
-      ? `<div class="event-list">${sharedEvents.map((e) => eventChipHTML(e)).join("")}</div>`
-      : `<p class="empty-note">No shared event types.</p>`);
-
-    return title + traitsBlock + natureBlock + councilBlock + eventsBlock;
   }
   const block = (title, inner) => `<div class="shared-block"><h3>${esc(title)}</h3>${inner}</div>`;
 
@@ -319,16 +339,15 @@
     const scroll = scroller ? scroller.scrollTop : 0;
     const otherPick = state.pair[state.ovl.side === 0 ? 1 : 0];
 
-    panel.querySelector(".guild-picker").innerHTML = (DATA.guilds || []).map((g) => {
+    // Only the 7 core guilds are selectable (Arcane/Rogues excluded).
+    panel.querySelector(".guild-picker").innerHTML = (DATA.guilds || []).filter((g) => g.isCore).map((g) => {
       const disabled = g.id === otherPick;                 // can't pick the same guild twice
       const sel = g.id === state.ovl.pending;
       const art = g.banner ? iconImg(g.banner, "gp-banner") : iconImg(g.badge, "gp-badge");
       return `<div class="guild-pick ${sel ? "selected" : ""} ${disabled ? "disabled" : ""}"
         data-action="pick-guild" data-id="${esc(g.id)}" style="--g-color:${esc(g.color)}">
-        ${g.isAdvanced ? `<span class="gp-adv">ADV</span>` : ""}
         ${art}
         <span class="gp-name">${esc(g.name)}</span>
-        <span class="gp-meta">${g.buildingCount} buildings</span>
       </div>`;
     }).join("");
 
