@@ -43,28 +43,6 @@
   }
   const comboFor = (a, b) => (DATA.combos || {})[[a, b].sort().join("|")] || null;
 
-  // Flat, name-sorted index of every navigable detail page — the Appendix
-  // search corpus. `action`/`attr` mirror the data-action + data-* used on the
-  // main page, so an appendix row opens the SAME detail overlay as a click would.
-  const APPENDIX_INDEX = [
-    ...(DATA.buildings || []).map((b) => ({
-      q: b.name, name: b.name, sub: `Building · ${(guildById.get(b.guild) || {}).name || b.guild}`,
-      sprite: b.sprite, action: "detail-building", attr: `data-key="${esc(b.key)}"` })),
-    ...(DATA.heirlooms || []).map((h) => ({
-      q: h.name, name: h.name, sub: "Heirloom", sprite: h.sprite,
-      action: "detail-heirloom", attr: `data-key="${esc(h.key)}"` })),
-    ...(DATA.counselors || []).map((c) => ({
-      q: c.name, name: c.name, sub: "Counselor", sprite: c.sprite,
-      action: "detail-counselor", attr: `data-name="${esc(c.name)}"` })),
-    ...(DATA.categories || []).map((c) => ({
-      q: c.name, name: c.name, sub: "Category / trait", action: "nav-cat", attr: `data-cat="${esc(c.id)}"` })),
-    ...(DATA.events || []).map((e) => ({
-      q: e.name, name: e.name, sub: "Event", action: "detail-event", attr: `data-id="${esc(e.id)}"` })),
-    ...(DATA.natureResources || []).map((n) => ({
-      q: n.name, name: n.name, sub: "Nature node", sprite: n.sprite,
-      action: "detail-nature", attr: `data-key="${esc(n.key)}"` })),
-  ].filter((it) => it.name).sort((x, y) => x.name.localeCompare(y.name));
-
   // ── state ──
   const state = {
     pair: load(),        // [guildIdA|null, guildIdB|null]
@@ -653,6 +631,34 @@
   // A searchable list of every detail page. Sits on its own layer BELOW the
   // detail overlay, so opening a result stacks the detail page above and the
   // appendix stays behind. The search box is intentionally NOT auto-focused.
+  //
+  // Flat, name-sorted corpus of every navigable page. `action`/`attr` mirror the
+  // data-action + data-* used on the main page, so a row opens the SAME detail
+  // overlay a click would. Built lazily on first open (needs esc/guildById, which
+  // are declared above by the time openAppendix can fire).
+  let _apxIndex = null;
+  function appendixIndex() {
+    if (_apxIndex) return _apxIndex;
+    _apxIndex = [
+      ...(DATA.buildings || []).map((b) => ({
+        q: b.name, name: b.name, sub: `Building · ${(guildById.get(b.guild) || {}).name || b.guild}`,
+        sprite: b.sprite, action: "detail-building", attr: `data-key="${esc(b.key)}"` })),
+      ...(DATA.heirlooms || []).map((h) => ({
+        q: h.name, name: h.name, sub: "Heirloom", sprite: h.sprite,
+        action: "detail-heirloom", attr: `data-key="${esc(h.key)}"` })),
+      ...(DATA.counselors || []).map((c) => ({
+        q: c.name, name: c.name, sub: "Counselor", sprite: c.sprite,
+        action: "detail-counselor", attr: `data-name="${esc(c.name)}"` })),
+      ...(DATA.categories || []).map((c) => ({
+        q: c.name, name: c.name, sub: "Category / trait", action: "nav-cat", attr: `data-cat="${esc(c.id)}"` })),
+      ...(DATA.events || []).map((e) => ({
+        q: e.name, name: e.name, sub: "Event", action: "detail-event", attr: `data-id="${esc(e.id)}"` })),
+      ...(DATA.natureResources || []).map((n) => ({
+        q: n.name, name: n.name, sub: "Nature node", sprite: n.sprite,
+        action: "detail-nature", attr: `data-key="${esc(n.key)}"` })),
+    ].filter((it) => it.name).sort((x, y) => x.name.localeCompare(y.name));
+    return _apxIndex;
+  }
   function appendixRowsHTML(items) {
     if (!items.length) return `<p class="empty-note">No matches.</p>`;
     return items.map((it) => `<div class="apx-row" data-action="${it.action}" ${it.attr}>
@@ -668,7 +674,7 @@
           <button class="overlay-close" data-action="close-appendix" aria-label="Close">&times;</button></div>
         <div class="overlay-body apx-body">
           <input type="search" class="apx-search" placeholder="Search buildings, heirlooms, traits, events…" aria-label="Search appendix">
-          <div class="ovl-scroll apx-list">${appendixRowsHTML(APPENDIX_INDEX)}</div>
+          <div class="ovl-scroll apx-list">${appendixRowsHTML(appendixIndex())}</div>
         </div>
         <div class="overlay-footer"><button data-action="close-appendix">Close</button></div>
       </div>`;
@@ -676,7 +682,8 @@
     const inp = root.querySelector(".apx-search");
     inp.addEventListener("input", () => {
       const q = inp.value.trim().toLowerCase();
-      const list = q ? APPENDIX_INDEX.filter((it) => it.q.toLowerCase().includes(q)) : APPENDIX_INDEX;
+      const idx = appendixIndex();
+      const list = q ? idx.filter((it) => it.q.toLowerCase().includes(q)) : idx;
       root.querySelector(".apx-list").innerHTML = appendixRowsHTML(list);
     });
     // Deliberately do NOT focus the input (per house preference).
