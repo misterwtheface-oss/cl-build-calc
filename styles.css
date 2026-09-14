@@ -239,13 +239,38 @@ h2, h3 { font-weight: 700; }
 .hero p { font-size: .82rem; max-width: 34rem; margin: 0 auto; }
 
 /* ═══ OVERLAY SYSTEM (two roots, static frame) ═══ */
-#overlay-root, #detail-overlay-root {
+#overlay-root, #appendix-root, #detail-overlay-root {
   position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
   padding: 2vh 2vw; background: rgba(0,0,0,.66);
 }
 #overlay-root { z-index: 100; }
+#appendix-root { z-index: 150; }
 #detail-overlay-root { z-index: 200; }
-#overlay-root.hidden, #detail-overlay-root.hidden { display: none; }
+#overlay-root.hidden, #appendix-root.hidden, #detail-overlay-root.hidden { display: none; }
+#appendix-root .overlay-panel { width: 92vw; max-width: 560px; max-height: 88vh; }
+
+/* ═══ APPENDIX (searchable index of every detail page) ═══ */
+.apx-body { flex-direction: column; }
+.apx-search {
+  flex-shrink: 0; margin: .8rem 1rem 0; padding: .55rem .7rem;
+  background: var(--surface3); border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text); font-size: .9rem;
+}
+.apx-search:focus { outline: none; border-color: var(--border-hi); }
+.apx-list { padding-top: .6rem; }
+.apx-row {
+  display: flex; align-items: center; gap: .6rem; padding: .4rem .55rem; border-radius: 6px;
+  cursor: pointer; border: 1px solid transparent;
+}
+.apx-row:hover { background: var(--surface2); border-color: var(--border); }
+.apx-icon {
+  width: 30px; height: 30px; flex-shrink: 0; background: var(--surface3); border-radius: 5px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.apx-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.apx-text { display: flex; flex-direction: column; min-width: 0; }
+.apx-name { font-size: .9rem; color: var(--text); }
+.apx-sub { font-size: .72rem; color: var(--text-muted); }
 
 .overlay-panel {
   background: var(--surface); border: 1px solid var(--border-hi); border-radius: 12px;
@@ -365,8 +390,8 @@ h2, h3 { font-weight: 700; }
   .gp .banner-img { display: block; height: auto; width: 100%; }
 }
 @media (max-width: 600px) {
-  #overlay-root, #detail-overlay-root { padding: 0; }
-  .overlay-panel, #detail-overlay-root .overlay-panel {
+  #overlay-root, #appendix-root, #detail-overlay-root { padding: 0; }
+  .overlay-panel, #appendix-root .overlay-panel, #detail-overlay-root .overlay-panel {
     width: 100vw; max-width: none; height: 100dvh; max-height: 100dvh; border: none; border-radius: 0;
   }
   .tile-grid { grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); }

@@ -43,6 +43,28 @@
   }
   const comboFor = (a, b) => (DATA.combos || {})[[a, b].sort().join("|")] || null;
 
+  // Flat, name-sorted index of every navigable detail page — the Appendix
+  // search corpus. `action`/`attr` mirror the data-action + data-* used on the
+  // main page, so an appendix row opens the SAME detail overlay as a click would.
+  const APPENDIX_INDEX = [
+    ...(DATA.buildings || []).map((b) => ({
+      q: b.name, name: b.name, sub: `Building · ${(guildById.get(b.guild) || {}).name || b.guild}`,
+      sprite: b.sprite, action: "detail-building", attr: `data-key="${esc(b.key)}"` })),
+    ...(DATA.heirlooms || []).map((h) => ({
+      q: h.name, name: h.name, sub: "Heirloom", sprite: h.sprite,
+      action: "detail-heirloom", attr: `data-key="${esc(h.key)}"` })),
+    ...(DATA.counselors || []).map((c) => ({
+      q: c.name, name: c.name, sub: "Counselor", sprite: c.sprite,
+      action: "detail-counselor", attr: `data-name="${esc(c.name)}"` })),
+    ...(DATA.categories || []).map((c) => ({
+      q: c.name, name: c.name, sub: "Category / trait", action: "nav-cat", attr: `data-cat="${esc(c.id)}"` })),
+    ...(DATA.events || []).map((e) => ({
+      q: e.name, name: e.name, sub: "Event", action: "detail-event", attr: `data-id="${esc(e.id)}"` })),
+    ...(DATA.natureResources || []).map((n) => ({
+      q: n.name, name: n.name, sub: "Nature node", sprite: n.sprite,
+      action: "detail-nature", attr: `data-key="${esc(n.key)}"` })),
+  ].filter((it) => it.name).sort((x, y) => x.name.localeCompare(y.name));
+
   // ── state ──
   const state = {
     pair: load(),        // [guildIdA|null, guildIdB|null]
@@ -181,7 +203,7 @@
       <header class="app-header">
         <h1>Combolands — Guild Overlap</h1>
         <div class="header-actions">
-          ${(a || b) ? `<button class="ghost" data-action="swap" title="Swap sides">⇄ Swap</button>` : ""}
+          <button class="ghost" data-action="appendix" title="Search every page">🔍 Appendix</button>
           ${(a || b) ? `<button class="ghost" data-action="clear">Clear</button>` : ""}
         </div>
       </header>
@@ -627,13 +649,64 @@
       <div class="d-section"><h3>Guilds that interact with it</h3><div class="d-tags">${n.guilds.map(guildTag).join("")}</div></div>`);
   }
 
+  // ═══════════════════════════════════ APPENDIX (SEARCH) ═════════════════════
+  // A searchable list of every detail page. Sits on its own layer BELOW the
+  // detail overlay, so opening a result stacks the detail page above and the
+  // appendix stays behind. The search box is intentionally NOT auto-focused.
+  function appendixRowsHTML(items) {
+    if (!items.length) return `<p class="empty-note">No matches.</p>`;
+    return items.map((it) => `<div class="apx-row" data-action="${it.action}" ${it.attr}>
+      <span class="apx-icon">${it.sprite ? iconImg(it.sprite) : placeholder(it.name)}</span>
+      <span class="apx-text"><span class="apx-name">${esc(it.name)}</span><span class="apx-sub">${esc(it.sub)}</span></span>
+    </div>`).join("");
+  }
+  function openAppendix() {
+    const root = document.getElementById("appendix-root");
+    root.innerHTML = `
+      <div class="overlay-panel" role="dialog" aria-modal="true">
+        <div class="overlay-header"><h2>Appendix</h2>
+          <button class="overlay-close" data-action="close-appendix" aria-label="Close">&times;</button></div>
+        <div class="overlay-body apx-body">
+          <input type="search" class="apx-search" placeholder="Search buildings, heirlooms, traits, events…" aria-label="Search appendix">
+          <div class="ovl-scroll apx-list">${appendixRowsHTML(APPENDIX_INDEX)}</div>
+        </div>
+        <div class="overlay-footer"><button data-action="close-appendix">Close</button></div>
+      </div>`;
+    root.classList.remove("hidden"); root.setAttribute("aria-hidden", "false");
+    const inp = root.querySelector(".apx-search");
+    inp.addEventListener("input", () => {
+      const q = inp.value.trim().toLowerCase();
+      const list = q ? APPENDIX_INDEX.filter((it) => it.q.toLowerCase().includes(q)) : APPENDIX_INDEX;
+      root.querySelector(".apx-list").innerHTML = appendixRowsHTML(list);
+    });
+    // Deliberately do NOT focus the input (per house preference).
+  }
+  function closeAppendix() {
+    const root = document.getElementById("appendix-root");
+    root.classList.add("hidden"); root.setAttribute("aria-hidden", "true"); root.innerHTML = "";
+  }
+  function onAppendixClick(e) {
+    const el = e.target.closest("[data-action]");
+    if (!el) { if (e.target.id === "appendix-root") closeAppendix(); return; }
+    switch (el.dataset.action) {
+      case "close-appendix": closeAppendix(); break;
+      // A result opens its detail page on the layer above; appendix stays open.
+      case "detail-building": openBuildingDetail(el.dataset.key); break;
+      case "detail-heirloom": openHeirloomDetail(el.dataset.key); break;
+      case "detail-counselor": openCounselorDetail(el.dataset.name); break;
+      case "detail-event": openEventDetail(el.dataset.id); break;
+      case "detail-nature": openNatureDetail(el.dataset.key); break;
+      case "nav-cat": openCategoryDetail(el.dataset.cat); break;
+    }
+  }
+
   // ═══════════════════════════════════ EVENT DELEGATION ══════════════════════
   function onAppClick(e) {
     const el = e.target.closest("[data-action]"); if (!el) return;
     switch (el.dataset.action) {
       case "open-guild": openGuildSelector(Number(el.dataset.side)); break;
       case "clear": state.pair = [null, null]; persist(); renderApp(); break;
-      case "swap": state.pair.reverse(); persist(); renderApp(); break;
+      case "appendix": openAppendix(); break;
       case "toggle-section": toggleSection(el.dataset.sid); break;
       case "detail-building": openBuildingDetail(el.dataset.key); break;
       case "detail-heirloom": openHeirloomDetail(el.dataset.key); break;
@@ -681,12 +754,14 @@
   function onKeydown(e) {
     if (e.key !== "Escape") return;
     if (!document.getElementById("detail-overlay-root").classList.contains("hidden")) return closeDetail();
+    if (!document.getElementById("appendix-root").classList.contains("hidden")) return closeAppendix();
     if (state.ovl) closeSelector(false);
   }
 
   // ── init ──
   document.getElementById("app").addEventListener("click", onAppClick);
   document.getElementById("overlay-root").addEventListener("click", onOverlayClick);
+  document.getElementById("appendix-root").addEventListener("click", onAppendixClick);
   document.getElementById("detail-overlay-root").addEventListener("click", onDetailClick);
   document.addEventListener("keydown", onKeydown);
   renderApp();
