@@ -135,17 +135,20 @@
   }
 
   // A full-height guild flag; the name reads inside the banner. Empty = grey Null banner.
+  // On mobile this becomes a fixed solid-colour side bar (see .banner-left/.banner-right).
   function bannerSlotHTML(side, g) {
+    const sideCls = side === 0 ? "banner-left" : "banner-right";
     if (!g) {
-      return `<div class="banner-slot null" data-action="open-guild" data-side="${side}">
+      return `<div class="banner-slot null ${sideCls}" data-action="open-guild" data-side="${side}">
         <div class="banner-fig">
           <img class="banner-img" src="assets/banners/BannerHidden.png" alt="" onerror="this.style.visibility='hidden'">
           <span class="banner-name">Choose a guild</span>
         </div></div>`;
     }
-    return `<div class="banner-slot" data-action="open-guild" data-side="${side}" style="--g-color:${esc(g.color)}">
+    return `<div class="banner-slot ${sideCls}" data-action="open-guild" data-side="${side}" style="--g-color:${esc(g.color)}">
       <div class="banner-fig">
         ${g.banner ? `<img class="banner-img" src="${esc(g.banner)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
+        ${g.badge ? `<img class="banner-badge" src="${esc(g.badge)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
         <span class="banner-name">${esc(g.name)}</span>
       </div></div>`;
   }

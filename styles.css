@@ -27,6 +27,7 @@
   --rar-masterwork: #d08a3a;
   --rar-legendary: #c86adf;
   --banner-w: 92px;
+  --header-h: 2.9rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,6 +38,7 @@ body {
   font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
   line-height: 1.4;
   overflow-x: hidden;
+  overscroll-behavior: none;           /* no rubber-band chaining to the page */
 }
 img { image-rendering: pixelated; }
 
@@ -53,13 +55,18 @@ h2, h3 { font-weight: 700; }
 /* ═══ HEADER ═══ */
 .app-header {
   display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
-  padding: 0.6rem 1rem; border-bottom: 2px solid var(--border-hi); background: var(--surface2);
+  height: var(--header-h); padding: 0 1rem;
+  border-bottom: 2px solid var(--border-hi); background: var(--surface2);
 }
-.app-header h1 { font-size: clamp(1rem, 3vw, 1.4rem); color: var(--gold); letter-spacing: .02em; }
-.app-header .header-actions { display: flex; gap: .5rem; }
+.app-header h1 {
+  font-size: clamp(.85rem, 2.2vw, 1.1rem); color: var(--gold); letter-spacing: .02em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.app-header .header-actions { display: flex; gap: .5rem; flex-shrink: 0; }
+.app-header .header-actions button { padding: .3rem .7rem; font-size: .82rem; }
 
 /* main scroll region — scrollTop is preserved on every re-render */
-.compare-main { height: calc(100dvh - 3rem); overflow-y: auto; }
+.compare-main { height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain; }
 
 /* ═══ COMPARE LAYOUT: banner | CENTRE | banner ═══ */
 .compare {
@@ -78,6 +85,7 @@ h2, h3 { font-weight: 700; }
 .banner-fig { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
 .banner-img { height: 100%; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,.55)); }
 .banner-slot:hover .banner-img { filter: drop-shadow(0 0 10px var(--g-color, var(--border-hi))); }
+.banner-badge { display: none; }   /* shown only on the mobile side-bar layout */
 .banner-name {
   position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%);
   width: 80%; text-align: center; pointer-events: none;
@@ -147,11 +155,11 @@ h2, h3 { font-weight: 700; }
 
 /* ═══ SHARED CENTRE STRIP ═══ */
 .center-col .combo-title {
-  text-align: center; padding: .5rem; margin-bottom: .6rem;
+  text-align: center; padding: .3rem .5rem; margin-bottom: .5rem;
   background: var(--surface2); border: 1px solid var(--border-hi); border-radius: 8px;
 }
-.combo-title .combo-name { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
-.combo-title .combo-sub { font-size: .7rem; color: var(--text-dim); }
+.combo-title .combo-name { font-size: .95rem; font-weight: 700; color: var(--gold); line-height: 1.2; }
+.combo-title .combo-sub { font-size: .66rem; color: var(--text-dim); }
 .shared-block {
   background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
   padding: .55rem .65rem; margin-bottom: .6rem;
@@ -207,8 +215,9 @@ h2, h3 { font-weight: 700; }
 .event-chip:hover { border-color: var(--accent); color: var(--text); }
 
 /* hero prompt when nothing selected */
-.hero { text-align: center; padding: 2rem 1rem; color: var(--text-muted); }
-.hero h2 { color: var(--gold); margin-bottom: .5rem; }
+.hero { text-align: center; padding: 1rem .75rem; color: var(--text-muted); }
+.hero h2 { color: var(--gold); margin-bottom: .35rem; font-size: 1.05rem; }
+.hero p { font-size: .82rem; max-width: 34rem; margin: 0 auto; }
 
 /* ═══ OVERLAY SYSTEM (two roots, static frame) ═══ */
 #overlay-root, #detail-overlay-root {
@@ -288,12 +297,39 @@ h2, h3 { font-weight: 700; }
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 900px) {
-  /* stack into one column; banners become short full-width headers, name inside */
-  .compare { flex-direction: column; }
-  .banner-slot { flex: none; width: 100%; height: auto; position: static; }
-  .banner-fig { height: auto; width: 100%; }
-  .banner-img { height: 90px; width: auto; }
-  .banner-name { top: 50%; }
+  /* Keep the left/right flanks — but as thin SOLID-COLOUR side bars FIXED to the
+     screen edges with the guild name running vertically; the tiles scroll between
+     them and the bars stay static (never scroll off). */
+  .compare { display: block; padding: .45rem; --bar-w: clamp(30px, 9vw, 46px); }
+  .center-col { margin: 0 calc(var(--bar-w) + .55rem); }
+
+  .banner-slot {
+    position: fixed; top: calc(var(--header-h) + .4rem); bottom: .45rem; z-index: 40;
+    width: var(--bar-w); height: auto; flex: none;
+  }
+  .banner-left  { left: .45rem; }
+  .banner-right { right: .45rem; }
+
+  .banner-fig {
+    width: 100%; height: 100%; flex-direction: column; justify-content: center; gap: .5rem; padding: .55rem 0;
+    background: var(--g-color, var(--border)); border-radius: 7px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.4);
+  }
+  .banner-img { display: none; }                          /* solid colour, not the flag art */
+  .banner-badge { display: block; width: 62%; max-width: 30px; object-fit: contain; flex-shrink: 0;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+  .banner-name {
+    position: static; transform: none; width: auto; max-height: 78%;
+    writing-mode: vertical-rl; text-orientation: mixed;
+    font-size: clamp(.74rem, 3.2vw, .98rem); color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,.7); overflow: hidden; text-overflow: ellipsis;
+  }
+  .banner-slot.null .banner-fig { background: var(--surface3); border: 1px dashed var(--border); }
+  .banner-slot.null .banner-badge { display: none; }
+  .banner-slot.null .banner-name { color: var(--text-muted); text-shadow: none; }
+
+  .hero { padding: .75rem .5rem; }
+  .hero h2 { font-size: .98rem; }
 }
 @media (max-width: 600px) {
   #overlay-root, #detail-overlay-root { padding: 0; }
