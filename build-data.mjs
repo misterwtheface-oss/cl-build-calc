@@ -252,12 +252,13 @@ function resolveBuildingSprite(key, gameTag, display) {
 }
 
 // ── buildings ─────────────────────────────────────────────────────────────
-const buildings = [];
-for (const b of interactions.buildings) {
+// Build one building record from a raw interactions entry. Shared by the 9-guild
+// buildings AND the guild-less Neutral buildings (map structures owned by no
+// guild — see the neutral-buildings section below), so both carry identical shape.
+function buildRecord(b) {
   const key = b.building;
-  if (NON_GUILD_MAJORS.has(b.guild)) continue;          // keep only the 9 guilds
-  if (/(?:Empty|Depleted)$/.test(key)) continue;        // transient placement states
-  if (ORPHAN_STUBS.has(key)) continue;                  // non-draftable, no art (see set above)
+  if (/(?:Empty|Depleted)$/.test(key)) return null;     // transient placement states
+  if (ORPHAN_STUBS.has(key)) return null;               // non-draftable, no art (see set above)
   const params = bParamByKey.get(key) || {};
   const nm = stringOf(key).name;
   const name = nm || b.display || prettify(key);
@@ -294,7 +295,7 @@ for (const b of interactions.buildings) {
   for (const e of b.listensForEvents || [])
     if (e.qualifier) listenQualifiers[e.event] = { cats: e.qualifier.cats || [], tags: e.qualifier.tags || [] };
 
-  buildings.push({
+  return {
     key, name, guild: b.guild, gameTag: b.owned?.gameTag || null,
     rarity: params.rarity || null, rarityRank: rarityRank(params.rarity),
     ownedMinors, ownedFunctional, ownedCats,
@@ -304,9 +305,45 @@ for (const b of interactions.buildings) {
     listenQualifiers,
     sprite: resolveBuildingSprite(key, b.owned?.gameTag, name),
     _rawDesc: stringOf(key).description || "",   // expanded into desc/descHTML below
-  });
+  };
+}
+const buildings = [];
+for (const b of interactions.buildings) {
+  if (NON_GUILD_MAJORS.has(b.guild)) continue;          // keep only the 9 guilds
+  const rec = buildRecord(b); if (rec) buildings.push(rec);
 }
 buildings.forEach((b) => { if (!b.sprite) warnings.push(`building "${b.key}" -> no sprite (placeholder)`); });
+
+// ── neutral buildings ─────────────────────────────────────────────────────
+// Map structures owned by NO guild (Wall, Well, Ruin, Plaza, Rail…). Like a
+// nature node, a neutral building is a SHARED EDGE for a pair when both guilds
+// interact with it. A guild "connects" to a neutral building N when one of the
+// guild's buildings TARGETS a category N carries (scores off it), or N targets
+// a category that guild building OWNS (N affects it). connectionsByGuild records
+// the connecting buildings per guild so the client can render the shared row.
+const neutralBuildings = [];
+for (const b of interactions.buildings) {
+  if (b.guild !== "Neutral") continue;
+  const rec = buildRecord(b); if (rec) neutralBuildings.push(rec);
+}
+for (const n of neutralBuildings) {
+  const nOwned = new Set(n.ownedCats);                                   // categories the neutral building carries
+  const nTargets = new Set((n.interactions || []).map((it) => it.value).filter((v) => catById.has(v))); // categories it affects
+  const connectionsByGuild = {};
+  for (const g of GUILD_IDS) {
+    const conns = [];
+    for (const x of buildings) {
+      if (x.guild !== g) continue;
+      const targetsN = (x.interactions || []).some((it) => nOwned.has(it.value));  // x scores off N
+      const affectedByN = x.ownedCats.some((c) => nTargets.has(c));                // N affects x
+      if (targetsN || affectedByN) conns.push({ key: x.key, name: x.name, dir: targetsN ? "targets" : "owned" });
+    }
+    if (conns.length) connectionsByGuild[g] = conns.sort((p, q) => p.name.localeCompare(q.name));
+  }
+  n.connectionsByGuild = connectionsByGuild;
+  n.reachesGuilds = [...new Set([...Object.keys(connectionsByGuild), ...n.interactionGuilds])];
+}
+neutralBuildings.forEach((n) => { if (!n.sprite) warnings.push(`neutral building "${n.key}" -> no sprite (placeholder)`); });
 
 // ── heirlooms ──────────────────────────────────────────────────────────────
 const itemSpriteDir = new Set(
@@ -383,7 +420,7 @@ for (const [name, c] of Object.entries(council.counselors || {})) {
 // clickable-resolution sets (built from the finished entity arrays)
 const _catIds        = new Set(categories.map((c) => c.id));
 const _counselorSet  = new Set(counselors.map((c) => c.name));
-const _buildingKeys  = new Set(buildings.map((b) => b.key));
+const _buildingKeys  = new Set([...buildings, ...neutralBuildings].map((b) => b.key));
 const _heirloomKeys  = new Set(heirlooms.map((h) => h.key));
 const _natureByTag   = new Map(natureResources.map((n) => [n.key, n]));
 const _nameByKey     = new Map(Object.entries(strings)
@@ -508,7 +545,7 @@ function expandDesc(raw, p) {
 }
 const stripTags = (h) => h.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 
-for (const b of buildings) {
+for (const b of [...buildings, ...neutralBuildings]) {
   b.descHTML = expandDesc(b._rawDesc, bParamByKey.get(b.key));
   b.desc = stripTags(b.descHTML);
   delete b._rawDesc;
@@ -586,7 +623,7 @@ const usedEvents = new Set(buildings.flatMap((b) => b.events));
 const events = [...usedEvents].map((id) => ({ id, name: EVENT_LABEL[id] || prettify(id), note: EVENT_META[id] || "" }));
 
 // ── reference guardrails ──────────────────────────────────────────────────
-for (const b of buildings) {
+for (const b of [...buildings, ...neutralBuildings]) {
   for (const m of b.ownedMinors) if (!catById.has(m)) errors.push(`building "${b.key}" owns unknown category "${m}"`);
   for (const g of b.interactionGuilds) if (!GUILD_IDS.includes(g)) errors.push(`building "${b.key}" targets unknown guild "${g}"`);
 }
@@ -597,10 +634,10 @@ for (const c of counselors) {
 }
 
 // ── hygiene report ────────────────────────────────────────────────────────
-const spritesChecked = buildings.length + heirlooms.length + counselors.length +
+const spritesChecked = buildings.length + neutralBuildings.length + heirlooms.length + counselors.length +
   guilds.length * 3 + natureResources.length;
 console.log("── Combolands data hygiene report ─────────────");
-console.log(`✓ ${guilds.length} guilds, ${buildings.length} buildings, ${heirlooms.length} heirlooms,`);
+console.log(`✓ ${guilds.length} guilds, ${buildings.length} buildings, ${neutralBuildings.length} neutral buildings, ${heirlooms.length} heirlooms,`);
 console.log(`  ${counselors.length} counselors, ${categories.length} categories, ${natureResources.length} nature nodes,`);
 console.log(`  ${events.length} event types, ${Object.keys(combos).length} guild pairs, ~${spritesChecked} asset paths checked`);
 if (errors.length) { console.log(`✗ ${errors.length} error(s):`); errors.forEach((e) => console.log(`    ${e}`)); }
@@ -620,7 +657,7 @@ if (hardErrors) {
 // ── write output ──────────────────────────────────────────────────────────
 const data = {
   meta: { game: "Combolands", guildCount: guilds.length, generated: "build-data.mjs" },
-  guilds, categories, buildings, heirlooms, counselors, natureResources,
+  guilds, categories, buildings, neutralBuildings, heirlooms, counselors, natureResources,
   events, combos, universalModifiers,
 };
 fs.writeFileSync(OUT, `window.CL_DATA = ${JSON.stringify(data)};\n`);

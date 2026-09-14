@@ -204,9 +204,15 @@ h2, h3 { font-weight: 700; }
 .nature-row .nat-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
 .nature-row .nat-icon .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--surface3); border-radius: 5px; font-size: .9rem; }
 .nature-row .nat-body { min-width: 0; flex: 1; }
+.nature-row { cursor: pointer; }
+.nature-row:hover { background: var(--surface2); }
 .nature-row .nat-name { font-size: .8rem; font-weight: 700; }
 .nature-row .nat-side { font-size: .68rem; color: var(--text-muted); }
 .nature-row .nat-side b { color: var(--g-color); }
+/* "neutral" marker on a shared neutral-building row + its detail pill */
+.neutral-tag { font-size: .6rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; padding: 0 5px; vertical-align: middle; }
+.pill.neutral-pill { color: var(--text-muted); font-style: italic; }
 
 /* shared counselors */
 .counselor-card {

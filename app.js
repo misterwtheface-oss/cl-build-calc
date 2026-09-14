@@ -25,7 +25,11 @@
   // ── indices ──
   const guildById = new Map((DATA.guilds || []).map((g) => [g.id, g]));
   const catById = new Map((DATA.categories || []).map((c) => [c.id, c]));
-  const buildingByKey = new Map((DATA.buildings || []).map((b) => [b.key, b]));
+  // Neutral buildings are merged into buildingByKey so detail pages & [Token]
+  // links resolve them exactly like guild buildings; they stay OUT of
+  // buildingsByGuild (below) so they never appear in a guild's column.
+  const buildingByKey = new Map([...(DATA.buildings || []), ...(DATA.neutralBuildings || [])].map((b) => [b.key, b]));
+  const neutralByKey = new Map((DATA.neutralBuildings || []).map((n) => [n.key, n]));
   const heirloomByKey = new Map((DATA.heirlooms || []).map((h) => [h.key, h]));
   const counselorByName = new Map((DATA.counselors || []).map((c) => [c.name, c]));
   const natureByKey = new Map((DATA.natureResources || []).map((n) => [n.key, n]));
@@ -255,7 +259,7 @@
   function centerHTML(a, b) {
     if (!a && !b) return `<div class="hero"><h2>Pick two guilds</h2>
       <p>Tap a banner on either side to choose a guild, then see how the two interlock —
-      buildings grouped by the traits they share, plus shared nature, counselors and events.</p></div>`;
+      buildings grouped by the traits they share, plus shared nature, neutral map structures, counselors and events.</p></div>`;
     if (!a || !b) return `<div class="hero"><h2>Select a second guild</h2>
       <p>Choose the other banner to reveal the overlap between the two guilds.</p></div>`;
 
@@ -270,6 +274,10 @@
       .filter((s) => s.members.length);
     const sharedEvents = eventSections.map((s) => s.ev);
     const sharedNature = combo.sharedNature || [];
+    // Neutral buildings both guilds connect to — a shared edge owned by neither
+    // guild (parallel to shared nature). Gated on BOTH guilds interacting.
+    const sharedNeutral = (DATA.neutralBuildings || []).filter((n) =>
+      (n.connectionsByGuild || {})[a.id] && (n.connectionsByGuild || {})[b.id]).sort(byRarityThenName);
     const sharedCouncil = (DATA.counselors || []).filter((c) => c.guildReach.includes(a.id) && c.guildReach.includes(b.id));
 
     const title = `<div class="combo-title">
@@ -299,6 +307,9 @@
     const natureBlock = block("Shared nature interactions", sharedNature.length
       ? sharedNature.map((n) => natureRowHTML(n, a, b)).join("")
       : `<p class="empty-note">No shared nature-resource interactions.</p>`);
+    const neutralBlock = block("Shared neutral buildings — unowned map structures", sharedNeutral.length
+      ? sharedNeutral.map((n) => neutralRowHTML(n, a, b)).join("")
+      : `<p class="empty-note">No neutral building bridges both guilds.</p>`);
     const councilBlock = block("Shared counselors — votes to focus", sharedCouncil.length
       ? sharedCouncil.map((c) => counselorCardHTML(c)).join("")
       : `<p class="empty-note">No counselor reaches both guilds.</p>`);
@@ -318,7 +329,7 @@
         others.length + heirs.length, false, true);
     }).join("");
 
-    return title + tagIndex + overlapBlock + eventBlock + natureBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}</div>`;
+    return title + tagIndex + overlapBlock + eventBlock + natureBlock + neutralBlock + councilBlock + heirBlock + `<div class="rest-wrap">${remaining}</div>`;
   }
 
   // A shared-trait section: the trait banner is the header; tiles are the member
@@ -423,6 +434,23 @@
       </div></div>`;
   }
 
+  // A shared neutral-building row — same shape as a nature row, but the whole row
+  // opens the building's detail page. Each side lists that guild's buildings that
+  // connect to the neutral structure (score off it / are affected by it).
+  function neutralRowHTML(n, a, b) {
+    const side = (g) => {
+      const conns = (n.connectionsByGuild || {})[g.id] || [];
+      if (!conns.length) return "";
+      return `<div class="nat-side" style="--g-color:${esc(g.color || "")}"><b>${esc(g.name)}:</b> ${esc(conns.map((c) => c.name).join(", "))}</div>`;
+    };
+    return `<div class="nature-row" data-action="detail-building" data-key="${esc(n.key)}">
+      <span class="nat-icon">${n.sprite ? iconImg(n.sprite) : placeholder(n.name)}</span>
+      <div class="nat-body">
+        <div class="nat-name">${esc(n.name)} <span class="neutral-tag">neutral</span></div>
+        ${side(a)}${side(b)}
+      </div></div>`;
+  }
+
   function counselorCardHTML(c) {
     const cats = (c.multStackCategories || []).map((x) => traitBanner(x, true)).join("");
     return `<div class="counselor-card" data-action="detail-counselor" data-name="${esc(c.name)}">
@@ -513,7 +541,10 @@
   function openBuildingDetail(key) {
     const b = buildingByKey.get(key); if (!b) return;
     const g = guildById.get(b.guild) || {};
-    const owned = [b.guild, ...b.ownedMinors];
+    const isNeutral = b.guild === "Neutral";
+    // Neutral buildings are owned by no guild — don't lead the trait list with a
+    // "Neutral" major; show just the functional minors it actually carries.
+    const owned = isNeutral ? b.ownedMinors : [b.guild, ...b.ownedMinors];
     const inter = (b.interactions || []).filter((it) => it.guilds.length);
     const interHTML = inter.length ? `<div class="inter-list">${inter.map((it) => `
       <div class="inter">
@@ -539,11 +570,13 @@
       <div class="detail-hero">
         <span class="d-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
         <div class="d-meta"><h2>${esc(b.name)}</h2>
-          <div class="d-tags">${guildTag(b.guild)}<span class="pill rarity" style="color:var(--rar-${rarLower(b.rarity)})">${esc(b.rarity || "—")}</span></div>
+          <div class="d-tags">${isNeutral ? `<span class="pill neutral-pill">Neutral · unowned</span>` : guildTag(b.guild)}<span class="pill rarity" style="color:var(--rar-${rarLower(b.rarity)})">${esc(b.rarity || "—")}</span></div>
         </div></div>
       ${b.descHTML ? `<div class="d-desc">${b.descHTML}</div>` : ""}
       <div class="d-section"><h3>Owned categories — its targetable surface</h3>
         <div class="trait-list">${owned.map((c) => traitBanner(c)).join("")}</div></div>
+      ${isNeutral && (b.reachesGuilds || []).length ? `<div class="d-section"><h3>Guilds that interact with it</h3>
+        <div class="d-tags">${b.reachesGuilds.map(guildTag).join("")}</div></div>` : ""}
       <div class="d-section"><h3>Interacts with</h3>${interHTML}</div>
       ${eventsHTML ? `<div class="d-section"><h3>Events (▲ emits · ▼ listens)</h3>${eventsHTML}</div>` : ""}`);
   }
@@ -643,6 +676,9 @@
       ...(DATA.buildings || []).map((b) => ({
         q: b.name, name: b.name, sub: `Building · ${(guildById.get(b.guild) || {}).name || b.guild}`,
         sprite: b.sprite, action: "detail-building", attr: `data-key="${esc(b.key)}"` })),
+      ...(DATA.neutralBuildings || []).map((n) => ({
+        q: n.name, name: n.name, sub: "Neutral building · unowned", sprite: n.sprite,
+        action: "detail-building", attr: `data-key="${esc(n.key)}"` })),
       ...(DATA.heirlooms || []).map((h) => ({
         q: h.name, name: h.name, sub: "Heirloom", sprite: h.sprite,
         action: "detail-heirloom", attr: `data-key="${esc(h.key)}"` })),
