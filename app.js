@@ -71,6 +71,7 @@
     return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.6 ? "#111" : "#fff";
   }
   const rarLower = (r) => String(r || "common").toLowerCase();
+  const rarVar = (r) => `var(--rar-${rarLower(r)})`;      // rarity rail colour
 
   // A category "trait" banner, themed inline from DATA. Navigable via delegation.
   function traitBanner(catId, sm) {
@@ -259,9 +260,8 @@
   // sections (owns ▤ / targets ⇄) and the event sections (emits ▲ / listens ▼).
   function ovTile(b, rs) {
     const g = guildById.get(b.guild) || {};
-    return `<div class="tile ov" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)} (${esc(b.guild)})" style="--g-color:${esc(g.color)}">
+    return `<div class="tile ov" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)} (${esc(b.guild)}) — ${esc(b.rarity || "—")}" style="--g-color:${esc(g.color)};--rar-color:${rarVar(b.rarity)}">
       ${g.badge ? `<img class="tile-guild" src="${esc(g.badge)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
-      <span class="rar-dot" style="background:var(--rar-${rarLower(b.rarity)})" title="${esc(b.rarity || "—")}"></span>
       <span class="tile-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
       <span class="tile-name">${esc(b.name)}</span>
       <span class="reasons">${rs.map((r) => `<span class="reason r-${r.k}" title="${esc(r.t)}">${r.g}</span>`).join("")}</span>
@@ -312,15 +312,13 @@
   }
 
   function buildingTile(b) {
-    return `<div class="tile" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)}">
-      <span class="rar-dot" style="background:var(--rar-${rarLower(b.rarity)})" title="${esc(b.rarity || "—")}"></span>
+    return `<div class="tile" data-action="detail-building" data-key="${esc(b.key)}" title="${esc(b.name)} — ${esc(b.rarity || "—")}" style="--rar-color:${rarVar(b.rarity)}">
       <span class="tile-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
       <span class="tile-name">${esc(b.name)}</span></div>`;
   }
 
   function heirloomTile(h, primary) {
-    return `<div class="tile ${primary ? "primary" : ""}" data-action="detail-heirloom" data-key="${esc(h.key)}" title="${esc(h.name)}">
-      <span class="rar-dot" style="background:var(--rar-${rarLower(h.rarity)})" title="${esc(h.rarity || "—")}"></span>
+    return `<div class="tile ${primary ? "primary" : ""}" data-action="detail-heirloom" data-key="${esc(h.key)}" title="${esc(h.name)} — ${esc(h.rarity || "—")}" style="--rar-color:${rarVar(h.rarity)}">
       <span class="tile-icon">${h.sprite ? iconImg(h.sprite) : placeholder(h.name)}</span>
       <span class="tile-name">${esc(h.name)}</span>
       ${primary ? `<span class="reasons"><span class="reason r-target" title="Bridges both guilds">⇄</span></span>` : ""}
@@ -485,7 +483,7 @@
     const catRow = (arr) => arr && arr.length ? `<div class="trait-list">${arr.map((x) => traitBanner(x, true)).join("")}</div>` : `<p class="empty-note">—</p>`;
     renderDetail(esc(c.name), `
       <div class="detail-hero">
-        <span class="d-icon">${iconImg(c.sprite)}</span>
+        <span class="d-icon d-icon-portrait">${iconImg(c.sprite)}</span>
         <div class="d-meta"><h2>${esc(c.name)}</h2><div class="c-theme">${esc(c.theme)}</div>
           <div class="d-tags" style="margin-top:.4rem">${c.guildReach.map(guildTag).join("")}</div></div></div>
       <div class="d-section"><h3>Vote mult-stack categories</h3>${catRow(c.multStackCategories)}</div>

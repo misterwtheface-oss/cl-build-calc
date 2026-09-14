@@ -144,16 +144,20 @@ h2, h3 { font-weight: 700; }
 .tile {
   position: relative; display: flex; flex-direction: column; align-items: center; gap: .2rem;
   background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+  border-right: 3px solid var(--rar-color, var(--border));   /* rarity rail (mirrors the guild rail on .ov) */
   padding: .35rem .25rem .3rem; cursor: pointer; text-align: center; overflow: hidden;
 }
-.tile:hover { border-color: var(--accent); }
+.tile:hover { border-color: var(--accent); border-right-color: var(--rar-color, var(--accent)); }
 .tile.primary { box-shadow: inset 0 0 0 2px rgba(216, 185, 104, .55); border-color: var(--border-hi); }
-.tile-icon { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; }
-.tile-icon img { width: 100%; height: 100%; object-fit: contain; }
-.tile-icon .ph { font-size: 1.1rem; color: var(--text-dim); font-weight: 700; }
+/* Icon is a square ~half the tile width — big enough to read, not dominating.
+   flex:none + min-height:0 keep tall art from overriding the square aspect-ratio
+   and stretching the container (flex items default to min-height:auto). */
+.tile-icon { width: 50%; aspect-ratio: 1 / 1; flex: none; min-height: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.tile-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.tile-icon .ph { font-size: 1.6rem; color: var(--text-dim); font-weight: 700; }
 .tile-name { font-size: .6rem; line-height: 1.05; color: var(--text-muted); word-break: break-word; }
-.rar-dot { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(0,0,0,.4); }
-.reasons { display: flex; gap: 2px; flex-wrap: wrap; justify-content: center; }
+/* Interface / arrow markers sit in the top-right corner, opposite the guild badge. */
+.reasons { position: absolute; top: 3px; right: 4px; z-index: 1; display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; max-width: 44%; }
 .reason {
   font-size: .5rem; font-weight: 700; line-height: 1; padding: 2px 3px; border-radius: 3px;
   background: var(--surface3); color: var(--text-muted); border: 1px solid var(--border);
@@ -197,7 +201,7 @@ h2, h3 { font-weight: 700; }
 .nature-row { display: flex; gap: .5rem; align-items: flex-start; padding: .35rem 0; border-top: 1px solid var(--border); }
 .nature-row:first-of-type { border-top: none; }
 .nature-row .nat-icon { width: 34px; height: 34px; flex-shrink: 0; }
-.nature-row .nat-icon img { width: 100%; height: 100%; object-fit: contain; }
+.nature-row .nat-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
 .nature-row .nat-icon .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--surface3); border-radius: 5px; font-size: .9rem; }
 .nature-row .nat-body { min-width: 0; flex: 1; }
 .nature-row .nat-name { font-size: .8rem; font-weight: 700; }
@@ -210,8 +214,11 @@ h2, h3 { font-weight: 700; }
   border-radius: 6px; border: 1px solid transparent;
 }
 .counselor-card:hover { background: var(--surface3); border-color: var(--border); }
-.counselor-card .portrait { width: 40px; height: 40px; flex-shrink: 0; border-radius: 6px; overflow: hidden; background: var(--surface3); }
-.counselor-card .portrait img { width: 100%; height: 100%; object-fit: cover; }
+/* Counselors are tall character portraits, not square icons — fix the height and
+   let width follow the art so the container takes each portrait's own aspect ratio
+   (no cropping). */
+.counselor-card .portrait { height: 52px; flex-shrink: 0; border-radius: 6px; overflow: hidden; background: var(--surface3); display: flex; }
+.counselor-card .portrait img { height: 100%; width: auto; object-fit: contain; image-rendering: pixelated; }
 .counselor-card .c-body { min-width: 0; }
 .counselor-card .c-name { font-size: .82rem; font-weight: 700; }
 .counselor-card .c-theme { font-size: .66rem; color: var(--text-dim); }
@@ -270,8 +277,11 @@ h2, h3 { font-weight: 700; }
 
 /* ═══ DETAIL PAGE ═══ */
 .detail-hero { display: flex; gap: .8rem; align-items: flex-start; margin-bottom: .8rem; }
-.detail-hero .d-icon { width: 64px; height: 64px; flex-shrink: 0; background: var(--surface3); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-.detail-hero .d-icon img { width: 90%; height: 90%; object-fit: contain; }
+.detail-hero .d-icon { width: 40px; height: 40px; aspect-ratio: 1 / 1; flex-shrink: 0; background: var(--surface3); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.detail-hero .d-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+/* Counselor detail portrait: tall art — container takes the image's aspect ratio. */
+.detail-hero .d-icon.d-icon-portrait { width: auto; height: 52px; aspect-ratio: auto; }
+.detail-hero .d-icon.d-icon-portrait img { width: auto; height: 100%; }
 .detail-hero .d-meta h2 { font-size: 1.2rem; }
 .detail-hero .d-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .35rem; align-items: center; }
 .d-section { margin-top: .9rem; }
@@ -327,7 +337,7 @@ h2, h3 { font-weight: 700; }
   /* Side-bar rules are scoped to .banner-slot so they never touch the selector's
      reused banner markup (.gp .banner-fig/.banner-img/.banner-name). */
   .banner-slot .banner-fig {
-    width: 100%; height: 100%; flex-direction: column; justify-content: center; gap: .5rem; padding: .55rem 0;
+    width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; padding: .55rem 0;
     background: var(--g-color, var(--border)); border-radius: 7px;
     box-shadow: inset 0 0 0 1px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.4);
   }

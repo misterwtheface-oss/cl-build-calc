@@ -204,33 +204,41 @@ const natureResources = Object.entries(natureMap).map(([display, e]) => {
   return { key: tag, name: display, guilds: (e.guilds || []).slice(), sprite };
 });
 
-// ── building sprite resolver (naming is genuinely inconsistent) ───────────
-// The export mixes conventions: B-prefixed (BApiary), no prefix (Grove),
-// numbered variants (BObelisk1), lowercase (bOceanTemple), and semantic
-// renames (BotanyStall art ships as BStallBotany). We try many mechanical
-// forms case-insensitively, then fall back to a curated override for renames.
+// ── building sprite resolver (authoritative, from the game's own SOs) ─────
+// Guessing which PNG belongs to a building by name is unreliable — it silently
+// mis-assigned the 5 House sprites and Obelisk, and can't know MagicPortal ships
+// as BMagicMirror or SuppliesStall as BStallFishmonger. Instead each building's
+// ScriptableObject carries a _gameTag (→ the building key) and a _sprite GUID
+// (→ the sprite asset); tools/gen_building_sprites.mjs resolves both from the
+// decompiled game into building_sprites.json. Sprites live in assets/buildings/
+// (full portraits) or assets/buildings_tiny/ (12×12 footprints for buildings the
+// game never drew a portrait for — infrastructure, temple wings, etc.).
+const BUILDING_SPRITES = readJSON("building_sprites.json");
 const buildingSpriteFiles = fs.readdirSync(path.join(ASSETS, "buildings")).filter((f) => f.endsWith(".png"));
 const bSpriteByLower = new Map(buildingSpriteFiles.map((f) => [f.toLowerCase(), f]));
-const BUILDING_SPRITE_OVERRIDE = {
-  WheatField: "BWheat", BotanyStall: "BStallBotany", GrocerStall: "BStallGrocer",
-  DeliStall: "BStallButcher", OceanTemple: "bOceanTemple",
-  HouseResidence: "BHouse1", HouseHomestead: "BHouse2", HouseHut: "BHouse3",
-  HouseTenement: "BHouse4", HouseTownhouse: "BHouse5",
-};
-function findSprite(base) {
-  for (const form of [`B${base}`, base, `B${base}1`]) {
-    const hit = bSpriteByLower.get(`${form.toLowerCase()}.png`);
-    if (hit) return url(`buildings/${hit}`);
-  }
+const tinySpriteFiles = fs.existsSync(path.join(ASSETS, "buildings_tiny"))
+  ? fs.readdirSync(path.join(ASSETS, "buildings_tiny")).filter((f) => f.endsWith(".png"))
+  : [];
+const tinySpriteByLower = new Map(tinySpriteFiles.map((f) => [f.toLowerCase(), f]));
+// Find <base>.png in the full-portrait dir, then the footprint dir.
+function spriteFile(base) {
+  if (!base) return null;
+  const f = `${String(base).toLowerCase()}.png`;
+  if (bSpriteByLower.has(f)) return url(`buildings/${bSpriteByLower.get(f)}`);
+  if (tinySpriteByLower.has(f)) return url(`buildings_tiny/${tinySpriteByLower.get(f)}`);
   return null;
 }
 function resolveBuildingSprite(key, gameTag, display) {
-  const ov = BUILDING_SPRITE_OVERRIDE[key];
-  if (ov) { const hit = bSpriteByLower.get(`${ov.toLowerCase()}.png`); if (hit) return url(`buildings/${hit}`); }
+  const auth = spriteFile(BUILDING_SPRITES[key]);   // authoritative SO mapping
+  if (auth) return auth;
+  // Fallback for keys with no SO (code-only stubs like Bakery/Excavation): try
+  // mechanical name forms in case the art exists under an obvious spelling.
   for (const c of [key, gameTag, String(display || "").replace(/[^A-Za-z0-9]/g, "")]) {
     if (!c) continue;
-    const hit = findSprite(c);
-    if (hit) return hit;
+    for (const form of [`B${c}`, c, `B${c}1`]) {
+      const hit = spriteFile(form);
+      if (hit) return hit;
+    }
   }
   return null;
 }
