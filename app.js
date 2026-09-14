@@ -54,6 +54,8 @@
     collapsed: new Set(),// section ids the user has collapsed
     detailGlobal: false, // category/event detail scope: false = the active pair, true = ALL guilds
                          // (set true when a detail is opened from the Appendix global search)
+    detailStack: [],     // breadcrumb of {kind,id} detail pages; ✕/Close pops one (back),
+                         // so guild → building → Close lands back on the guild page
   };
 
   function load() {
@@ -87,9 +89,13 @@
       style="--aff-color:${esc(c.color)};--aff-text:${textColorFor(c.color)}" title="${esc(c.name)}">
       <span class="lbl">${esc(c.name)}</span></span>`;
   }
+  // Core guilds open their detail page; advanced Arcane/Rogues have no page so
+  // render as a plain (non-navigable) tag.
   const guildTag = (id) => {
     const g = guildById.get(id);
-    return g ? `<span class="gtag" style="--g-color:${esc(g.color)}">${esc(g.name)}</span>` : esc(id);
+    if (!g) return esc(id);
+    const nav = g.isCore ? ` data-action="guild-detail" data-id="${esc(g.id)}" role="button" tabindex="0"` : "";
+    return `<span class="gtag${g.isCore ? " nav" : ""}" style="--g-color:${esc(g.color)}"${nav}>${esc(g.name)}</span>`;
   };
   const iconImg = (src, cls) => src
     ? `<img class="${cls || ""}" src="${esc(src)}" alt="" onerror="this.style.visibility='hidden'">`
@@ -272,7 +278,7 @@
     return `<div class="banner-slot ${sideCls}" data-action="open-guild" data-side="${side}" style="--g-color:${esc(g.color)}">
       <div class="banner-fig">
         ${g.banner ? `<img class="banner-img" src="${esc(g.banner)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
-        ${g.badge ? `<img class="banner-badge" src="${esc(g.badge)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
+        ${(g.emblem || g.badge) ? `<img class="banner-badge" src="${esc(g.emblem || g.badge)}" alt="" onerror="this.style.visibility='hidden'">` : ""}
         <span class="banner-name">${esc(g.name)}</span>
       </div></div>`;
   }
@@ -478,7 +484,7 @@
       <div class="trait-section-head" data-action="detail-event" data-id="${esc(ev)}"
         style="--aff-color:var(--accent);--aff-text:#fff" title="${esc(e.note || "")}">
         <span class="ts-name">${esc(e.name)}</span><span class="ts-count">${members.length}</span></div>
-      ${ovSubGroup(`Emit ${e.name}`, emitters)}${ovSubGroup(`React to ${e.name}`, reactors)}</section>`;
+      ${ovSubGroup(`React to ${e.name}`, reactors)}${ovSubGroup(`Emit ${e.name}`, emitters)}</section>`;
   }
 
   function sectionHTML(id, title, bodyHTML, count, isPrimary, collapsedDefault) {
@@ -589,6 +595,8 @@
       return `<div class="gp ${sel ? "selected" : ""} ${disabled ? "disabled" : ""}"
         data-action="pick-guild" data-id="${esc(g.id)}" style="--g-color:${esc(g.color)}">
         <div class="banner-fig">${art}<span class="banner-name">${esc(g.name)}</span></div>
+        <button class="gp-info" data-action="guild-detail" data-id="${esc(g.id)}"
+          title="View ${esc(g.name)} guild details" aria-label="View ${esc(g.name)} guild details">&#9432; Details</button>
       </div>`;
     }).join("");
 
@@ -605,20 +613,56 @@
   }
 
   // ═══════════════════════════════════ DETAIL OVERLAY ════════════════════════
+  // The detail layer keeps a breadcrumb stack (state.detailStack) so cross-links
+  // (guild → building → category …) can be walked back one at a time instead of
+  // dumping you out. showDetail() opens a page: `reset` starts a fresh trail
+  // (entering from the main page / appendix / selector), otherwise it pushes onto
+  // the trail (a cross-link inside the overlay). ✕ and the footer button pop one
+  // level (labelled "Back" while deeper than one); Escape / backdrop dismiss all.
+  const DETAIL_RENDERERS = {
+    guild: openGuildDetail, building: openBuildingDetail, heirloom: openHeirloomDetail,
+    counselor: openCounselorDetail, event: openEventDetail, nature: openNatureDetail, cat: openCategoryDetail,
+  };
+  function showDetail(kind, id, reset) {
+    if (!DETAIL_RENDERERS[kind]) return;
+    if (reset) state.detailStack = [];
+    state.detailStack.push({ kind, id });
+    DETAIL_RENDERERS[kind](id);   // renders via renderDetail(), which reads stack depth
+  }
+  function renderCurrentDetail() {
+    const top = state.detailStack[state.detailStack.length - 1];
+    if (!top) return hideDetailOverlay();
+    DETAIL_RENDERERS[top.kind](top.id);
+  }
+  // ✕ / footer button: step back one page; hide once the trail is empty.
+  function backDetail() {
+    state.detailStack.pop();
+    if (state.detailStack.length) renderCurrentDetail(); else hideDetailOverlay();
+  }
+  function hideDetailOverlay() {
+    state.detailStack = [];
+    const root = document.getElementById("detail-overlay-root");
+    root.classList.add("hidden"); root.setAttribute("aria-hidden", "true"); root.innerHTML = "";
+  }
   function renderDetail(title, bodyHTML) {
     const root = document.getElementById("detail-overlay-root");
+    const back = state.detailStack.length > 1;   // deeper than the entry page → offer "Back"
     root.innerHTML = `
       <div class="overlay-panel" role="dialog" aria-modal="true">
         <div class="overlay-header"><h2>${title}</h2>
-          <button class="overlay-close" data-action="close-detail" aria-label="Close">&times;</button></div>
+          <button class="overlay-close" data-action="back-detail" aria-label="${back ? "Back" : "Close"}">&times;</button></div>
         <div class="overlay-body"><div class="ovl-scroll detail-main">${bodyHTML}</div></div>
-        <div class="overlay-footer"><button data-action="close-detail">Close</button></div>
+        <div class="overlay-footer"><button data-action="back-detail">${back ? "◂ Back" : "Close"}</button></div>
       </div>`;
     root.classList.remove("hidden"); root.setAttribute("aria-hidden", "false");
   }
-  function closeDetail() {
-    const root = document.getElementById("detail-overlay-root");
-    root.classList.add("hidden"); root.setAttribute("aria-hidden", "true"); root.innerHTML = "";
+  // Map a clicked [data-action] element to a detail target {kind,id}, or null for
+  // non-detail actions. Each detail action carries its id under a different data-*.
+  const DETAIL_KIND = { "guild-detail": "guild", "detail-building": "building", "detail-heirloom": "heirloom",
+    "detail-counselor": "counselor", "detail-event": "event", "detail-nature": "nature", "nav-cat": "cat" };
+  function detailTarget(el) {
+    const kind = DETAIL_KIND[el.dataset.action]; if (!kind) return null;
+    return { kind, id: el.dataset.id ?? el.dataset.key ?? el.dataset.name ?? el.dataset.cat };
   }
 
   function openBuildingDetail(key) {
@@ -765,6 +809,131 @@
       <div class="d-section"><h3>Guilds that interact with it</h3><div class="d-tags">${n.guilds.map(guildTag).join("")}</div></div>`);
   }
 
+  // ═══════════════════════════════════ GUILD DETAIL ═════════════════════════
+  // A single guild in full: emblem, its tag-group (functional category) chips, an
+  // identity blurb, the auto-derived scoring ENGINES (the payoff buildings the rest
+  // of the guild feeds — e.g. Marketplace ← Stalls, often buried at the bottom of
+  // the compare view as "not shared"), then one section per tag group listing the
+  // guild's buildings that carry it + heirlooms that synergise. Rendered on the
+  // detail layer so it stacks above the selector or the appendix.
+  const uChip = (action, key, name, sprite) =>
+    `<span class="u" data-action="${action}" data-key="${esc(key)}">${sprite ? iconImg(sprite) : placeholder(name)}${esc(name)}</span>`;
+  const bldChip = (b) => uChip("detail-building", b.key, b.name, b.sprite);
+  const heirChip = (h) => uChip("detail-heirloom", h.key, h.name, h.sprite);
+
+  // The scoring surfaces a building feeds off — SAME mapping the rest of the app
+  // uses, so engines never drift from the main screen. A category counts when the
+  // building genuinely SCORES it: a declared target it acts on without a
+  // side-effect action (buff/grant/remove/… are effects, not scores — this is why
+  // Composter/Grain Silo are not engines) and does not merely confer; PLUS any
+  // category a LISTENED event is qualified by (Windmill scores on a Crop
+  // transformation — the same listenQualifiers the shared-event sections read).
+  function scoringSourceCats(b) {
+    const out = new Set();
+    for (const it of b.interactions || []) {
+      if (it.confers || !catById.has(it.value)) continue;
+      if (it.source === "declared" && !it.action) out.add(it.value);
+    }
+    for (const ev of b.listens || []) {
+      const q = (b.listenQualifiers || {})[ev];
+      if (q) (q.cats || []).forEach((c) => { if (catById.has(c)) out.add(c); });
+    }
+    return [...out];
+  }
+  // A guild's scoring engines: its buildings that score off ≥2 of their own guild's
+  // buildings (the payoff pieces the guild feeds), ranked by that feeder count.
+  // guild_meta may pin an explicit list via g.engineOverride.
+  const ENGINE_MIN_FEEDERS = 2;
+  function guildEngines(g) {
+    const own = buildingsByGuild.get(g.id) || [];
+    const rank = (b) => {
+      const cats = scoringSourceCats(b);
+      let feeders = 0;
+      for (const x of own) if (x.key !== b.key && x.ownedCats.some((c) => cats.includes(c))) feeders++;
+      return { key: b.key, name: b.name, cats, feeders };
+    };
+    if ((g.engineOverride || []).length) {
+      return g.engineOverride.map((k) => { const b = buildingByKey.get(k); return b ? rank(b) : { key: k, name: k, cats: [], feeders: 0 }; });
+    }
+    return own.map(rank).filter((e) => e.feeders >= ENGINE_MIN_FEEDERS)
+      .sort((a, b) => (b.feeders - a.feeders) || a.name.localeCompare(b.name));
+  }
+  // One engine highlight: the payoff building + what it scores off (its scoring
+  // categories). No count — the feeder tally drives ranking only; showing "N"
+  // reads as ambiguous out of context.
+  function engineCard(e) {
+    const b = buildingByKey.get(e.key); if (!b) return "";
+    const names = (e.cats || []).map((c) => (catById.get(c) || {}).name || c);
+    const reason = names.length ? `Scores off ${esc(names.join(", "))} buildings` : "Primary scoring engine";
+    return `<div class="engine-card" data-action="detail-building" data-key="${esc(b.key)}"
+        style="--rar-color:${rarVar(b.rarity)}" title="${esc(b.name)} — ${esc(b.rarity || "—")}">
+      <span class="tile-icon">${b.sprite ? iconImg(b.sprite) : placeholder(b.name)}</span>
+      <span class="ec-body"><span class="ec-name">${esc(b.name)}</span><span class="ec-reason">${reason}</span></span>
+    </div>`;
+  }
+
+  function openGuildDetail(id) {
+    const g = guildById.get(id); if (!g || !g.isCore) return;
+    const bldgs = buildingsByGuild.get(g.id) || [];
+    const heirs = heirloomsByGuild.get(g.id) || [];
+    const emblem = g.emblem || g.badge || g.icon;
+    const engines = guildEngines(g);
+
+    // Tag groups = the guild's functional categories, ordered by how many of its
+    // buildings carry each (its defining surfaces first). The chip row uses the
+    // SAME order. A building/heirloom can appear under several groups; we track
+    // what's been shown to build the "Other" catch-alls so every piece surfaces.
+    const ownerCount = (catId) => bldgs.filter((b) => b.ownedMinors.includes(catId)).length;
+    const sortedCats = [...(g.functionalCategories || [])].sort((a, c) =>
+      (ownerCount(c) - ownerCount(a)) || ((catById.get(a) || {}).name || "").localeCompare((catById.get(c) || {}).name || ""));
+    const shownB = new Set(), shownH = new Set();
+    const groups = sortedCats.map((catId) => {
+      const owners = bldgs.filter((b) => b.ownedMinors.includes(catId));
+      const gHeirs = heirs.filter((h) => (h.affectedCategories || []).includes(catId));
+      return { catId, owners, gHeirs, n: owners.length + gHeirs.length };
+    }).filter((grp) => grp.n);
+
+    // Each tag group mirrors the main screen's shared-trait section: a full-width
+    // coloured header (category name + count, opens the category detail) over the
+    // member list.
+    const groupHTML = groups.map((grp) => {
+      grp.owners.forEach((b) => shownB.add(b.key));
+      grp.gHeirs.forEach((h) => shownH.add(h.key));
+      const c = catById.get(grp.catId) || {};
+      return `<section class="trait-section gd-group">
+        <div class="trait-section-head" data-action="nav-cat" data-cat="${esc(grp.catId)}"
+          style="--aff-color:${esc(c.color)};--aff-text:${textColorFor(c.color)}">
+          <span class="ts-name">${esc(c.name)}</span><span class="ts-count">${grp.n}</span></div>
+        <div class="gd-group-body">
+          ${grp.owners.length ? `<div class="detail-users">${grp.owners.map(bldChip).join("")}</div>` : ""}
+          ${grp.gHeirs.length ? `<div class="gd-heir"><span class="gd-heir-lbl">Heirlooms</span>
+            <div class="detail-users">${grp.gHeirs.map(heirChip).join("")}</div></div>` : ""}
+        </div>
+      </section>`;
+    }).join("");
+
+    const otherB = bldgs.filter((b) => !shownB.has(b.key));   // own only the guild major (no functional cat)
+    const otherH = heirs.filter((h) => !shownH.has(h.key));
+    const otherHTML =
+      (otherB.length ? `<div class="d-section"><h3>Other ${esc(g.name)} buildings</h3>
+        <div class="detail-users">${otherB.map(bldChip).join("")}</div></div>` : "") +
+      (otherH.length ? `<div class="d-section"><h3>Other heirlooms reaching ${esc(g.name)}</h3>
+        <div class="detail-users">${otherH.map(heirChip).join("")}</div></div>` : "");
+
+    renderDetail(esc(g.name), `
+      <div class="detail-hero guild-hero" style="--g-color:${esc(g.color)}">
+        <span class="guild-emblem">${emblem ? iconImg(emblem) : placeholder(g.name)}</span>
+        <div class="d-meta"><h2>${esc(g.name)}</h2>
+          <div class="c-theme">Guild · ${bldgs.length} buildings · ${heirs.length} heirlooms</div>
+          <div class="trait-list gd-chips">${sortedCats.map((c) => traitBanner(c, true)).join("")}</div>
+        </div></div>
+      ${g.blurb ? `<div class="d-desc gd-blurb">${esc(g.blurb)}</div>` : ""}
+      ${engines.length ? `<div class="d-section"><h3>Scoring engines — the payoff buildings the guild feeds</h3>
+        <div class="engine-grid">${engines.map(engineCard).join("")}</div></div>` : ""}
+      ${groupHTML || `<p class="empty-note">No functional tag groups.</p>`}
+      ${otherHTML}`);
+  }
+
   // ═══════════════════════════════════ APPENDIX (SEARCH) ═════════════════════
   // A searchable list of every detail page. Sits on its own layer BELOW the
   // detail overlay, so opening a result stacks the detail page above and the
@@ -778,6 +947,9 @@
   function appendixIndex() {
     if (_apxIndex) return _apxIndex;
     _apxIndex = [
+      ...(DATA.guilds || []).filter((g) => g.isCore).map((g) => ({
+        q: g.name, name: g.name, sub: "Guild", sprite: g.badge || g.icon,
+        action: "guild-detail", attr: `data-id="${esc(g.id)}"` })),
       ...(DATA.buildings || []).map((b) => ({
         q: b.name, name: b.name, sub: `Building · ${(guildById.get(b.guild) || {}).name || b.guild}`,
         sprite: b.sprite, action: "detail-building", attr: `data-key="${esc(b.key)}"` })),
@@ -837,36 +1009,26 @@
     const el = e.target.closest("[data-action]");
     if (!el) { if (e.target.id === "appendix-root") closeAppendix(); return; }
     // Appendix is a GLOBAL search — details opened from it span all guilds, not
-    // the active pair. onDetailClick preserves this while navigating within.
+    // the active pair. Each result starts a FRESH detail trail (reset).
     state.detailGlobal = true;
-    switch (el.dataset.action) {
-      case "close-appendix": closeAppendix(); break;
-      // A result opens its detail page on the layer above; appendix stays open.
-      case "detail-building": openBuildingDetail(el.dataset.key); break;
-      case "detail-heirloom": openHeirloomDetail(el.dataset.key); break;
-      case "detail-counselor": openCounselorDetail(el.dataset.name); break;
-      case "detail-event": openEventDetail(el.dataset.id); break;
-      case "detail-nature": openNatureDetail(el.dataset.key); break;
-      case "nav-cat": openCategoryDetail(el.dataset.cat); break;
-    }
+    if (el.dataset.action === "close-appendix") return closeAppendix();
+    const t = detailTarget(el);
+    if (t) showDetail(t.kind, t.id, true);   // result opens above; appendix stays open
   }
 
   // ═══════════════════════════════════ EVENT DELEGATION ══════════════════════
   function onAppClick(e) {
     const el = e.target.closest("[data-action]"); if (!el) return;
-    // Details opened from the main page are scoped to the active pair.
+    // Details opened from the main page are scoped to the active pair and start a
+    // fresh detail trail (reset).
     state.detailGlobal = false;
+    const t = detailTarget(el);
+    if (t) return showDetail(t.kind, t.id, true);
     switch (el.dataset.action) {
       case "open-guild": openGuildSelector(Number(el.dataset.side)); break;
       case "clear": state.pair = [null, null]; persist(); renderApp(); break;
       case "appendix": openAppendix(); break;
       case "toggle-section": toggleSection(el.dataset.sid); break;
-      case "detail-building": openBuildingDetail(el.dataset.key); break;
-      case "detail-heirloom": openHeirloomDetail(el.dataset.key); break;
-      case "detail-counselor": openCounselorDetail(el.dataset.name); break;
-      case "detail-event": openEventDetail(el.dataset.id); break;
-      case "detail-nature": openNatureDetail(el.dataset.key); break;
-      case "nav-cat": openCategoryDetail(el.dataset.cat); break;
     }
   }
   // Toggle stores an explicit state ("id"=collapsed, "!id"=expanded) so a click
@@ -882,6 +1044,10 @@
     const el = e.target.closest("[data-action]");
     if (!el) { if (e.target.id === "overlay-root") closeSelector(false); return; }
     switch (el.dataset.action) {
+      case "guild-detail":
+        // Details opened from the selector span all guilds (not the active pair),
+        // matching appendix scope; stacks on the detail layer above the selector.
+        state.detailGlobal = true; showDetail("guild", el.dataset.id, true); break;
       case "pick-guild":
         state.ovl.pending = state.ovl.pending === el.dataset.id ? null : el.dataset.id;
         refreshSelector(); break;
@@ -892,21 +1058,15 @@
   }
   function onDetailClick(e) {
     const el = e.target.closest("[data-action]");
-    if (!el) { if (e.target.id === "detail-overlay-root") closeDetail(); return; }
-    switch (el.dataset.action) {
-      case "close-detail": closeDetail(); break;
-      // cross-navigation between detail pages (stays on the detail layer)
-      case "detail-building": openBuildingDetail(el.dataset.key); break;
-      case "detail-heirloom": openHeirloomDetail(el.dataset.key); break;
-      case "detail-counselor": openCounselorDetail(el.dataset.name); break;
-      case "detail-event": openEventDetail(el.dataset.id); break;
-      case "detail-nature": openNatureDetail(el.dataset.key); break;
-      case "nav-cat": openCategoryDetail(el.dataset.cat); break;
-    }
+    if (!el) { if (e.target.id === "detail-overlay-root") hideDetailOverlay(); return; }  // backdrop = dismiss all
+    if (el.dataset.action === "back-detail") return backDetail();                          // ✕ / footer = back one page
+    // cross-navigation between detail pages PUSHES onto the trail (no reset).
+    const t = detailTarget(el);
+    if (t) showDetail(t.kind, t.id, false);
   }
   function onKeydown(e) {
     if (e.key !== "Escape") return;
-    if (!document.getElementById("detail-overlay-root").classList.contains("hidden")) return closeDetail();
+    if (!document.getElementById("detail-overlay-root").classList.contains("hidden")) return hideDetailOverlay();
     if (!document.getElementById("appendix-root").classList.contains("hidden")) return closeAppendix();
     if (state.ovl) closeSelector(false);
   }

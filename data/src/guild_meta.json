@@ -1,0 +1,33 @@
+{
+  "_note": "Curated per-guild editorial: identity blurb + optional engine-building overrides. Consumed by build-data.mjs. 'blurb' is authored prose (not in the datamine). 'engines' is an OPTIONAL manual override — leave it [] to let build-data.mjs auto-derive the scoring engines (buildings the most same-guild pieces feed, e.g. Marketplace ← Stalls). Only the 7 canon guilds get a page; Arcane/Rogues are advanced mid-run unlocks, not guilds.",
+  "guilds": {
+    "Agricultural": {
+      "blurb": "The farming guild. Agricultural builds value by planting Crops, ripening them with Irrigators and Windmills, and buffing whole Farms at once — then cashing the harvest through Silos and Granaries. It rewards dense, patient fields where every crop tile feeds the next.",
+      "engines": []
+    },
+    "Commercial": {
+      "blurb": "The merchant guild. Commercial turns clustered Stalls, Luxuries and Traders into money and score — the Marketplace is its heart, multiplying every Stall packed around it. It plays wide and cash-hungry, rewarding a tightly-built shopping district.",
+      "engines": []
+    },
+    "Marine": {
+      "blurb": "The seafaring guild. Marine scores from the water — Fishing pieces feed off one another while Ports, Cranes and Lighthouses reward long lines of Ships. It wants coastline and adjacency, chaining hauls and dockyards into steady payouts.",
+      "engines": []
+    },
+    "Civic": {
+      "blurb": "The city guild. Civic scores off population and faith — Town Halls and Inns tally every Residence, Tax Collectors count Houses, and Churches reward Sacred ground. The largest roster in the game, it thrives on sprawling, well-served neighbourhoods.",
+      "engines": []
+    },
+    "Industrial": {
+      "blurb": "The production guild. Industrial compounds on itself — the Factory and Stockpile score off every Industrial building you own, while Tool Sheds and Sawmills amplify Engineering and Woodworking chains. Go tall and mono-guild and the whole district multiplies.",
+      "engines": []
+    },
+    "Martial": {
+      "blurb": "The military guild. Martial drills value through Training grounds and Fortifications — the Galleon scores off your entire Martial force, while Academies and Sparring Dummies stack multipliers onto Training pieces. It rewards a disciplined, self-reinforcing garrison.",
+      "engines": []
+    },
+    "Frontier": {
+      "blurb": "The wilderness guild. Frontier draws power from untamed Nature and ritual — Shrines, Stone Lanterns and Watch Towers score off surrounding Nature while the Shaman channels your whole Frontier settlement. It rewards spreading into wild, resource-rich terrain.",
+      "engines": []
+    }
+  }
+}

@@ -36,6 +36,10 @@ const url = (rel) => (rel ? `${ASSETS}/${rel}` : null);
 
 // The 9 draftable guilds (majorCategory values that are real guilds). Hazard,
 // Neutral, None, Resource are non-guild majors handled separately / excluded.
+// There are 7 CANON guilds (CORE_GUILDS). Arcane & Rogues are advanced mid-run
+// unlocks (Wizard/Spymaster counselors), NOT guilds — they appear here only as
+// major-category ids so their pieces resolve, and are excluded from guild UI
+// (isCore filter): not pickable, no combo names, no guild-detail page.
 const GUILD_IDS = ["Agricultural", "Commercial", "Marine", "Civic",
   "Industrial", "Martial", "Frontier", "Arcane", "Rogues"];
 const CORE_GUILDS = new Set(["Agricultural", "Commercial", "Marine", "Civic",
@@ -128,6 +132,12 @@ const crossovers = readJSON("guild_crossovers.json");
 const edges = readJSON("guild_edges.json");
 const interactions = readJSON("building_interactions.json");
 const itemAffected = readJSON("item_affected.json");   // heirloom -> affected categories/guilds (build_item_affected.py)
+// Curated editorial (authored, not datamined): per-guild identity blurb + optional
+// engine-building overrides. Optional file — absent = no blurbs, engines auto-derived.
+const guildMeta = (() => {
+  try { return readJSON("guild_meta.json").guilds || {}; }
+  catch { return {}; }
+})();
 
 const bParamByKey = new Map(bParams.map((b) => [b.className, b]));
 const iParamByKey = new Map(iParams.map((i) => [i.className, i]));
@@ -353,7 +363,7 @@ function buildRecord(b) {
 }
 const buildings = [];
 for (const b of interactions.buildings) {
-  if (NON_GUILD_MAJORS.has(b.guild)) continue;          // keep only the 9 guilds
+  if (NON_GUILD_MAJORS.has(b.guild)) continue;          // 7 canon guilds + advanced Arcane/Rogues major
   const rec = buildRecord(b); if (rec) buildings.push(rec);
 }
 buildings.forEach((b) => { if (!b.sprite) warnings.push(`building "${b.key}" -> no sprite (placeholder)`); });
@@ -648,18 +658,32 @@ const guilds = GUILD_IDS.map((id) => {
     id, name: prettify(id), color: GUILD_COLOR[id],
     icon: has(`guilds/${GUILD_ICON[id]}.png`) ? url(`guilds/${GUILD_ICON[id]}.png`) : null,
     badge: has(`banners/badges/${id}.png`) ? url(`banners/badges/${id}.png`) : null,
+    // Hand-authored guild emblem (assets/guild-emblems/<Guild>.png) — preferred for
+    // the detail hero + mobile side-bar; falls back to the game badge if absent.
+    emblem: has(`guild-emblems/${id}.png`) ? url(`guild-emblems/${id}.png`) : null,
     banner: GUILD_BANNER[id] && has(`banners/${GUILD_BANNER[id]}.png`) ? url(`banners/${GUILD_BANNER[id]}.png`) : null,
     isCore: CORE_GUILDS.has(id), isAdvanced: !CORE_GUILDS.has(id),
     buildingCount: own.length,
     functionalCategories: [...funcs], events: [...evs], natureNodes: [...nats],
     ownedCats: [...ocats], ownedTags: [...otags],
+    blurb: (guildMeta[id] || {}).blurb || null,
+    // Scoring engines are computed CLIENT-side (app.js guildEngines) so they reuse
+    // the same interaction/event mapping as the rest of the app and can't drift.
+    // guild_meta may still pin an explicit key list here as an override.
+    engineOverride: (guildMeta[id] || {}).engines || [],
   };
 });
 // Guild asset guardrails are hard errors — a guild is the primary UI element.
+const buildingKeySet = new Set(buildings.map((b) => b.key));
 for (const g of guilds) {
   if (!g.icon) errors.push(`guild "${g.id}" -> guilds/${GUILD_ICON[g.id]}.png (missing icon)`);
   if (!g.badge) errors.push(`guild "${g.id}" -> banners/badges/${g.id}.png (missing badge)`);
   if (g.isCore && !g.banner) errors.push(`core guild "${g.id}" -> missing tall banner`);
+  // Guild detail page is a canon-guild feature: every core guild needs an editorial
+  // blurb, and any engine (auto or override) must resolve to a real building.
+  if (g.isCore && !g.blurb) warnings.push(`guild "${g.id}" -> no blurb in guild_meta.json (detail page shows none)`);
+  if (g.isCore && !g.emblem) warnings.push(`guild "${g.id}" -> no guild-emblems/${g.id}.png (using game badge as fallback)`);
+  for (const k of g.engineOverride) if (!buildingKeySet.has(k)) errors.push(`guild "${g.id}" -> engine override "${k}" is not a known building`);
 }
 
 // ── combos (named pairs + precomputed shared surfaces) ────────────────────
@@ -712,7 +736,7 @@ for (const c of counselors) {
 const spritesChecked = buildings.length + neutralBuildings.length + heirlooms.length + counselors.length +
   guilds.length * 3 + natureResources.length;
 console.log("── Combolands data hygiene report ─────────────");
-console.log(`✓ ${guilds.length} guilds, ${buildings.length} buildings, ${neutralBuildings.length} neutral buildings, ${heirlooms.length} heirlooms,`);
+console.log(`✓ ${guilds.filter((g) => g.isCore).length} canon guilds (+${guilds.filter((g) => !g.isCore).length} advanced majors), ${buildings.length} buildings, ${neutralBuildings.length} neutral buildings, ${heirlooms.length} heirlooms,`);
 console.log(`  ${counselors.length} counselors, ${categories.length} categories, ${natureResources.length} nature nodes,`);
 console.log(`  ${events.length} event types, ${Object.keys(combos).length} guild pairs, ~${spritesChecked} asset paths checked`);
 if (errors.length) { console.log(`✗ ${errors.length} error(s):`); errors.forEach((e) => console.log(`    ${e}`)); }

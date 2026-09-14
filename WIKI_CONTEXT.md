@@ -7,11 +7,13 @@ grid, and end each **week** (turn). Buildings **trigger** and **score points**;
 scoring/events broadcast to neighbours → **combo cascades** (a LIFO trigger
 stack). Beat a score threshold each **milestone** to grow the city and survive.
 
-A run **picks exactly 2 of 9 guilds**. The 7 core guilds pair into **21 named
-combos** (`GuildComboNames`, e.g. Agricultural+Marine = "Coastal Cultivators");
-Arcane and Rogues are advanced guilds (unlocked mid-run by the Wizard/Spymaster
-counselors) with no combo name. The guild pair is the run's identity — hence this
-tool: choose 2 guilds, see how they interlock.
+There are **7 canon guilds** and a run **picks exactly 2** of them; they pair into
+**21 named combos** (`GuildComboNames`, e.g. Agricultural+Marine = "Coastal
+Cultivators"). **Arcane and Rogues are NOT guilds** — they're advanced mid-run
+unlocks (Wizard/Spymaster counselors) that exist in the data only as major-category
+ids; they have no combo name, aren't pickable, and get no guild-detail page. The
+guild pair is the run's identity — hence this tool: choose 2 guilds, see how they
+interlock.
 
 ## Key mechanics (for the calculator)
 - **Guilds expose a surface via CATEGORIES.** Every building has a major category
@@ -83,5 +85,5 @@ tool: choose 2 guilds, see how they interlock.
 See `SPEC_PLAN.md#data-model` for the field-by-field `window.CL_DATA` shape the
 build pipeline emits. The join spine is the building/item **className** (→ sprite
 `B<className>.png` / `Item<className>.png`, → `entity_strings[className]` for
-name/desc). Guild names are the 9 `IsGuildCategory` values; category ids are the
-raw `GamePieceCategory` enum names.
+name/desc). There are 7 canon guild categories (plus Arcane/Rogues as advanced
+non-guild majors); category ids are the raw `GamePieceCategory` enum names.
