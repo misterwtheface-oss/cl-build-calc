@@ -117,6 +117,28 @@ scripts themselves stay in `_cl_extract`.
   value in a code override (null in `*_params`) — same open item as the base-tag limit.
 
 ## Session log
+- 2026-09-14 (6): **Draw Odds** view added + released per user. New header **🎲 Draw Odds**
+  overlay (`#drawodds-root`, z150) = a blueprint draw-probability calculator. Model is
+  code-certain from `_cl_extract` (SUBSYSTEMS.md §3 / RarityLookup / BuildingPool.GetRollChanceFor):
+  a single draw is a weighted pick from the draftable pool, `p(b) = weight(b) / Σ weight`, where
+  `weight = baseRarityWeight × milestoneMultiplier` (rollChanceMultiplier is 1 for every draftable
+  building — the 0.5 Stall pieces are the cut/no-name ones already excluded; Plateau/Shaman are
+  map/tutorial-conditional = 1 in normal play). Milestone multiplier `= 1 + slope·v`,
+  `v = clamp(index−2, 0, 10)` — captures the real **off-by-one**: rarity scaling only begins at
+  Hamlet (M3); Start & Dwelling both sit at v=0. `build-data.mjs` emits `CL_DATA.drawModel`
+  (baseWeights, slopes, per-milestone v joined to the score ladder) from `data/src/milestones.json`.
+  Pool = both selected guilds' buildings + Infrastructure neutrals (the engine always adds
+  Infrastructure to the selected categories; toggleable in the UI). UI: **1–10 milestone slider**
+  (live recompute) with a per-rarity-multiplier readout; a per-building list sorted by chance at the
+  current milestone (icon → building detail, rarity, p%, a 10-bar trend sparkline); **tap a row →
+  full-range bar chart** of that building across all 10 milestones (click a column to jump the
+  slider); and a "Next card rarity" roll-up (pool-realized rarity split, which differs from the base
+  weights because it's weighted by the pair's per-rarity building counts). Verified via a DOM-shim
+  node harness driving the real open/slider/toggle path (no throws; Σp=1.0000 every milestone; rare
+  share 3.2%→7.5% and Masterwork "Grain Silo" 0.064%→0.150% across M1→M10 for Agri+Comm).
+  Excludes the unlocked-last-run weight bonus (×2/3/5/8) and pack rarity guarantees; single shop
+  blueprint-card context. Backlog: optional "offer of 3" inclusion-probability toggle (the building
+  draft shows 3 choices — weighted sampling without replacement).
 - 2026-09-14 (5): Heirloom icons + interaction-truth pass per user. (a) **29 heirloom icons**
   that 404'd to a letter placeholder now resolve — item keys rarely match their Sprite asset
   name (AnimalFeedBag→ItemFeedBag), so `tools/gen_item_sprites.mjs` pulls the authoritative

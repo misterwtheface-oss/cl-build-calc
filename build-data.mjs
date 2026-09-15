@@ -132,6 +132,7 @@ const crossovers = readJSON("guild_crossovers.json");
 const edges = readJSON("guild_edges.json");
 const interactions = readJSON("building_interactions.json");
 const itemAffected = readJSON("item_affected.json");   // heirloom -> affected categories/guilds (build_item_affected.py)
+const milestonesSrc = readJSON("milestones.json");     // per-milestone score ladder (drives the Draw Odds view)
 // Curated editorial (authored, not datamined): per-guild identity blurb + optional
 // engine-building overrides. Optional file — absent = no blurbs, engines auto-derived.
 const guildMeta = (() => {
@@ -753,11 +754,38 @@ if (hardErrors) {
   process.exit(1);
 }
 
+// ── Draw-odds model (code-certain; see _cl_extract/code/SUBSYSTEMS.md §3) ────
+// A single blueprint draw = a weighted pick from the draftable pool. Per-building
+// weight = baseRarityWeight × milestoneMultiplier (rollChanceMultiplier is 1 for
+// every draftable building here — the only overrides are the cut Stall pieces =0.5
+// and the map/tutorial-conditional Plateau/Shaman =1 in normal play). So the app
+// can reconstruct any building's draw chance from just its rarity + the milestone.
+//
+//   RarityLookup.GetDefaultBuildingRollChanceForRarity  — base per-piece weight.
+//   RarityLookup.GetRarityMilestoneMultiplier(rarity,m) — 1 + slope·v,
+//     where v = clamp(CitySizeAsInt()-1, 0, 10) and CitySizeAsInt() = index-1,
+//     i.e. v = clamp(index-2, 0, 10). NB the off-by-one: scaling only begins at
+//     milestone 3 (Hamlet); Start & Dwelling both sit at v=0.
+const drawModel = {
+  baseWeights: { Common: 0.70, Uncommon: 0.24, Rare: 0.05, Masterwork: 0.01, Legendary: 0 },
+  // multiplier = 1 + slope·v  (Common thins out; Uncommon/Rare/Masterwork grow).
+  slopes: { Common: -0.03, Uncommon: 0.05, Rare: 0.15, Masterwork: 0.15, Legendary: 0 },
+  // Per-milestone scaling index v, joined to the score ladder for display.
+  milestones: milestonesSrc.map((m) => ({
+    index: m.index, citySize: m.citySize, scoreRequired: m.scoreRequired,
+    v: Math.max(0, Math.min(10, m.index - 2)),
+  })),
+  notes: "Single blueprint-card draw (shop context, no rarity guarantee). Weight = "
+    + "base × (1 + slope·v). Excludes the unlocked-last-run weight bonus (×2/3/5/8) "
+    + "and pack rarity guarantees. Pool = both guilds' buildings + Infrastructure "
+    + "neutrals (the engine always adds Infrastructure to the selected categories).",
+};
+
 // ── write output ──────────────────────────────────────────────────────────
 const data = {
   meta: { game: "Combolands", guildCount: guilds.length, generated: "build-data.mjs" },
   guilds, categories, buildings, neutralBuildings, heirlooms, counselors, natureResources,
-  events, combos, universalModifiers,
+  events, combos, universalModifiers, drawModel,
 };
 fs.writeFileSync(OUT, `window.CL_DATA = ${JSON.stringify(data)};\n`);
 console.log(`Wrote ${OUT} (window.CL_DATA) — ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB.`);

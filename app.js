@@ -56,6 +56,7 @@
                          // (set true when a detail is opened from the Appendix global search)
     detailStack: [],     // breadcrumb of {kind,id} detail pages; ✕/Close pops one (back),
                          // so guild → building → Close lands back on the guild page
+    do: { ms: 1, infra: true, pick: null },  // Draw Odds: milestone slider, include-infra toggle, focused building key
   };
 
   function load() {
@@ -248,6 +249,7 @@
       <header class="app-header">
         <h1>Combolands — Guild Overlap</h1>
         <div class="header-actions">
+          <button class="ghost" data-action="drawodds" title="Blueprint draw probability by milestone">🎲 Draw Odds</button>
           <button class="ghost" data-action="appendix" title="Search every page">🔍 Appendix</button>
           ${(a || b) ? `<button class="ghost" data-action="clear">Clear</button>` : ""}
         </div>
@@ -1016,6 +1018,190 @@
     if (t) showDetail(t.kind, t.id, true);   // result opens above; appendix stays open
   }
 
+  // ═══════════════════════════════════ DRAW ODDS ═════════════════════════════
+  // A single blueprint draw is a weighted pick from the draftable pool. Per-building
+  // weight = baseRarityWeight × milestoneMultiplier (both code-certain, emitted in
+  // DATA.drawModel; see build-data.mjs + _cl_extract SUBSYSTEMS.md §3). So a
+  // building's draw chance is its weight / the pool's total weight — and it shifts
+  // by milestone because the multiplier thins commons and fattens rares as the city
+  // grows. The pool = both selected guilds' buildings + Infrastructure neutrals.
+  const DRAW = DATA.drawModel || { baseWeights: {}, slopes: {}, milestones: [] };
+  const RARITY_ORDER = ["Common", "Uncommon", "Rare", "Masterwork"];
+  const msByIndex = (i) => DRAW.milestones.find((m) => m.index === i) || DRAW.milestones[0] || { index: 1, v: 0, citySize: "Start", scoreRequired: 0 };
+  const rarityMult = (rarity, v) => 1 + (DRAW.slopes[rarity] ?? 0) * v;
+  const weightOf = (rarity, v) => (DRAW.baseWeights[rarity] ?? 0) * rarityMult(rarity, v);
+  const fmtPct = (p) => { const x = p * 100; return (x >= 1 ? x.toFixed(1) : x >= 0.01 ? x.toFixed(2) : x > 0 ? x.toFixed(3) : "0") + "%"; };
+  const prettyCity = (s) => String(s || "").replace(/([a-z])([A-Z])/g, "$1 $2");
+
+  // Draftable pool for the current pair. Only rarities with a base weight can be
+  // drafted (null-rarity stubs are skipped). Infrastructure neutrals are always in
+  // the selected category set in-game, so they're included unless toggled off.
+  function drawPool() {
+    const [a, b] = state.pair;
+    if (!a || !b) return [];
+    const seen = new Set(), pool = [];
+    const add = (bld) => {
+      if (!bld || seen.has(bld.key)) return;
+      if (!bld.rarity || (DRAW.baseWeights[bld.rarity] ?? 0) <= 0) return;
+      seen.add(bld.key); pool.push(bld);
+    };
+    for (const g of [a, b]) (buildingsByGuild.get(g) || []).forEach(add);
+    if (state.do.infra) (DATA.neutralBuildings || []).forEach((n) => {
+      if ((n.ownedCats || []).includes("Infrastructure")) add(n);
+    });
+    return pool;
+  }
+  // Normalised draw probabilities at one milestone: p(b) = weight(b) / Σ weight.
+  function oddsAt(pool, msIndex) {
+    const v = msByIndex(msIndex).v;
+    const w = new Map(); let sum = 0;
+    for (const bld of pool) { const x = weightOf(bld.rarity, v); w.set(bld.key, x); sum += x; }
+    const p = new Map();
+    for (const [k, x] of w) p.set(k, sum > 0 ? x / sum : 0);
+    return { v, sum, p };
+  }
+
+  // A compact 10-bar trend sparkline (heights normalised to `maxP` so bars are
+  // comparable across the whole list); the current-milestone bar is highlighted.
+  function sparkBars(range, maxP) {
+    return `<span class="do-spark" aria-hidden="true">${range.map((r) => {
+      const h = maxP > 0 ? Math.max(6, Math.round(r.p / maxP * 100)) : 0;
+      return `<span class="do-bar${state.do.ms === r.index ? " cur" : ""}" style="height:${h}%"
+        title="M${r.index} ${esc(prettyCity(r.citySize))}: ${fmtPct(r.p)}"></span>`;
+    }).join("")}</span>`;
+  }
+  // Full-range chart for the focused building (bars normalised to its own peak so
+  // the trajectory reads clearly); each column is clickable to jump the slider.
+  function bigChart(range) {
+    const maxP = Math.max(...range.map((r) => r.p), 1e-9);
+    return `<div class="do-chart">${range.map((r) => {
+      const h = Math.max(3, Math.round(r.p / maxP * 100));
+      return `<div class="do-col${state.do.ms === r.index ? " cur" : ""}" data-do-ms="${r.index}"
+        title="Milestone ${r.index} — ${esc(prettyCity(r.citySize))}">
+        <span class="do-col-val">${fmtPct(r.p)}</span>
+        <span class="do-col-bar" style="height:${h}%"></span>
+        <span class="do-col-x">${r.index}</span></div>`;
+    }).join("")}</div>`;
+  }
+
+  function renderDrawOddsMsLabel() {
+    const root = document.getElementById("drawodds-root"); if (!root) return;
+    const el = root.querySelector(".do-ms-label"); if (!el) return;
+    const m = msByIndex(state.do.ms);
+    const mults = RARITY_ORDER.map((r) =>
+      `<span class="do-mchip" style="--rar-color:${rarVar(r)}" title="${esc(r)} weight ×${rarityMult(r, m.v).toFixed(2)}">${r[0]}×${rarityMult(r, m.v).toFixed(2)}</span>`).join("");
+    el.innerHTML = `<span class="do-ms-name">M${m.index} · ${esc(prettyCity(m.citySize))}</span>
+      <span class="do-ms-score">${m.scoreRequired ? m.scoreRequired.toLocaleString() + " pts" : ""}</span>
+      <span class="do-mults">${mults}</span>`;
+  }
+
+  function renderDrawOddsBody() {
+    const root = document.getElementById("drawodds-root"); if (!root) return;
+    const scroll = root.querySelector(".do-scroll"); if (!scroll) return;
+    const [a, b] = state.pair;
+    if (!a || !b) {
+      scroll.innerHTML = `<p class="empty-note">Pick two guilds on the main screen to see blueprint draw odds for their pool.</p>`;
+      return;
+    }
+    const pool = drawPool();
+    if (!pool.length) { scroll.innerHTML = `<p class="empty-note">No draftable buildings in this pool.</p>`; return; }
+    const allOdds = DRAW.milestones.map((m) => ({ m, o: oddsAt(pool, m.index) }));
+    const cur = (allOdds.find((x) => x.m.index === state.do.ms) || allOdds[0]).o;
+    const rangeOf = (key) => allOdds.map((x) => ({ index: x.m.index, citySize: x.m.citySize, p: x.o.p.get(key) || 0 }));
+    let gmax = 0; for (const { o } of allOdds) for (const v of o.p.values()) if (v > gmax) gmax = v;
+
+    // Focused-building full-range panel.
+    let pickedHTML = "";
+    if (state.do.pick && pool.some((x) => x.key === state.do.pick)) {
+      const bld = buildingByKey.get(state.do.pick);
+      const g = guildById.get(bld.guild);
+      pickedHTML = `<div class="do-picked" style="--rar-color:${rarVar(bld.rarity)}">
+        <div class="do-picked-head">
+          <span class="do-icon lg">${bld.sprite ? iconImg(bld.sprite) : placeholder(bld.name)}</span>
+          <div class="do-picked-id"><span class="do-picked-name">${esc(bld.name)}</span>
+            <span class="do-meta">${esc(bld.rarity)} · ${esc(g?.name || bld.guild)} — draw chance every milestone</span></div>
+          <button class="ghost do-clear" data-action="do-clear-pick" title="Clear focus">&times;</button>
+        </div>
+        ${bigChart(rangeOf(bld.key))}
+      </div>`;
+    }
+
+    // Rarity roll-up: chance the next card is of each rarity = Σ p over that tier.
+    const agg = {}, counts = {};
+    for (const bld of pool) { agg[bld.rarity] = (agg[bld.rarity] || 0) + (cur.p.get(bld.key) || 0); counts[bld.rarity] = (counts[bld.rarity] || 0) + 1; }
+    const summaryHTML = `<div class="do-summary">
+      <div class="do-sum-head">Next card rarity <span class="do-dim">· pool of ${pool.length}</span></div>
+      ${RARITY_ORDER.filter((r) => counts[r]).map((r) => `
+        <div class="do-sum-row" style="--rar-color:${rarVar(r)}">
+          <span class="do-sum-lbl">${r} <span class="do-dim">×${counts[r]}</span></span>
+          <span class="do-sum-track"><span class="do-sum-fill" style="width:${((agg[r] || 0) * 100).toFixed(1)}%"></span></span>
+          <span class="do-sum-pct">${fmtPct(agg[r] || 0)}</span></div>`).join("")}
+    </div>`;
+
+    // Per-building list, sorted by chance at the current milestone.
+    const rows = pool.slice().sort((x, y) => (cur.p.get(y.key) - cur.p.get(x.key)) || x.name.localeCompare(y.name));
+    const listHTML = `<div class="do-list-head">Every draftable building — chance at <b>M${state.do.ms}</b> <span class="do-dim">· tap a row to chart it</span></div>
+      <div class="do-list">${rows.map((bld) => {
+        const g = guildById.get(bld.guild);
+        return `<div class="do-row${state.do.pick === bld.key ? " sel" : ""}" data-do-pick="${esc(bld.key)}"
+          style="--g-color:${esc(g?.color || "#8a8a8a")};--rar-color:${rarVar(bld.rarity)}">
+          <span class="do-icon" data-action="detail-building" data-key="${esc(bld.key)}" title="Open ${esc(bld.name)}">${bld.sprite ? iconImg(bld.sprite) : placeholder(bld.name)}</span>
+          <span class="do-info"><span class="do-name">${esc(bld.name)}</span>
+            <span class="do-meta">${esc(bld.rarity)} · ${esc(g?.name || bld.guild)}</span></span>
+          ${sparkBars(rangeOf(bld.key), gmax)}
+          <span class="do-p">${fmtPct(cur.p.get(bld.key) || 0)}</span>
+        </div>`;
+      }).join("")}</div>`;
+
+    scroll.innerHTML = pickedHTML + summaryHTML + listHTML + `<p class="do-note">${esc(DRAW.notes || "")}</p>`;
+  }
+
+  function openDrawOdds() {
+    const root = document.getElementById("drawodds-root");
+    root.innerHTML = `
+      <div class="overlay-panel" role="dialog" aria-modal="true">
+        <div class="overlay-header"><h2>🎲 Draw Odds</h2>
+          <button class="overlay-close" data-action="close-drawodds" aria-label="Close">&times;</button></div>
+        <div class="do-controls">
+          <div class="do-slider-wrap">
+            <input type="range" min="1" max="10" step="1" value="${state.do.ms}" class="do-slider" aria-label="Milestone">
+            <div class="do-ms-label"></div>
+          </div>
+          <label class="do-toggle"><input type="checkbox" class="do-infra"${state.do.infra ? " checked" : ""}> Infrastructure cards</label>
+        </div>
+        <div class="ovl-scroll do-scroll"></div>
+        <div class="overlay-footer"><button data-action="close-drawodds">Close</button></div>
+      </div>`;
+    root.classList.remove("hidden"); root.setAttribute("aria-hidden", "false");
+    const slider = root.querySelector(".do-slider");
+    slider.addEventListener("input", () => { state.do.ms = Number(slider.value); renderDrawOddsMsLabel(); renderDrawOddsBody(); });
+    root.querySelector(".do-infra").addEventListener("change", (ev) => { state.do.infra = ev.target.checked; renderDrawOddsBody(); });
+    renderDrawOddsMsLabel(); renderDrawOddsBody();
+  }
+  function closeDrawOdds() {
+    const root = document.getElementById("drawodds-root");
+    root.classList.add("hidden"); root.setAttribute("aria-hidden", "true"); root.innerHTML = "";
+  }
+  function onDrawOddsClick(e) {
+    const act = e.target.closest("[data-action]");
+    if (act) {
+      if (act.dataset.action === "close-drawodds") return closeDrawOdds();
+      if (act.dataset.action === "do-clear-pick") { state.do.pick = null; return renderDrawOddsBody(); }
+      const t = detailTarget(act);                          // e.g. an icon → building detail (opens above)
+      if (t) { state.detailGlobal = true; return showDetail(t.kind, t.id, true); }
+      return;
+    }
+    const col = e.target.closest("[data-do-ms]");           // clicking a chart column jumps the slider
+    if (col) {
+      state.do.ms = Number(col.dataset.doMs);
+      const s = document.querySelector("#drawodds-root .do-slider"); if (s) s.value = state.do.ms;
+      renderDrawOddsMsLabel(); return renderDrawOddsBody();
+    }
+    const row = e.target.closest("[data-do-pick]");         // tap a row to focus/unfocus it
+    if (row) { const k = row.dataset.doPick; state.do.pick = state.do.pick === k ? null : k; return renderDrawOddsBody(); }
+    if (e.target.id === "drawodds-root") return closeDrawOdds();
+  }
+
   // ═══════════════════════════════════ EVENT DELEGATION ══════════════════════
   function onAppClick(e) {
     const el = e.target.closest("[data-action]"); if (!el) return;
@@ -1028,6 +1214,7 @@
       case "open-guild": openGuildSelector(Number(el.dataset.side)); break;
       case "clear": state.pair = [null, null]; persist(); renderApp(); break;
       case "appendix": openAppendix(); break;
+      case "drawodds": openDrawOdds(); break;
       case "toggle-section": toggleSection(el.dataset.sid); break;
     }
   }
@@ -1068,6 +1255,7 @@
     if (e.key !== "Escape") return;
     if (!document.getElementById("detail-overlay-root").classList.contains("hidden")) return hideDetailOverlay();
     if (!document.getElementById("appendix-root").classList.contains("hidden")) return closeAppendix();
+    if (!document.getElementById("drawodds-root").classList.contains("hidden")) return closeDrawOdds();
     if (state.ovl) closeSelector(false);
   }
 
@@ -1075,6 +1263,7 @@
   document.getElementById("app").addEventListener("click", onAppClick);
   document.getElementById("overlay-root").addEventListener("click", onOverlayClick);
   document.getElementById("appendix-root").addEventListener("click", onAppendixClick);
+  document.getElementById("drawodds-root").addEventListener("click", onDrawOddsClick);
   document.getElementById("detail-overlay-root").addEventListener("click", onDetailClick);
   document.addEventListener("keydown", onKeydown);
   renderApp();
